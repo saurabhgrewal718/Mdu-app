@@ -10,7 +10,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("the profile home"),
+      child: Center(child: Text("the profile home")),
     );
   }
 }
