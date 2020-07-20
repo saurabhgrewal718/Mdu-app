@@ -14,7 +14,7 @@ void main() {
       // home: HomePage(),
       theme: ThemeData(
         primaryColor: Colors.black,
-        accentColor: Colors.orange
+        accentColor: Colors.grey
       ),
       initialRoute: '/',
       routes: {
