@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mduapp/screens/unknownroute.dart';
+import './screens/explore/explore.dart';
+import './screens/home/universityhome.dart';
+import './screens/unknownroute.dart';
 import './animation/FadeAnimation.dart';
 import './screens/login_screen.dart';
 import './screens/signup_screen.dart';
@@ -10,11 +12,17 @@ void main() {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       // home: HomePage(),
+      theme: ThemeData(
+        primaryColor: Colors.black,
+        accentColor: Colors.orange
+      ),
       initialRoute: '/',
       routes: {
         '/': (ctx) => HomePage(),
         LoginScreen.routeName : (ctx) => LoginScreen(),
         SignupScreen.routeName : (ctx) => SignupScreen(),
+        UniversityHome.routeName : (ctx) => UniversityHome(),
+        Explore.routeName : (ctx) => Explore(),
       },
       onGenerateRoute: (settings) {
         print(settings.arguments);

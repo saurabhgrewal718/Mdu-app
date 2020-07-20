@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import './signup_screen.dart';
 import '../animation/FadeAnimation.dart';
+import '../screens/home/universityhome.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login';
@@ -67,7 +69,10 @@ class LoginScreen extends StatelessWidget {
                       child: MaterialButton(
                         minWidth: double.infinity,
                         height: 60,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pushNamed(UniversityHome.routeName,);
+                        },
                         color: Colors.greenAccent,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
@@ -84,9 +89,15 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text("Don't have an account?"),
-                      Text("Sign up", style: TextStyle(
+                      FlatButton(
+                        child: Text("Sign up", style: TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 18
                       ),),
+                        onPressed: (){
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pushNamed(SignupScreen.routeName,);
+                        }
+                      ),
                     ],
                   ))
                 ],
