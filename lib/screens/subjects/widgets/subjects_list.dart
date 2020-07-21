@@ -57,6 +57,7 @@ class SubjectsList extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pushNamed(
                   SubjectDetail.routeName,
+                  arguments:data.title
                 );
               },
               child: Container(

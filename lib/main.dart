@@ -25,7 +25,7 @@ void main() {
         SignupScreen.routeName : (ctx) => SignupScreen(),
         UniversityHome.routeName : (ctx) => UniversityHome(),
         Explore.routeName : (ctx) => Explore(),
-        SubjectDetail.routeName : (ctx) => SubjectDetail("ues"),
+        SubjectDetail.routeName : (ctx) => SubjectDetail(),
         EditProfile.routeName : (ctx) => EditProfile(),
       },
       onGenerateRoute: (settings) {

@@ -3,12 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SubjectDetail extends StatelessWidget {
   static const routeName = '/subjectdetails';
-  final String title;
 
-  SubjectDetail(this.title);
   @override
   Widget build(BuildContext context) {
-           return  Scaffold(
+    final title = ModalRoute.of(context).settings.arguments as String;
+    return  Scaffold(
           body: Container(
           padding: EdgeInsets.only(bottom: 8),
           child: Column(
