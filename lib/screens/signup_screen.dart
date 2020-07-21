@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/profile/edit_profile.dart';
 import '../screens/home/universityhome.dart';
 import '../animation/FadeAnimation.dart';
 import './login_screen.dart';
@@ -65,7 +66,7 @@ class SignupScreen extends StatelessWidget {
                   height: 60,
                   onPressed: () {
                     Navigator.of(context).pop();
-                    Navigator.of(context).pushNamed(UniversityHome.routeName,);
+                    Navigator.of(context).pushNamed(EditProfile.routeName,);
                   },
                   color: Colors.greenAccent,
                   elevation: 0,

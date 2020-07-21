@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mduapp/screens/subjects/widgets/subjects_list.dart';
 
 class Subjects extends StatefulWidget {
   @override
@@ -36,7 +37,7 @@ class _SubjectsState extends State<Subjects> {
                         height: 4,
                       ),
                       Text(
-                        "Acedemics-Study Materials,Book Recommendations and More",
+                        "Acedemics-Study Materials,Books and More",
                         style: GoogleFonts.openSans(
                             textStyle: TextStyle(
                                 color: Color(0xffa29aac),
@@ -60,6 +61,7 @@ class _SubjectsState extends State<Subjects> {
             SizedBox(
               height: 30,
             ),
+            SubjectsList(),
           ],
         ),
     );

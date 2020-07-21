@@ -55,11 +55,22 @@ class GridDashboard extends StatelessWidget {
             return Container(
               decoration: BoxDecoration(
                   color: Color(color), borderRadius: BorderRadius.circular(10)),
-              child: GridData(
-                title:data.title,
-                subtitle: data.subtitle,
-                event: data.event,
-                img: data.img,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  GridData(
+                    title:data.title,
+                    subtitle: data.subtitle,
+                    event: data.event,
+                    img: data.img,
+                  ),
+                  GridData(
+                    title:data.title,
+                    subtitle: data.subtitle,
+                    event: data.event,
+                    img: data.img,
+                  ),
+                ],
               )
             );
           }).toList()),

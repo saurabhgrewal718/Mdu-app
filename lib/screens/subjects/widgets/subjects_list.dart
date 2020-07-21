@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mduapp/screens/subjects/widgets/subject_detail.dart';
 
-class GridExplore extends StatelessWidget {
+class SubjectsList extends StatelessWidget {
   Items item1 = new Items(
-      title: "Calendar",
+      title: "B.Sc Chemistry",
       subtitle: "March, Wednesday",
       event: "3 Events",
       img: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQTMPyqLlYjhHLdDjcirA8fii_eGDUxuLadMg&usqp=CAU");
@@ -42,7 +43,7 @@ class GridExplore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Items> myList = [item1, item2, item3, item4, item5, item6,item2, item3, item4, item5, item6];
-    var color = 0xff453658;
+    var color = 0xFF757575;
     return Flexible(
       child: GridView.count(
           childAspectRatio: 1.0,
@@ -51,7 +52,14 @@ class GridExplore extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
           children: myList.map((data) {
-          return Container(
+
+            return GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  SubjectDetail.routeName,
+                );
+              },
+              child: Container(
               // height: 100,
               decoration: BoxDecoration(
                   color: Color(color), borderRadius: BorderRadius.circular(10)),
@@ -100,7 +108,8 @@ class GridExplore extends StatelessWidget {
                   ),
                 ],
               ),
-            );
+            ),
+            ); 
           }).toList()),
     );
   }

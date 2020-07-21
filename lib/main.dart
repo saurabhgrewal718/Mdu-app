@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mduapp/screens/profile/edit_profile.dart';
+import './screens/subjects/widgets/subject_detail.dart';
 import './screens/explore/explore.dart';
 import './screens/home/universityhome.dart';
 import './screens/unknownroute.dart';
@@ -23,6 +25,8 @@ void main() {
         SignupScreen.routeName : (ctx) => SignupScreen(),
         UniversityHome.routeName : (ctx) => UniversityHome(),
         Explore.routeName : (ctx) => Explore(),
+        SubjectDetail.routeName : (ctx) => SubjectDetail("ues"),
+        EditProfile.routeName : (ctx) => EditProfile(),
       },
       onGenerateRoute: (settings) {
         print(settings.arguments);
