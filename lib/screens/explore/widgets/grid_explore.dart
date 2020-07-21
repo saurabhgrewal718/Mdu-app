@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mduapp/screens/home/widgets/grid_data.dart';
 
-class GridDashboard extends StatelessWidget {
+class GridExplore extends StatelessWidget {
   Items item1 = new Items(
       title: "Calendar",
       subtitle: "March, Wednesday",
@@ -46,21 +45,58 @@ class GridDashboard extends StatelessWidget {
     var color = 0xff453658;
     return Flexible(
       child: GridView.count(
-          childAspectRatio: 2,
+          childAspectRatio: 1.0,
           padding: EdgeInsets.only(left: 16, right: 16),
-          crossAxisCount: 1,
-          crossAxisSpacing: 18,
-          mainAxisSpacing: 18,
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
           children: myList.map((data) {
             return Container(
+              height: 80,
               decoration: BoxDecoration(
                   color: Color(color), borderRadius: BorderRadius.circular(10)),
-              child: GridData(
-                title:data.title,
-                subtitle: data.subtitle,
-                event: data.event,
-                img: data.img,
-              )
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.network(
+                    data.img,
+                    width: 42,
+                  ),
+                  SizedBox(
+                    height: 14,
+                  ),
+                  Text(
+                    data.title,
+                    style: GoogleFonts.openSans(
+                        textStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    data.subtitle,
+                    style: GoogleFonts.openSans(
+                        textStyle: TextStyle(
+                            color: Colors.white38,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                  SizedBox(
+                    height: 14,
+                  ),
+                  Text(
+                    data.event,
+                    style: GoogleFonts.openSans(
+                        textStyle: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                ],
+              ),
             );
           }).toList()),
     );

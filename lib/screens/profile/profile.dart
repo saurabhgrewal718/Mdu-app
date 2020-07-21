@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './profile_list_item.dart';
-import './profileinfo.dart';
+import './profilehead.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 
