@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mduapp/screens/home/widgets/grid_data.dart';
+import 'package:mduapp/screens/home/widgets/grid_single_card.dart';
+import 'package:mduapp/widgets/single_grid_tile.dart';
 
 class GridDashboard extends StatelessWidget {
   Items item1 = new Items(
@@ -64,12 +65,13 @@ class GridDashboard extends StatelessWidget {
                     event: data.event,
                     img: data.img,
                   ),
-                  GridData(
+                  SingleGridTile(
                     title:data.title,
                     subtitle: data.subtitle,
                     event: data.event,
                     img: data.img,
                   ),
+
                 ],
               )
             );

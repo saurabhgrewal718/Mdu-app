@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../widgets/single_grid_tile.dart';
 
 class GridExplore extends StatelessWidget {
   Items item1 = new Items(
@@ -51,56 +52,12 @@ class GridExplore extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
           children: myList.map((data) {
-          return Container(
-              // height: 100,
-              decoration: BoxDecoration(
-                  color: Color(color), borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.network(
-                      data.img,
-                      width: 100,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    data.title,
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                  // SizedBox(
-                  //   height: 8,
-                  // ),
-                  Text(
-                    data.subtitle,
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                            color: Colors.white38,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                  // SizedBox(
-                  //   height: 5,
-                  // ),
-                  Text(
-                    data.event,
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                ],
-              ),
-            );
+          return SingleGridTile(
+            title:data.title,
+            img:data.img,
+            subtitle:data.subtitle,
+            event:data.event
+          );
           }).toList()),
     );
   }

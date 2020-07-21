@@ -35,7 +35,7 @@ class SubjectDetail extends StatelessWidget {
                           height: 4,
                         ),
                         Text(
-                          "Acedemics-Study Materials,Books and More",
+                          "Acedemics - ${title}",
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
                                   color: Colors.black,
