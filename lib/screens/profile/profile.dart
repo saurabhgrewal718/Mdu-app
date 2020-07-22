@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import './profile_list_item.dart';
 import './profilehead.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import '../../home_welcome_page.dart';
 
 
 class Profile extends StatefulWidget {
@@ -10,6 +12,21 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  var _isLoading= false;
+
+  void _signout() async {
+    setState(() {
+      _isLoading=true;
+    });
+    await FirebaseAuth.instance.signOut();
+    final currentuser = await FirebaseAuth.instance.currentUser();
+    if(currentuser == null){
+      Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+    }
+    setState(() {
+      _isLoading=false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +68,8 @@ class _ProfileState extends State<Profile> {
                           icon: LineAwesomeIcons.user_plus,
                           text: 'Invite a Friend',
                         ),
-                        ProfileListItem(
-                          icon: LineAwesomeIcons.adjust,
-                          text: 'Logout',
-                        ),
+                        _isLoading ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent)) : FlatButton(onPressed: _signout, child: Icon(Icons.adjust,color: Colors.redAccent,)),
+                        
                       ],
                     ),
                   )

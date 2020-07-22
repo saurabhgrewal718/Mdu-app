@@ -3,6 +3,7 @@ import 'package:mduapp/screens/home/universityhome.dart';
 import 'package:mduapp/screens/signup_screen.dart';
 import './login_form.dart';
 import '../animation/FadeAnimation.dart';
+import 'signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login';
@@ -58,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                       ),),
                         onPressed: (){
                           Navigator.of(context).pop();
-                          Navigator.of(context).pushNamed(UniversityHome.routeName,); 
+                          Navigator.of(context).pushNamed(SignupScreen.routeName,); 
                         }
                       ),
                 ],

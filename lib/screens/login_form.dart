@@ -27,12 +27,13 @@ class _LoginFormState extends State<LoginForm> {
 
   
   void _saveForm() async{
-    setState(() {
-      _isLoading= true;
-    });
+    
     final isValid = _form.currentState.validate();
     FocusScope.of(context).unfocus();
     if(isValid){
+      setState(() {
+      _isLoading= true;
+    });
       _form.currentState.save();
       AuthResult authResult;
 
