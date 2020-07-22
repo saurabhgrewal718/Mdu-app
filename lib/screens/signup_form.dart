@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mduapp/screens/signup_screen.dart';
+import './home/universityhome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,6 +23,7 @@ class _SignupFormState extends State<SignupForm> {
   String _email='';
   String _password = '';
   String _usrname = '';
+  var _isLoading= false;
 
   @override
   void dispose() {
@@ -34,6 +35,9 @@ class _SignupFormState extends State<SignupForm> {
   }
 
   void _saveForm() async{
+    setState(() {
+      _isLoading = true;
+    });
     final isValid = _form.currentState.validate();
     FocusScope.of(context).unfocus();
     if(isValid){
@@ -60,6 +64,13 @@ class _SignupFormState extends State<SignupForm> {
                 fontWeight: FontWeight.w600)),
           ),
         ));
+        setState(() {
+          _isLoading = false;
+        });
+
+        Navigator.of(context).pop();
+        Navigator.of(context).pushNamed(UniversityHome.routeName,);
+
 
       }on PlatformException catch(err){
 
@@ -67,6 +78,9 @@ class _SignupFormState extends State<SignupForm> {
         if(err.message != null){
           message= err.message;
         }
+        setState(() {
+          _isLoading = false;
+        });
         Scaffold.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.redAccent,
           content: Text(message ,
@@ -79,7 +93,9 @@ class _SignupFormState extends State<SignupForm> {
         ));
 
       }catch(err){
-      
+        setState(() {
+          _isLoading = false;
+        });
         print(err);
 
       }
@@ -257,15 +273,13 @@ class _SignupFormState extends State<SignupForm> {
                             onFieldSubmitted: (_){
                               FocusScope.of(context).unfocus();
                             },
-                            // onSaved: (value){
-                            //   _password=value;
-                            // },
+                            
                           ),
                           SizedBox(height: 60,),
                         ],
                       ),
                     ),
-                    Container(
+                    _isLoading ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent)) : Container(
                       padding: EdgeInsets.only(top: 3, left: 3),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
@@ -281,8 +295,6 @@ class _SignupFormState extends State<SignupForm> {
                         height: 60,
                         onPressed: () {
                             _saveForm();
-                            // Navigator.of(context).pop();
-                            // Navigator.of(context).pushNamed(UniversityHome.routeName,);
                         },
                         color: Colors.greenAccent,
                         elevation: 0,
