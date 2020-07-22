@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "19633292121",
+    "firebase_url": "https://mdu-connect.firebaseio.com",
+    "project_id": "mdu-connect",
+    "storage_bucket": "mdu-connect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19633292121:android:f1df6094c8595121e98248",
+        "android_client_info": {
+          "package_name": "com.saurabh.mduapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19633292121-0brd10mppmh9orb3tbfh6b02lrbkdnpm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzKlCFgeYAoz_L6WMYK8xxkitltLvbsHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19633292121-0brd10mppmh9orb3tbfh6b02lrbkdnpm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

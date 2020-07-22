@@ -1,12 +1,51 @@
 import 'package:flutter/material.dart';
-import '../screens/profile/edit_profile.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../screens/home/universityhome.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import './signup_form.dart';
 import '../animation/FadeAnimation.dart';
 import './login_screen.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   static const routeName = '/signup';
+
+  @override
+  _SignupScreenState createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final _auth = FirebaseAuth.instance;
+
+  void _submitForm(
+    String email,
+    String password,
+    String username,
+  ) async {
+    AuthResult authResult;
+    try{
+      authResult = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    }on PlatformException catch(err){
+      var message= "An error occured ! PLease check Your Credentials";
+      if(err.message != null){
+        message= err.message;
+      }
+      Scaffold.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(message ,
+        style: GoogleFonts.openSans(
+          textStyle: TextStyle(
+              color: Color(0xffa29aac),
+              fontSize: 14,
+              fontWeight: FontWeight.w600)),
+        ),
+      ));
+    }catch(err){
+      print(err);
+    }
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +65,10 @@ class SignupScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height - 50,
+          height: MediaQuery.of(context).size.height+70,
           width: double.infinity,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Column(
                 children: <Widget>[
@@ -60,6 +99,9 @@ class SignupScreen extends StatelessWidget {
                       ),
                 ],
               )),
+              SizedBox(
+                height: 30,
+              )
             ],
           ),
         ),

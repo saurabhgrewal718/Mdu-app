@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mduapp/screens/signup_screen.dart';
 
 class SignupForm extends StatefulWidget {
+
   @override
   _SignupFormState createState() => _SignupFormState();
 }
 
 class _SignupFormState extends State<SignupForm> {
-
-final _genderfocus = FocusNode();
+  final _username = FocusNode();
   final _pass = FocusNode();
   final _confirmpass = FocusNode();
   final _form = GlobalKey<FormState>();
+  final TextEditingController _passw = TextEditingController();
+  final TextEditingController _confirmPass = TextEditingController();
   String _email='';
   String _password = '';
-  
+  String _usrname = '';
 
   @override
   void dispose() {
     // TODO: implement dispose
+    _username.dispose();
     _pass.dispose();
     _confirmpass.dispose();
     super.dispose();
@@ -30,6 +35,7 @@ final _genderfocus = FocusNode();
       _form.currentState.save();
       print(_email);
       print(_password);
+      print(_usrname);
     }
 
   }
@@ -41,7 +47,7 @@ final _genderfocus = FocusNode();
         child: Form(
             key: _form,
             child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(horizontal: 0),
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -62,6 +68,7 @@ final _genderfocus = FocusNode();
                           ),),
                           SizedBox(height: 5,),
                           TextFormField(
+                            keyboardType: TextInputType.emailAddress,
                             validator: (value){
                               if(value.isEmpty || !value.contains('@') || !value.contains('.com') || value.length <10){
                                 return "Enter valid Email";
@@ -79,10 +86,49 @@ final _genderfocus = FocusNode();
                               ),
                             ),
                             onFieldSubmitted: (_){
-                              FocusScope.of(context).requestFocus(_pass);
+                              FocusScope.of(context).requestFocus(_username);
                             },
                             onSaved: (value){
                               _email=value;
+                            },
+                          ),
+                          SizedBox(height: 30,),
+                        ],
+                      ),
+                    ),
+                     Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text('Username', style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87
+                          ),),
+                          SizedBox(height: 5,),
+                          TextFormField(
+                            validator: (value){
+                              if(value.isEmpty || value.length <4){
+                                return "Username Must have Alteast 4 Characters";
+                              }
+                              return null;
+                            },
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey[400])
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey[400])
+                              ),
+                            ),
+                            focusNode: _username,
+                            onFieldSubmitted: (_){
+                              FocusScope.of(context).requestFocus(_pass);
+                            },
+                            onSaved: (value){
+                              _usrname=value;
                             },
                           ),
                           SizedBox(height: 30,),
@@ -100,6 +146,7 @@ final _genderfocus = FocusNode();
                           ),),
                           SizedBox(height: 5,),
                           TextFormField(
+                            controller: _passw,
                             validator: (value){
                               if(value.isEmpty || value.length<6){
                                 return "Enter atleast 6 Characters";
@@ -107,6 +154,7 @@ final _genderfocus = FocusNode();
                               return null;
                             },
                             focusNode: _pass,
+                            obscureText: true,
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -139,13 +187,15 @@ final _genderfocus = FocusNode();
                           ),),
                           SizedBox(height: 5,),
                           TextFormField(
+                            controller:_confirmPass,
                             validator: (value){
-                              if(value.isEmpty || value.length<6){
-                                return "Passwords must be same!";
+                              if(value.isEmpty || value.length<6 || value!=_passw.text){
+                                return "Passwords Don't match!";
                               }
                               return null;
                             },
                             focusNode: _confirmpass,
+                            obscureText: true,
                             textInputAction: TextInputAction.done,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
