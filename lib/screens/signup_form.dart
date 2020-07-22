@@ -1,32 +1,25 @@
 import 'package:flutter/material.dart';
-import '../home/universityhome.dart';
-import 'dart:io';
-import 'package:google_fonts/google_fonts.dart';
 
-
-class EditProfileForm extends StatefulWidget {
-  
-@override
-  _EditProfileFormState createState() => _EditProfileFormState();
+class SignupForm extends StatefulWidget {
+  @override
+  _SignupFormState createState() => _SignupFormState();
 }
 
-class _EditProfileFormState extends State<EditProfileForm> {
-  final _genderfocus = FocusNode();
-  final _dob = FocusNode();
-  final _course = FocusNode();
+class _SignupFormState extends State<SignupForm> {
+
+final _genderfocus = FocusNode();
+  final _pass = FocusNode();
+  final _confirmpass = FocusNode();
   final _form = GlobalKey<FormState>();
-  String name='';
-  String gender = '';
-  String dob = '';
-  String course = ''; 
+  String _email='';
+  String _password = '';
   
 
   @override
   void dispose() {
     // TODO: implement dispose
-    _genderfocus.dispose();
-    _dob.dispose();
-    _course.dispose();
+    _pass.dispose();
+    _confirmpass.dispose();
     super.dispose();
   }
 
@@ -35,13 +28,12 @@ class _EditProfileFormState extends State<EditProfileForm> {
     FocusScope.of(context).unfocus();
     if(isValid){
       _form.currentState.save();
-      print(name);
-      print(gender);
-      print(dob);
-      print(course);
+      print(_email);
+      print(_password);
     }
 
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,40 +41,21 @@ class _EditProfileFormState extends State<EditProfileForm> {
         child: Form(
             key: _form,
             child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 40),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        CircleAvatar(
-                          radius: 60,
-                          backgroundImage: NetworkImage('https://i.pinimg.com/originals/ee/0e/70/ee0e70b2ae91f7209f3a78247986e280.jpg'),
-                        ),
-                        RaisedButton(
-                          child: Text(
-                            'Upload Image',
-                            style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600)),
-                          ),
-                          onPressed: (){},
-                        )
-                        
-                      ],
-                    ),
+                    
                     SizedBox(height: 30,),
+                    
                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Name', style: TextStyle(
+                          Text('Email', style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
                             color: Colors.black87
@@ -90,8 +63,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
                           SizedBox(height: 5,),
                           TextFormField(
                             validator: (value){
-                              if(value.isEmpty || value.length<3){
-                                return 'Name must have atleast 3 characters';
+                              if(value.isEmpty || !value.contains('@') || !value.contains('.com') || value.length <10){
+                                return "Enter valid Email";
                               }
                               return null;
                             },
@@ -106,10 +79,10 @@ class _EditProfileFormState extends State<EditProfileForm> {
                               ),
                             ),
                             onFieldSubmitted: (_){
-                              FocusScope.of(context).requestFocus(_genderfocus);
+                              FocusScope.of(context).requestFocus(_pass);
                             },
                             onSaved: (value){
-                              name=value;
+                              _email=value;
                             },
                           ),
                           SizedBox(height: 30,),
@@ -120,7 +93,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Gender', style: TextStyle(
+                          Text('Password', style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
                             color: Colors.black87
@@ -128,11 +101,12 @@ class _EditProfileFormState extends State<EditProfileForm> {
                           SizedBox(height: 5,),
                           TextFormField(
                             validator: (value){
-                              if(value.isEmpty ){
-                                return "Enter 'm' for male and 'f' for female";
+                              if(value.isEmpty || value.length<6){
+                                return "Enter atleast 6 Characters";
                               }
                               return null;
                             },
+                            focusNode: _pass,
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -143,23 +117,22 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                 borderSide: BorderSide(color: Colors.grey[400])
                               ),
                             ),
-                            focusNode: _genderfocus,
                             onFieldSubmitted: (_){
-                              FocusScope.of(context).requestFocus(_dob);
+                              FocusScope.of(context).requestFocus(_confirmpass);
                             },
                             onSaved: (value){
-                              gender=value;
+                              _password=value;
                             },
                           ),
                           SizedBox(height: 30,),
                         ],
                       ),
                     ),
-                    Container(
+                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Date Of Birth', style: TextStyle(
+                          Text('Confirm Password', style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
                             color: Colors.black87
@@ -167,50 +140,12 @@ class _EditProfileFormState extends State<EditProfileForm> {
                           SizedBox(height: 5,),
                           TextFormField(
                             validator: (value){
-                              if(value.isEmpty ){
-                                return "Enter valid dob";
+                              if(value.isEmpty || value.length<6){
+                                return "Passwords must be same!";
                               }
                               return null;
                             },
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey[400])
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey[400])
-                              ),
-                            ),
-                            focusNode: _dob,
-                            onFieldSubmitted: (_){
-                              FocusScope.of(context).requestFocus(_course);
-                            },
-                            onSaved: (value){
-                              dob=value;
-                            },
-                          ),
-                          SizedBox(height: 30,),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text('Course', style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black87
-                          ),),
-                          SizedBox(height: 5,),
-                          TextFormField(
-                            validator: (value){
-                              if(value.isEmpty || value.length<5){
-                                return "Enter a valid course";
-                              }
-                              return null;
-                            },
+                            focusNode: _confirmpass,
                             textInputAction: TextInputAction.done,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -221,13 +156,12 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                 borderSide: BorderSide(color: Colors.grey[400])
                               ),
                             ),
-                            focusNode: _course,
                             onFieldSubmitted: (_){
                               FocusScope.of(context).unfocus();
                             },
-                            onSaved: (value){
-                              course=value;
-                            },
+                            // onSaved: (value){
+                            //   _password=value;
+                            // },
                           ),
                           SizedBox(height: 60,),
                         ],
@@ -257,7 +191,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)
                         ),
-                        child: Text("Update Profile", style: TextStyle(
+                        child: Text("SignUp", style: TextStyle(
                           fontWeight: FontWeight.w600, 
                           fontSize: 18
                         ),),
@@ -272,4 +206,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
       );
   }
 }
+
+
+
+
 

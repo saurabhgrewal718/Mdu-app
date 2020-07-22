@@ -44,6 +44,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
+          color: Colors.white,
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
@@ -53,12 +54,12 @@ class HomePage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  FadeAnimation(1, Text("Welcome", style: TextStyle(
+                  FadeAnimation(1, Text("MDU Connect", style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30
                   ),)),
                   SizedBox(height: 20,),
-                  FadeAnimation(1.2, Text("Automatic identity verification which enables you to verify your identity", 
+                  FadeAnimation(1.2, Text("Missing your University life? Connect,Study and make Friends! Student hub of University!", 
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.grey[700],
@@ -68,7 +69,7 @@ class HomePage extends StatelessWidget {
               ),
               Container(
                 height: MediaQuery.of(context).size.height / 3,
-                child : Image.network('https://cdn.dribbble.com/users/330915/screenshots/6554409/1_new_condo.gif')
+                child : Image.asset('assets/images/mduconnect.gif')
                 
               ),
               Column(
