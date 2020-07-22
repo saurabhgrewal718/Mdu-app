@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import './home/universityhome.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -9,8 +10,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-
-final _genderfocus = FocusNode();
+  var _isLoading = false;
   final _pass = FocusNode();
   final _form = GlobalKey<FormState>();
   String _email='';
@@ -27,6 +27,9 @@ final _genderfocus = FocusNode();
 
   
   void _saveForm() async{
+    setState(() {
+      _isLoading= true;
+    });
     final isValid = _form.currentState.validate();
     FocusScope.of(context).unfocus();
     if(isValid){
@@ -34,10 +37,16 @@ final _genderfocus = FocusNode();
       AuthResult authResult;
 
       try{
-        print(_email.trim());
-        print(_password.trim());
         authResult = await _auth.signInWithEmailAndPassword(email: _email.trim(), password: _password.trim());
+        if(authResult!=null ){
+          setState(() {
+            _isLoading= false;
+          }); 
 
+          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed(UniversityHome.routeName,);
+        }
+        
       }on PlatformException catch(err){
 
         var message= "An error occured ! PLease check Your Credentials";
@@ -55,7 +64,14 @@ final _genderfocus = FocusNode();
           ),
         ));
 
+        setState(() {
+          _isLoading= false;
+        });
+
       }catch(err){
+        setState(() {
+          _isLoading= false;
+        });
       
         print(err);
 
@@ -160,6 +176,7 @@ final _genderfocus = FocusNode();
                         ],
                       ),
                     ),
+                    _isLoading ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent)) :
                     Container(
                       padding: EdgeInsets.only(top: 3, left: 3),
                       decoration: BoxDecoration(
@@ -176,8 +193,7 @@ final _genderfocus = FocusNode();
                         height: 60,
                         onPressed: () {
                             _saveForm();
-                            // Navigator.of(context).pop();
-                            // Navigator.of(context).pushNamed(UniversityHome.routeName,);
+                            
                         },
                         color: Colors.greenAccent,
                         elevation: 0,
