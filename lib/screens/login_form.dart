@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -12,6 +15,7 @@ final _genderfocus = FocusNode();
   final _form = GlobalKey<FormState>();
   String _email='';
   String _password = '';
+  final _auth = FirebaseAuth.instance;
   
 
   @override
@@ -21,16 +25,46 @@ final _genderfocus = FocusNode();
     super.dispose();
   }
 
-  void _saveForm(){
+  
+  void _saveForm() async{
     final isValid = _form.currentState.validate();
     FocusScope.of(context).unfocus();
     if(isValid){
       _form.currentState.save();
-      print(_email);
-      print(_password);
+      AuthResult authResult;
+
+      try{
+        print(_email.trim());
+        print(_password.trim());
+        authResult = await _auth.signInWithEmailAndPassword(email: _email.trim(), password: _password.trim());
+
+      }on PlatformException catch(err){
+
+        var message= "An error occured ! PLease check Your Credentials";
+        if(err.message != null){
+          message= err.message;
+        }
+        Scaffold.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text(message ,
+          style: GoogleFonts.openSans(
+            textStyle: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+                fontWeight: FontWeight.w600)),
+          ),
+        ));
+
+      }catch(err){
+      
+        print(err);
+
+      }
+
     }
 
   }
+
 
 
   @override

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../screens/home/universityhome.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import './signup_form.dart';
 import '../animation/FadeAnimation.dart';
 import './login_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignupScreen extends StatefulWidget {
   static const routeName = '/signup';
@@ -15,36 +13,6 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final _auth = FirebaseAuth.instance;
-
-  void _submitForm(
-    String email,
-    String password,
-    String username,
-  ) async {
-    AuthResult authResult;
-    try{
-      authResult = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-    }on PlatformException catch(err){
-      var message= "An error occured ! PLease check Your Credentials";
-      if(err.message != null){
-        message= err.message;
-      }
-      Scaffold.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.red,
-        content: Text(message ,
-        style: GoogleFonts.openSans(
-          textStyle: TextStyle(
-              color: Color(0xffa29aac),
-              fontSize: 14,
-              fontWeight: FontWeight.w600)),
-        ),
-      ));
-    }catch(err){
-      print(err);
-    }
-    
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +61,11 @@ class _SignupScreenState extends State<SignupScreen> {
                         fontWeight: FontWeight.w600, fontSize: 18
                       ),),
                         onPressed: (){
+                          // Firestore.instance.collection('users/e0M946OayF2HIgrKomjN/profile')
+                          // .document('DBQG6ku1u3LUgkCZKN93')
+                          // .setData({
+                          //    'text':"oooo Bhenchoddd ke"
+                          //   });
                           Navigator.of(context).pop();
                           Navigator.of(context).pushNamed(LoginScreen.routeName,); 
                         }

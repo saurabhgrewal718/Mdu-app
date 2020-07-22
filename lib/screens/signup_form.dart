@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mduapp/screens/signup_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class SignupForm extends StatefulWidget {
 
@@ -9,6 +13,7 @@ class SignupForm extends StatefulWidget {
 }
 
 class _SignupFormState extends State<SignupForm> {
+  final _auth = FirebaseAuth.instance;
   final _username = FocusNode();
   final _pass = FocusNode();
   final _confirmpass = FocusNode();
@@ -28,14 +33,57 @@ class _SignupFormState extends State<SignupForm> {
     super.dispose();
   }
 
-  void _saveForm(){
+  void _saveForm() async{
     final isValid = _form.currentState.validate();
     FocusScope.of(context).unfocus();
     if(isValid){
       _form.currentState.save();
-      print(_email);
-      print(_password);
-      print(_usrname);
+      AuthResult authResult;
+
+      try{
+
+        authResult = await _auth.createUserWithEmailAndPassword(email: _email.trim(), password: _password.trim());
+                
+        await Firestore.instance.collection('users').document(authResult.user.uid).setData({
+          'username':_usrname,
+          'email':_email,
+          'password':_password
+        });
+
+        Scaffold.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.greenAccent,
+          content: Text('Contratulations ${_usrname}',
+          style: GoogleFonts.openSans(
+            textStyle: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+                fontWeight: FontWeight.w600)),
+          ),
+        ));
+
+      }on PlatformException catch(err){
+
+        var message= "An error occured ! PLease check Your Credentials";
+        if(err.message != null){
+          message= err.message;
+        }
+        Scaffold.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text(message ,
+          style: GoogleFonts.openSans(
+            textStyle: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+                fontWeight: FontWeight.w600)),
+          ),
+        ));
+
+      }catch(err){
+      
+        print(err);
+
+      }
+
     }
 
   }
