@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './profile_list_item.dart';
 import './profilehead.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
@@ -20,8 +21,10 @@ class _ProfileState extends State<Profile> {
       _isLoading=true;
     });
     await FirebaseAuth.instance.signOut();
-    final currentuser = await FirebaseAuth.instance.currentUser();
-    if(currentuser == null){
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('userId');
+    final currentId = prefs.getString('userId');
+    if(currentId == null){
       Navigator.of(context).pushReplacementNamed(HomePage.routeName);
     }
     setState(() {
@@ -65,6 +68,14 @@ class _ProfileState extends State<Profile> {
                           icon: LineAwesomeIcons.cog,
                           text: 'Settings',
                         ),
+                        FlatButton(onPressed: ()async{
+                          final prefs = await SharedPreferences.getInstance();
+                          final userIdentity = prefs.getString('userId') ?? 0;
+                          print('yaar tera superstar desi kalakar $userIdentity');
+                        }, child: Icon(Icons.code,
+                           color: Colors.blue,)
+                        ),
+                        
                         FlatButton(onPressed: (){
                           Navigator.of(context).pushNamed(EditProfile.routeName);
                         }, child: Icon(Icons.verified_user,color: Colors.greenAccent,)),

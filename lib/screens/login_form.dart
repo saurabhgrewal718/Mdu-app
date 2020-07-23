@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './home/universityhome.dart';
 
 class LoginForm extends StatefulWidget {
@@ -39,6 +40,8 @@ class _LoginFormState extends State<LoginForm> {
 
       try{
         authResult = await _auth.signInWithEmailAndPassword(email: _email.trim(), password: _password.trim());
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('userId', authResult.user.uid);
         if(authResult!=null ){
           setState(() {
             _isLoading= false;

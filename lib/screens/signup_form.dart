@@ -4,6 +4,7 @@ import './profile/edit_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class SignupForm extends StatefulWidget {
@@ -46,14 +47,22 @@ class _SignupFormState extends State<SignupForm> {
       AuthResult authResult;
 
       try{
-
+        //signup
         authResult = await _auth.createUserWithEmailAndPassword(email: _email.trim(), password: _password.trim());
-                
+        //saving the data in the users     
         await Firestore.instance.collection('users').document(authResult.user.uid).setData({
           'username':_usrname,
           'email':_email,
           'password':_password
         });
+        //saving the is in the internal storage
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('userId', authResult.user.uid);
+
+        //getting the id in this userIdentity variable here
+        // final userIdentity = prefs.getString('userId') ?? 0;
+
+        //showing congratulatory Snackbar on sucesful signup
         Scaffold.of(context).hideCurrentSnackBar();
         Scaffold.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.greenAccent,
@@ -66,16 +75,18 @@ class _SignupFormState extends State<SignupForm> {
                 fontWeight: FontWeight.w600)),
           ),
         ));
-        
+        //redirecting to a new page
         Navigator.of(context).pop();
-        Navigator.of(context).pushNamed(EditProfile.routeName,);
+        Navigator.of(context).pushNamed(EditProfile.routeName,
+          arguments: authResult.user.uid
+        );
         setState(() {
           _isLoading = false;
         });
 
 
       }on PlatformException catch(err){
-
+        //shwoing errpor messages
         var message= "An error occured ! PLease check Your Credentials";
         if(err.message != null){
           message= err.message;
