@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './home/universityhome.dart';
+import './profile/edit_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,7 +27,6 @@ class _SignupFormState extends State<SignupForm> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _username.dispose();
     _pass.dispose();
     _confirmpass.dispose();
@@ -55,10 +54,11 @@ class _SignupFormState extends State<SignupForm> {
           'email':_email,
           'password':_password
         });
-
+        Scaffold.of(context).hideCurrentSnackBar();
         Scaffold.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.greenAccent,
-          content: Text('Contratulations ${_usrname}',
+          duration: Duration(seconds: 1),
+          content: Text('Contratulations $_usrname',
           style: GoogleFonts.openSans(
             textStyle: TextStyle(
                 color: Colors.black,
@@ -66,12 +66,12 @@ class _SignupFormState extends State<SignupForm> {
                 fontWeight: FontWeight.w600)),
           ),
         ));
+        
+        Navigator.of(context).pop();
+        Navigator.of(context).pushNamed(EditProfile.routeName,);
         setState(() {
           _isLoading = false;
         });
-
-        Navigator.of(context).pop();
-        Navigator.of(context).pushNamed(UniversityHome.routeName,);
 
 
       }on PlatformException catch(err){

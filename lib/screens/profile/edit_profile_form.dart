@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mduapp/screens/profile/image_picked.dart';
 import '../home/universityhome.dart';
-import 'dart:io';
-import 'package:google_fonts/google_fonts.dart';
 
 
 class EditProfileForm extends StatefulWidget {
-  
+  static const routeName='/editprofile';
 @override
   _EditProfileFormState createState() => _EditProfileFormState();
 }
@@ -19,11 +18,11 @@ class _EditProfileFormState extends State<EditProfileForm> {
   String gender = '';
   String dob = '';
   String course = ''; 
+  var _isLoading = false;
   
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _genderfocus.dispose();
     _dob.dispose();
     _course.dispose();
@@ -34,11 +33,21 @@ class _EditProfileFormState extends State<EditProfileForm> {
     final isValid = _form.currentState.validate();
     FocusScope.of(context).unfocus();
     if(isValid){
+      setState(() {
+        _isLoading = true;
+      });
       _form.currentState.save();
       print(name);
       print(gender);
       print(dob);
       print(course);
+      Navigator.of(context).pop();
+      Navigator.of(context).pushNamed(UniversityHome.routeName,);
+
+      setState(() {
+        _isLoading = false;
+      });
+
     }
 
   }
@@ -56,27 +65,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        CircleAvatar(
-                          radius: 60,
-                          backgroundImage: NetworkImage('https://i.pinimg.com/originals/ee/0e/70/ee0e70b2ae91f7209f3a78247986e280.jpg'),
-                        ),
-                        RaisedButton(
-                          child: Text(
-                            'Upload Image',
-                            style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600)),
-                          ),
-                          onPressed: (){},
-                        )
-                        
-                      ],
-                    ),
+                    ImagePicked(),
                     SizedBox(height: 30,),
                     Container(
                       child: Column(
@@ -233,7 +222,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
                         ],
                       ),
                     ),
-                    Container(
+                    _isLoading ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent)) : 
+                     Container(
                       padding: EdgeInsets.only(top: 3, left: 3),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
@@ -249,8 +239,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                         height: 60,
                         onPressed: () {
                             _saveForm();
-                            // Navigator.of(context).pop();
-                            // Navigator.of(context).pushNamed(UniversityHome.routeName,);
+
                         },
                         color: Colors.greenAccent,
                         elevation: 0,

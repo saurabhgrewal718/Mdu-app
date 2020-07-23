@@ -4,6 +4,7 @@ import './profile_list_item.dart';
 import './profilehead.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import '../../home_welcome_page.dart';
+import './edit_profile.dart';
 
 
 class Profile extends StatefulWidget {
@@ -64,10 +65,10 @@ class _ProfileState extends State<Profile> {
                           icon: LineAwesomeIcons.cog,
                           text: 'Settings',
                         ),
-                        ProfileListItem(
-                          icon: LineAwesomeIcons.user_plus,
-                          text: 'Invite a Friend',
-                        ),
+                        FlatButton(onPressed: (){
+                          Navigator.of(context).pushNamed(EditProfile.routeName);
+                        }, child: Icon(Icons.verified_user,color: Colors.greenAccent,)),
+                        
                         _isLoading ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent)) : FlatButton(onPressed: _signout, child: Icon(Icons.adjust,color: Colors.redAccent,)),
                         
                       ],
