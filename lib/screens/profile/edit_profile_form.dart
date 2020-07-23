@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:mduapp/screens/profile/image_picked.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../home/universityhome.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -65,37 +66,35 @@ class _EditProfileFormState extends State<EditProfileForm> {
       });
       print(_form.currentState.value);
       final data = _form.currentState.value;
+      String urlString = '';
       try{
          
          final prefs = await SharedPreferences.getInstance();
          final userIdentity = prefs.getString('userId')?? int.parse('0');
 
          if( userIdentity != null || userIdentity != 0){
-
-            print('used from shared preferences');
-            await Firestore.instance.collection('users/$userIdentity/personal').add({
-              'name': data['name'],
-              'gender': data['gender'],
-              'age':data['age'],
-              'course':data['course']
-            });
-            
+            urlString = userIdentity;
+            print('used from shared preferences');  
          }else{
-
            final userData = await FirebaseAuth.instance.currentUser();
-           print(userData.uid);
-           print('Shit man ...used firebase and it costed us money');
-           await Firestore.instance.collection('users/${userData.uid}/personal').add({
-              'name': data['name'],
-              'gender': data['gender'],
-              'age':data['age'],
-              'course':data['course']
-            });
-
+           urlString = userData.uid;
          }
 
-         
+         final ref = FirebaseStorage.instance.ref().child('user_iamges').child('$urlString');
+         await ref.putFile(_userImageFile).onComplete;
+         final url = await ref.getDownloadURL();
 
+         await Firestore.instance.collection('users/$urlString/personal').document('$urlString').setData({
+              'name': data['name'],
+              'gender': data['gender'],
+              'age':data['age'],
+              'course':data['course'],
+              'profile_picture':url
+            });
+
+        Navigator.of(context).pop();
+        Navigator.of(context).pushReplacementNamed(UniversityHome.routeName);
+        
         setState(() {
         _isLoading = false;
         });

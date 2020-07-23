@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,6 +68,11 @@ class _ProfileState extends State<Profile> {
                         ProfileListItem(
                           icon: LineAwesomeIcons.cog,
                           text: 'Settings',
+                        ),
+                        FlatButton(onPressed: ()async{
+                          print('hey');
+                        }, child: Icon(Icons.vertical_align_bottom,
+                           color: Colors.green,)
                         ),
                         FlatButton(onPressed: ()async{
                           final prefs = await SharedPreferences.getInstance();
