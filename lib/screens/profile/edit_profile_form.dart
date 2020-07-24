@@ -84,6 +84,10 @@ class _EditProfileFormState extends State<EditProfileForm> {
          await ref.putFile(_userImageFile).onComplete;
          final url = await ref.getDownloadURL();
          prefs.setString('userProfilePicture', url);
+         prefs.setString('name', data['name']);
+         prefs.setString('age', data['age']);
+         prefs.setString('gender', data['gender']);
+         prefs.setString('course', data['course']);
 
          await Firestore.instance.collection('users/$urlString/personal').document('$urlString').setData({
               'name': data['name'],

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,15 +41,24 @@ class _LoginFormState extends State<LoginForm> {
 
       try{
         authResult = await _auth.signInWithEmailAndPassword(email: _email.trim(), password: _password.trim());
+        final document = Firestore.instance.collection('users/${authResult.user.uid}/personal').document('${authResult.user.uid}');
+        final documentlist = await document.get();
+        
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('userId', authResult.user.uid);
+        prefs.setString('name', documentlist['name']);
+        prefs.setString('age', documentlist['age']);
+        prefs.setString('userProfilePicture', documentlist['profile_picture']);
+        prefs.setString('gender', documentlist['gender']);
+        prefs.setString('course', documentlist['course']);
+        
+
         if(authResult!=null ){
+          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed(UniversityHome.routeName,);
           setState(() {
             _isLoading= false;
           }); 
-
-          Navigator.of(context).pop();
-          Navigator.of(context).pushNamed(UniversityHome.routeName,);
         }
         
       }on PlatformException catch(err){

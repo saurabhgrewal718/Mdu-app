@@ -9,6 +9,11 @@ class ProfileInfo extends StatefulWidget {
 class _ProfileInfoState extends State<ProfileInfo> {
 SharedPreferences sharedPrefs;
 String _image = '';
+String _name = '';
+String _age = '';
+String _gender = '';
+String _course = '';
+String _userId = '';
 
 @override
 void initState() {
@@ -16,6 +21,11 @@ void initState() {
   SharedPreferences.getInstance().then((prefs) {
     setState(() {
       _image = prefs.getString('userProfilePicture');
+      _name = prefs.getString('name');
+      _age = prefs.getString('age');
+      _course = prefs.getString('course');
+      _userId = prefs.getString('userId');
+      _gender = prefs.getString('gender');
     });
   });
 
@@ -29,7 +39,7 @@ void initState() {
           SizedBox(height:30),
           Container(
             margin: EdgeInsets.only(top: 3),
-            child: _image.isNotEmpty ?
+            child: _image != '' ?
               CircleAvatar(
                 radius: 60,
                 backgroundImage: NetworkImage('$_image'),
@@ -37,10 +47,37 @@ void initState() {
             
           ),
           SizedBox(height:20),
+
+          _name != '' ?
           Text(
-            'Nicolas Adams',
+            '$_name',
             style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-          ),
+          ) : CircularProgressIndicator(),
+
+           _age != '' ?
+          Text(
+            '$_age',
+            style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+          ) : CircularProgressIndicator(),
+
+           _course != '' ?
+          Text(
+            '$_course',
+            style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+          ) : CircularProgressIndicator(),
+
+           _gender != '' ?
+          Text(
+            '$_gender',
+            style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+          ) : CircularProgressIndicator(),
+
+           _userId != '' ?
+          Text(
+            '$_userId',
+            style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+          ) : CircularProgressIndicator(),
+
           SizedBox(height:10),
           Text(
             'nicolasadams@gmail.com',

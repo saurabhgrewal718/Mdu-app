@@ -23,7 +23,7 @@ class _ProfileState extends State<Profile> {
     });
     await FirebaseAuth.instance.signOut();
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove('userId');
+    prefs.clear();
     final currentId = prefs.getString('userId');
     if(currentId == null){
       Navigator.of(context).pushReplacementNamed(HomePage.routeName);
@@ -70,7 +70,9 @@ class _ProfileState extends State<Profile> {
                           text: 'Settings',
                         ),
                         FlatButton(onPressed: ()async{
-                          print('hey');
+                          final prefs = await SharedPreferences.getInstance();
+                          prefs.clear();
+                          
                         }, child: Icon(Icons.vertical_align_bottom,
                            color: Colors.green,)
                         ),
@@ -86,6 +88,7 @@ class _ProfileState extends State<Profile> {
                           Navigator.of(context).pushNamed(EditProfile.routeName);
                         }, child: Icon(Icons.verified_user,color: Colors.greenAccent,)),
                         
+                        //logout button
                         _isLoading ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent)) : FlatButton(onPressed: _signout, child: Icon(Icons.adjust,color: Colors.redAccent,)),
                         
                       ],
