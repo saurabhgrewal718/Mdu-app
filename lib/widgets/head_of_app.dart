@@ -3,8 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Headofapp extends StatelessWidget {
   final String subtitle;
+  final String title;
 
   Headofapp({
+    this.title,
     this.subtitle,
   });
 
@@ -24,7 +26,7 @@ class Headofapp extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'MDU Connect',
+                    title,
                     style: GoogleFonts.openSans(
                         textStyle: TextStyle(
                             color: Colors.black,

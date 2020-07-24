@@ -16,7 +16,7 @@ class _SubjectsState extends State<Subjects> {
           child: Column(
           children: <Widget>[
             
-            Headofapp(subtitle: 'Study Materials, Books and More!',),
+            Headofapp(title: 'MDU Connect',subtitle: 'Study Materials, Books and More!',),
             
             SubjectsList(),
           ],

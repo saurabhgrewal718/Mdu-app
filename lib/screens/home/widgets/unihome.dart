@@ -17,7 +17,7 @@ class _UniHomeState extends State<UniHome> {
           child: Column(
           children: <Widget>[
             
-            Headofapp(subtitle: 'Home Sweet Home',),
+            Headofapp(title: 'MDU Connect',subtitle: 'Home Sweet Home',),
             
            GridDashboard()
           ],

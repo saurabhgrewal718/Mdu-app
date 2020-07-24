@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mduapp/screens/explore/widgets/grid_explore.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
+import './subscreens/societies.dart';
 
 class Explore extends StatefulWidget {
   static const routeName='/explore';
@@ -18,8 +19,10 @@ class _ExploreState extends State<Explore> {
           child: Column(
           children: <Widget>[
            
-            Headofapp(subtitle: 'Find Students With Same Interests',),
-            
+            Headofapp(title:'MDU Connect',subtitle: 'Find Students With Same Interests',),
+            FlatButton(onPressed: (){
+              Navigator.of(context).pushNamed(Societies.routeName);
+            }, child: Text('Add Societies')),
             GridExplore(),
           ],
         ),

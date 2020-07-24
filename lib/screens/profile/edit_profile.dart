@@ -35,7 +35,7 @@ class EditProfile extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
               children: <Widget>[
-                  Headofapp(subtitle: 'Last Step To Start!',),
+                  Headofapp(title:'Setup Your Profile',subtitle: 'Last Step To Start!',),
                   EditProfileForm(),
                   SizedBox(
                       height: 60,

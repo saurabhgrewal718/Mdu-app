@@ -71,7 +71,13 @@ class _ProfileState extends State<Profile> {
                         ),
                         FlatButton(onPressed: ()async{
                           final prefs = await SharedPreferences.getInstance();
-                          prefs.clear();
+                          prefs.remove('0');
+                          prefs.remove('1');
+                          prefs.remove('2');
+                          prefs.remove('3');
+                          prefs.remove('4');
+                          prefs.remove('5');
+                          prefs.remove('6');
                           
                         }, child: Icon(Icons.vertical_align_bottom,
                            color: Colors.green,)

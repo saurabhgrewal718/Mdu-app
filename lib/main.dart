@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mduapp/screens/profile/edit_profile.dart';
+import './screens/explore/subscreens/societies.dart';
 import './screens/subjects/widgets/subject_detail.dart';
 import './screens/explore/explore.dart';
 import './screens/home/universityhome.dart';
@@ -28,6 +29,7 @@ void main() {
         Explore.routeName : (ctx) => Explore(),
         SubjectDetail.routeName : (ctx) => SubjectDetail(),
         EditProfile.routeName : (ctx) => EditProfile(),
+        Societies.routeName : (ctx) => Societies(),
       },
       onUnknownRoute: (settings){
         return MaterialPageRoute(builder: (ctx) => UnknownRoute(),);
