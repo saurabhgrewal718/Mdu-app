@@ -13,9 +13,7 @@ class SubjectDetail extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 8),
           child: Column(
           children: <Widget>[
-              SizedBox(
-                height: 50,
-              ),
+              
               Headofapp(title: 'MDU Connect',subtitle:'Acedemics - $subjectTitle' ,),
               SizedBox(
                 height: 30,

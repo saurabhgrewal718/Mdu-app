@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../widgets/my_snackbar.dart';
 
 
 class SignupForm extends StatefulWidget {
@@ -65,16 +66,16 @@ class _SignupFormState extends State<SignupForm> {
         //showing congratulatory Snackbar on sucesful signup
         Scaffold.of(context).hideCurrentSnackBar();
         Scaffold.of(context).showSnackBar(SnackBar(
-          backgroundColor: Colors.greenAccent,
-          duration: Duration(seconds: 1),
-          content: Text('Contratulations $_usrname',
-          style: GoogleFonts.openSans(
-            textStyle: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.w600)),
-          ),
-        ));
+            backgroundColor: Colors.greenAccent,
+            duration: Duration(seconds: 1),
+            content: Text('Contratulations',
+            style: GoogleFonts.openSans(
+              textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600)),
+            ),
+          ));
         //redirecting to a new page
         Navigator.of(context).pop();
         Navigator.of(context).pushNamed(EditProfile.routeName,
