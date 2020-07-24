@@ -83,6 +83,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
          final ref = FirebaseStorage.instance.ref().child('user_iamges').child('$urlString');
          await ref.putFile(_userImageFile).onComplete;
          final url = await ref.getDownloadURL();
+         prefs.setString('userProfilePicture', url);
 
          await Firestore.instance.collection('users/$urlString/personal').document('$urlString').setData({
               'name': data['name'],

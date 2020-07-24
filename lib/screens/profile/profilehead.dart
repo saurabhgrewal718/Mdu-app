@@ -1,6 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileInfo extends StatelessWidget {
+class ProfileInfo extends StatefulWidget {
+  @override
+  _ProfileInfoState createState() => _ProfileInfoState();
+}
+
+class _ProfileInfoState extends State<ProfileInfo> {
+SharedPreferences sharedPrefs;
+String _image = '';
+
+@override
+void initState() {
+  super.initState();
+  SharedPreferences.getInstance().then((prefs) {
+    setState(() {
+      _image = prefs.getString('userProfilePicture');
+    });
+  });
+
+}
+  
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -9,10 +29,12 @@ class ProfileInfo extends StatelessWidget {
           SizedBox(height:30),
           Container(
             margin: EdgeInsets.only(top: 3),
-            child: CircleAvatar(
-              radius: 60,
-              backgroundImage: NetworkImage('https://image.freepik.com/free-vector/illustration-concept-with-people-peeping_23-2148387077.jpg'),
-            ),
+            child: _image.isNotEmpty ?
+              CircleAvatar(
+                radius: 60,
+                backgroundImage: NetworkImage('$_image'),
+              ) : CircularProgressIndicator(),
+            
           ),
           SizedBox(height:20),
           Text(
@@ -30,3 +52,4 @@ class ProfileInfo extends StatelessWidget {
     );
   }
 }
+
