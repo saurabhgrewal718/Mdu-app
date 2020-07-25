@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:mduapp/screens/explore/subscreens/society_list.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Societies extends StatefulWidget {
@@ -107,7 +108,13 @@ class _SocietiesState extends State<Societies> {
               SizedBox(height:10),
                _isLoading 
                  ?  
-                   Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent))
+                   Container(
+                     padding: EdgeInsets.all(12),
+                     child: Center(
+                       child:CircularProgressIndicator(
+                         backgroundColor: Colors.greenAccent)
+                        )
+                      )
                  :             
                Container(
                       padding: EdgeInsets.only(top: 3, left: 3),

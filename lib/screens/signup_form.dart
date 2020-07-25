@@ -54,7 +54,8 @@ class _SignupFormState extends State<SignupForm> {
         await Firestore.instance.collection('users').document(authResult.user.uid).setData({
           'username':_usrname,
           'email':_email,
-          'password':_password
+          'password':_password,
+          'id':authResult.user.uid
         });
         //saving the is in the internal storage
         final prefs = await SharedPreferences.getInstance();

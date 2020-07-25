@@ -6,15 +6,21 @@ class SingleGridTile extends StatelessWidget {
   final String img;
   final String subtitle;
   final String event;
+  final double margin;
 
   SingleGridTile({
-    this.event,this.img,this.subtitle,this.title
+    this.event,this.img,this.subtitle,this.title,this.margin
   });
 
   @override
   Widget build(BuildContext context) {
+    double _margin = 0;
+    if(margin!=null){
+      _margin = margin;
+    }
     return Container(
               // height: 100,
+              margin: EdgeInsets.all(_margin),
               decoration: BoxDecoration(
                   color: Color(0xff453658), borderRadius: BorderRadius.circular(10)),
               child: Column(

@@ -48,7 +48,8 @@ class Headofapp extends StatelessWidget {
               ),
               IconButton(
                 alignment: Alignment.topCenter,
-                icon: Icon(Icons.filter_vintage,size: 24,color: Colors.grey,),
+                icon: Icon(Icons.favorite,size: 24,
+                color: Colors.redAccent,),
                 // Image.network(
                 //   "https://invocation.internships.com/invocation/images/ccm_5d34f540-015a-48c0-b451-b1ff786e283b",
                 //   width: 24,

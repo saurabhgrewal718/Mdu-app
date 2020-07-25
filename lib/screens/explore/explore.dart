@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mduapp/screens/explore/widgets/grid_explore.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
 import './subscreens/societies.dart';
+import './subscreens/profile_cards.dart';
 
 class Explore extends StatefulWidget {
   static const routeName='/explore';
@@ -23,6 +24,9 @@ class _ExploreState extends State<Explore> {
             FlatButton(onPressed: (){
               Navigator.of(context).pushNamed(Societies.routeName);
             }, child: Text('Add Societies')),
+            FlatButton(onPressed: (){
+              Navigator.of(context).pushNamed(ProfileCards.routeName);
+            }, child: Text('Cards')),
             GridExplore(),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mduapp/screens/explore/subscreens/profile_cards.dart';
 import 'package:mduapp/screens/profile/edit_profile.dart';
 import './screens/explore/subscreens/societies.dart';
 import './screens/subjects/widgets/subject_detail.dart';
@@ -10,6 +11,7 @@ import './home_welcome_page.dart';
 import './screens/login_screen.dart';
 import './screens/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import './screens/explore/subscreens/timer_screen.dart';
 
 void main() {
   runApp(
@@ -30,6 +32,8 @@ void main() {
         SubjectDetail.routeName : (ctx) => SubjectDetail(),
         EditProfile.routeName : (ctx) => EditProfile(),
         Societies.routeName : (ctx) => Societies(),
+        ProfileCards.routeName: (ctx) => ProfileCards(),
+        TimerScreen.routeName: (ctx) => TimerScreen()
       },
       onUnknownRoute: (settings){
         return MaterialPageRoute(builder: (ctx) => UnknownRoute(),);

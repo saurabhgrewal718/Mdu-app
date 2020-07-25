@@ -7,7 +7,8 @@ class SubjectsList extends StatelessWidget {
       title: "B.Sc Chemistry",
       subtitle: "March, Wednesday",
       event: "3 Events",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQTMPyqLlYjhHLdDjcirA8fii_eGDUxuLadMg&usqp=CAU");
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQTMPyqLlYjhHLdDjcirA8fii_eGDUxuLadMg&usqp=CAU"
+  );
 
   Items item2 = new Items(
     title: "Groceries",
@@ -52,7 +53,7 @@ class SubjectsList extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
           children: myList.map((data) {
-
+            
             return GestureDetector(
               onTap: () {
                 Navigator.of(context).pushNamed(
