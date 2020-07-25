@@ -3,6 +3,7 @@ import 'package:mduapp/widgets/head_of_app.dart';
 import './profile_cards.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TimerScreen extends StatefulWidget {
   static const routeName = './timerscreen';
@@ -81,9 +82,36 @@ class _TimerScreenState extends State<TimerScreen> {
           body: Container(
         child:Column(
           children: <Widget>[
-            Headofapp(title: 'MDU Connect', subtitle: 'Please check back later',),
-            Text('$mytimer'),
-            Text('$myDate'),
+            Headofapp(title: 'MDU Connect', subtitle: 'Please check back later after...',),
+            SizedBox(
+              height: 50,
+            ),
+            Text(
+              '$mytimer',
+              style: GoogleFonts.openSans(
+              textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600)),
+            ),
+            Text(
+              '$myDate',
+               style: GoogleFonts.openSans(
+                 textStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600)),  
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Center(
+              child: Container(
+                padding: EdgeInsets.all(20),
+                margin: EdgeInsets.all(10),
+                child: Image.asset('assets/images/mduconnect.gif')
+              )
+            )
           ],
         )
       ),
