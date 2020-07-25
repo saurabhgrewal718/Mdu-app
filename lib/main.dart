@@ -12,6 +12,7 @@ import './screens/login_screen.dart';
 import './screens/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './screens/explore/subscreens/timer_screen.dart';
+import './screens/explore/subscreens/condition_of_cards.dart';
 
 void main() {
   runApp(
@@ -33,7 +34,8 @@ void main() {
         EditProfile.routeName : (ctx) => EditProfile(),
         Societies.routeName : (ctx) => Societies(),
         ProfileCards.routeName: (ctx) => ProfileCards(),
-        TimerScreen.routeName: (ctx) => TimerScreen()
+        TimerScreen.routeName: (ctx) => TimerScreen(),
+        ConditionOfCards.routeName: (ctx) => ConditionOfCards(),
       },
       onUnknownRoute: (settings){
         return MaterialPageRoute(builder: (ctx) => UnknownRoute(),);

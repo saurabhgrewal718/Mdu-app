@@ -4,6 +4,7 @@ import 'package:mduapp/screens/explore/widgets/grid_explore.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
 import './subscreens/societies.dart';
 import './subscreens/profile_cards.dart';
+import './subscreens/condition_of_cards.dart';
 
 class Explore extends StatefulWidget {
   static const routeName='/explore';
@@ -25,7 +26,7 @@ class _ExploreState extends State<Explore> {
               Navigator.of(context).pushNamed(Societies.routeName);
             }, child: Text('Add Societies')),
             FlatButton(onPressed: (){
-              Navigator.of(context).pushNamed(ProfileCards.routeName);
+              Navigator.of(context).pushNamed(ConditionOfCards.routeName);
             }, child: Text('Cards')),
             GridExplore(),
           ],

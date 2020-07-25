@@ -20,23 +20,19 @@ class _TimerScreenState extends State<TimerScreen> {
  void _gettingTimer() async{
    final prefs = await SharedPreferences.getInstance();
    int timestamp = DateTime.now().millisecondsSinceEpoch;
-   int newTime = timestamp + 14400000;
-   DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(newTime);
-   print('new date');
-   final DateFormat formatter = DateFormat.jm();
-   final DateFormat dateformatter = new DateFormat.yMMMMd();
-   final String dateFormatted = dateformatter.format(dateTime);
-   final String formatted = formatter.format(dateTime);
-   setState(() {
-     mytimer = formatted;
-     myDate = dateFormatted;
-   });
+    
 
    final avalable = prefs.getInt('myTimestampKey');
    if(avalable == null){
       print('if part ran');
       prefs.setInt('myTimestampKey', timestamp);
       var afterHrs = timestamp + 14400000;
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(afterHrs);
+      final DateFormat formatter = DateFormat.jm();
+      final DateFormat dateformatter = new DateFormat.yMMMMd();
+      final String dateFormatted = dateformatter.format(dateTime);
+      final String formatted = formatter.format(dateTime);
+
       final initialTime = prefs.getInt('myTimestampKey');
       final timerNow = afterHrs - initialTime;
       
@@ -46,21 +42,34 @@ class _TimerScreenState extends State<TimerScreen> {
         prefs.remove('myTimestampKey');
       }
 
+      setState(() {
+        mytimer = formatted;
+        myDate = dateFormatted;
+      });
+
    }else{
-      print('else part ran');
       var today = new DateTime.now().millisecondsSinceEpoch;
-      print('today: $today ');
-     
+          
       final initialTime = prefs.getInt('myTimestampKey');
-      print('initial: $initialTime');
-      final timerNow = today - initialTime;
-      print('timerNow: $timerNow');
+      final newTime = initialTime + 14400000;
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(newTime);
+      final DateFormat formatter = DateFormat.jm();
+      final DateFormat dateformatter = new DateFormat.yMMMMd();
+      final String dateFormatted = dateformatter.format(dateTime);
+      final String formatted = formatter.format(dateTime);
       
+      final timerNow = today - initialTime;
+            
       if(timerNow>14400000){
         print('your 4 hours are completed');
         Navigator.of(context).pushReplacementNamed(ProfileCards.routeName);
         prefs.remove('myTimestampKey');
       }
+
+      setState(() {
+        mytimer = formatted;
+        myDate = dateFormatted;
+      });
 
    }
    
@@ -69,9 +78,7 @@ class _TimerScreenState extends State<TimerScreen> {
 
  @override
   void didChangeDependencies() {
-    print('i ran');
     _gettingTimer();
-    print('mee too');
     super.didChangeDependencies();
   }
 
