@@ -19,12 +19,12 @@ class _ProfileCardsState extends State<ProfileCards>
   List<String> welcomeImages = [
     "assets/images/mduconnect.gif",
     "assets/images/mduconnect.gif",
-    "assets/images/mduconnect.gif",
-    "assets/images/mduconnect.gif",
-    "assets/images/mduconnect.gif",
-    "assets/images/mduconnect.gif",
-    "assets/images/mduconnect.gif",
-    "assets/images/mduconnect.gif",
+    // "assets/images/mduconnect.gif",
+    // "assets/images/mduconnect.gif",
+    // "assets/images/mduconnect.gif",
+    // "assets/images/mduconnect.gif",
+    // "assets/images/mduconnect.gif",
+    // "assets/images/mduconnect.gif",
    
     
   ];
