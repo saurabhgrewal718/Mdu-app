@@ -19,9 +19,6 @@ class _GridExploreState extends State<GridExplore> {
         if(snapshot.connectionState == ConnectionState.waiting){
           return CircularProgressIndicator();
         }else{
-              print(snapshot.data);
-              print(snapshot.data.documents);
-              print(snapshot.data.documents[0]['email']);
               final exploreArray = snapshot.data.documents;
               if(exploreArray != null){
                 

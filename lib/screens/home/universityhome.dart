@@ -17,8 +17,8 @@ class _UniversityHomeState extends State<UniversityHome> {
   int _currentindex=0;
 
   final tabs = [
-    UniHome(),
     Explore(),
+    UniHome(),
     Subjects(),
     Profile(),
   ];

@@ -57,60 +57,56 @@ class _SocietyTileState extends State<SocietyTile> {
   @override
   Widget build(BuildContext context) {    
     return Container(
-              // height: 100,
-              decoration: BoxDecoration(
-                  color: Color(_color), borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.network(
-                      widget.img,
-                      width: 70,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    widget.title,
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                            color: Color(_textColor),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                  // SizedBox(
-                  //   height: 8,
-                  // ),
-                  Text(
-                    widget.subtitle,
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                            color: Color(_textColor),
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                  // SizedBox(
-                  //   height: 5,
-                  // ),
-                  FlatButton(
-                    child: Text(
-                    widget.event,
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                            color: Color(_textColor),
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600)),
+                // height: 100,
+                decoration: BoxDecoration(
+                    color: Color(_color), borderRadius: BorderRadius.circular(10)),
+                child: FlatButton(
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          widget.img,
+                          width: 70,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        widget.title,
+                        style: GoogleFonts.openSans(
+                            textStyle: TextStyle(
+                                color: Color(_textColor),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600)),
+                      ),
+                      Text(
+                        widget.event,
+                        style: GoogleFonts.openSans(
+                            textStyle: TextStyle(
+                                color: Color(_textColor),
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600)),
+                        
+                      ),
+                      Text(
+                        widget.event,
+                        style: GoogleFonts.openSans(
+                            textStyle: TextStyle(
+                                color: Color(_textColor),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600)),
+                      ),
+                    ],
                   ),
                   onPressed: (){
                     _colorChange(widget.id);
                   },
-                    
-                  )
-                ],
-              ),
-            );
+   
+                ),
+              );
+   
   }
 }

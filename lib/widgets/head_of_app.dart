@@ -15,7 +15,7 @@ class Headofapp extends StatelessWidget {
     return Column(
       children: <Widget>[
         SizedBox(
-              height: 50,
+              height: 40,
         ),
         Padding(
           padding: EdgeInsets.only(left: 16, right: 16),
@@ -60,7 +60,7 @@ class Headofapp extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
       ],
     );

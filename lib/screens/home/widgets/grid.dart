@@ -4,6 +4,8 @@ import 'package:mduapp/screens/home/widgets/grid_single_card.dart';
 import 'package:mduapp/widgets/single_grid_tile.dart';
 
 class GridDashboard extends StatelessWidget {
+  String dummytitle = "Accessing hidden method ist,core-platform-api, ";
+  double widthNum;
   Items item1 = new Items(
       title: "Calendar",
       subtitle: "March, Wednesday",
@@ -43,6 +45,8 @@ class GridDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('string length ${dummytitle.length}');
+    dummytitle.length > 90 ? widthNum = 0.5 : widthNum = 0.4;
     List<Items> myList = [item1, item2, item3, item4, item5, item6,item2, item3, item4, item5, item6];
     var color = 0xff453658;
     return Flexible(
@@ -59,18 +63,22 @@ class GridDashboard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  GridData(
+                   SingleGridTile(
                     title:data.title,
                     subtitle: data.subtitle,
                     event: data.event,
                     img: data.img,
                   ),
-                  SingleGridTile(
-                    title:data.title,
-                    subtitle: data.subtitle,
-                    event: data.event,
-                    img: data.img,
+                  Container(
+                    width: MediaQuery.of(context).size.width * widthNum,
+                    child: Text(
+                    dummytitle,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 8,
+                    style: TextStyle(color:Colors.white,fontSize:15),
+                    ),                          
                   ),
+                          
 
                 ],
               )

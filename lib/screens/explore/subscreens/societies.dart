@@ -61,9 +61,8 @@ class _SocietiesState extends State<Societies> {
       });
 
     }on PlatformException catch(err){
-    
-//shwoing errpor messages
-        var message= "An error occured ! Please try again!";
+       //shwoing errpor messages
+       var message= "An error occured ! Please try again!";
         if(err.message != null){
           message= err.message;
         }

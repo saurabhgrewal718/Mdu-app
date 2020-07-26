@@ -5,6 +5,7 @@ import 'package:mduapp/widgets/head_of_app.dart';
 import './subscreens/societies.dart';
 import './subscreens/profile_cards.dart';
 import './subscreens/condition_of_cards.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Explore extends StatefulWidget {
   static const routeName='/explore';
@@ -13,6 +14,7 @@ class Explore extends StatefulWidget {
 }
 
 class _ExploreState extends State<Explore> {
+
   @override
   Widget build(BuildContext context) {
    
@@ -20,15 +22,19 @@ class _ExploreState extends State<Explore> {
           padding: EdgeInsets.only(bottom: 8),
           child: Column(
           children: <Widget>[
-           
             Headofapp(title:'MDU Connect',subtitle: 'Find Students With Same Interests',),
-            FlatButton(onPressed: (){
-              Navigator.of(context).pushNamed(Societies.routeName);
-            }, child: Text('Add Societies')),
-            FlatButton(onPressed: (){
-              Navigator.of(context).pushNamed(ConditionOfCards.routeName);
-            }, child: Text('Cards')),
-            GridExplore(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FlatButton(onPressed: (){
+                  Navigator.of(context).pushNamed(Societies.routeName);
+                }, child: Text('Add Societies')),
+                FlatButton(onPressed: (){
+                  Navigator.of(context).pushNamed(ConditionOfCards.routeName);
+                }, child: Text('Cards')),
+              ],
+            ),
+            // GridExplore(),
           ],
         ),
     );

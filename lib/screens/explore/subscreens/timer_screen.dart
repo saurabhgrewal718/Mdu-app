@@ -26,7 +26,7 @@ class _TimerScreenState extends State<TimerScreen> {
    if(avalable == null){
       print('if part ran');
       prefs.setInt('myTimestampKey', timestamp);
-      var afterHrs = timestamp + 14400000;
+      var afterHrs = timestamp + 300000;
       DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(afterHrs);
       final DateFormat formatter = DateFormat.jm();
       final DateFormat dateformatter = new DateFormat.yMMMMd();
@@ -49,9 +49,9 @@ class _TimerScreenState extends State<TimerScreen> {
 
    }else{
       var today = new DateTime.now().millisecondsSinceEpoch;
-          
+      print('else part ran');
       final initialTime = prefs.getInt('myTimestampKey');
-      final newTime = initialTime + 14400000;
+      final newTime = initialTime + 300000;
       DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(newTime);
       final DateFormat formatter = DateFormat.jm();
       final DateFormat dateformatter = new DateFormat.yMMMMd();
@@ -60,7 +60,7 @@ class _TimerScreenState extends State<TimerScreen> {
       
       final timerNow = today - initialTime;
             
-      if(timerNow>14400000){
+      if(timerNow>300000){
         print('your 4 hours are completed');
         Navigator.of(context).pushReplacementNamed(ProfileCards.routeName);
         prefs.remove('myTimestampKey');
