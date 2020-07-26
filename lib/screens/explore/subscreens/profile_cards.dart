@@ -1,12 +1,9 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import './timer_screen.dart';
-import '../../../widgets/signup_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProfileCards extends StatefulWidget {
   static const routeName = '/cards';
@@ -19,34 +16,15 @@ class _ProfileCardsState extends State<ProfileCards>
 
   List liked = new List();
 
-  void _like(BuildContext ctx){
-    Scaffold.of(ctx).showSnackBar(
-        SnackBar(
-        backgroundColor: Colors.greenAccent,
-        duration: Duration(seconds: 1),
-        content: Text('Swipe Right To Like',
-        style: GoogleFonts.openSans(
-          textStyle: TextStyle(
-              color: Colors.black,
-              fontSize: 14,
-              fontWeight: FontWeight.w600)),
-        ),
-      )
-    );
-  }
-  void _dislike(BuildContext ctx){
-    Scaffold.of(ctx).showSnackBar(
-      SnackBar(
-            backgroundColor: Colors.greenAccent,
-            duration: Duration(seconds: 1),
-            content: Text('Swipe Left To Dislike',
-            style: GoogleFonts.openSans(
-              textStyle: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600)),
-            ),
-          )
+  void _dislike(){
+    Fluttertoast.showToast(
+        msg: "Swipe Left to Dislike",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red[200],
+        textColor: Colors.white,
+        fontSize: 16.0
     );
   }
 
@@ -210,7 +188,16 @@ class _ProfileCardsState extends State<ProfileCards>
                     width: MediaQuery.of(context).size.width * 0.5,
                     padding: EdgeInsets.all(10),
                     child:FlatButton(onPressed: (){
-                      _dislike(ctx);
+                      Fluttertoast.cancel();
+                      Fluttertoast.showToast(
+                              msg: "Swipe Left to Dislike",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red[200],
+                              textColor: Colors.white,
+                              fontSize: 16.0
+                          );
                     },
                         child: Text(
                           '💀',
@@ -229,9 +216,18 @@ class _ProfileCardsState extends State<ProfileCards>
                     width: MediaQuery.of(context).size.width * 0.5,
                     padding: EdgeInsets.all(10),
                     child:FlatButton(onPressed:(){
-                      _like(ctx);
+                      Fluttertoast.cancel();
+                      Fluttertoast.showToast(
+                          msg: "Swipe Right to Like",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.green[200],
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                      );
                     },
-                      child: Text(
+                    child: Text(
                         '👋',
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
