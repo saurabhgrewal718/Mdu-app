@@ -31,7 +31,7 @@ class _ExploreState extends State<Explore> {
                 }, child: Text('Add Societies')),
                 FlatButton(onPressed: (){
                   Navigator.of(context).pushNamed(ConditionOfCards.routeName);
-                }, child: Text('Cards')),
+                }, child: Text('New people')),
               ],
             ),
             // GridExplore(),

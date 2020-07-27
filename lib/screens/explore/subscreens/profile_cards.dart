@@ -71,17 +71,22 @@ class _ProfileCardsState extends State<ProfileCards>
                                           height: 10,
                                         ),
                                         CircleAvatar(
-                                          backgroundColor: Colors.grey,
-                                          radius: 105,
-                                          child: CircleAvatar(
-                                            child: Image.network('${welcomeImages[index]}',
+                                            child: Image.network('${welcomeImages[index]}',fit: BoxFit.contain,
                                               height: 250,
                                               width: 250,
-                                              fit: BoxFit.cover,
+                                              loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
+                                              if (loadingProgress == null) return child;
+                                                return Center(
+                                                  child: CircularProgressIndicator(
+                                                  value: loadingProgress.expectedTotalBytes != null ? 
+                                                        loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                                                        : null,
+                                                  ),
+                                                );
+                                              },
                                             ),
                                             radius: 100,
                                             backgroundColor: Colors.white,
-                                          ),
                                         ),
                                         SizedBox(
                                           height: 20,
@@ -127,7 +132,7 @@ class _ProfileCardsState extends State<ProfileCards>
                             swipeCompleteCallback:
                                 (CardSwipeOrientation orientation, int index) {
                               //Get orientation & index of swiped card!
-                                if(_counter - index >1){
+                                if(_counter - index >0){
 
                                   if(orientation == CardSwipeOrientation.LEFT){
                                       print('yo man left');
@@ -168,6 +173,10 @@ class _ProfileCardsState extends State<ProfileCards>
                                     
                                       print('this is the list now : ');
                                       print(liked);
+
+                                      if(_counter - index == 1){
+                                        Navigator.of(context).pushReplacementNamed(TimerScreen.routeName);
+                                      }
                                     }
 
                                 }else{
@@ -190,7 +199,7 @@ class _ProfileCardsState extends State<ProfileCards>
                     child:FlatButton(onPressed: (){
                       Fluttertoast.cancel();
                       Fluttertoast.showToast(
-                              msg: "Swipe Left to Dislike",
+                              msg: "Swipe Cards Left to Dislike",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
@@ -200,13 +209,13 @@ class _ProfileCardsState extends State<ProfileCards>
                           );
                     },
                         child: Text(
-                          '💀',
+                          'Swipe Left to like',
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
                           maxLines: 3,                    
                           style: TextStyle(
-                            fontSize: 50,
-                            fontWeight: FontWeight.w900,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w400,
                             color: Colors.redAccent
                           ),
                           ),
@@ -218,7 +227,7 @@ class _ProfileCardsState extends State<ProfileCards>
                     child:FlatButton(onPressed:(){
                       Fluttertoast.cancel();
                       Fluttertoast.showToast(
-                          msg: "Swipe Right to Like",
+                          msg: "Swipe Cards Right to Like",
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.BOTTOM,
                           timeInSecForIosWeb: 1,
@@ -228,14 +237,14 @@ class _ProfileCardsState extends State<ProfileCards>
                       );
                     },
                     child: Text(
-                        '👋',
+                        'Swipe Right to like',
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
                         maxLines: 3,                    
                         style: TextStyle(
-                          fontSize: 50,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.redAccent
+                          fontSize: 25,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.greenAccent
                         ),
                       ),
                     ),

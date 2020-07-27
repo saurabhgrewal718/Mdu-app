@@ -19,9 +19,7 @@ class Headofapp extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.only(left: 16, right: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+          child: 
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -46,18 +44,6 @@ class Headofapp extends StatelessWidget {
                   ),
                 ],
               ),
-              IconButton(
-                alignment: Alignment.topCenter,
-                icon: Icon(Icons.favorite,size: 24,
-                color: Colors.redAccent,),
-                // Image.network(
-                //   "https://invocation.internships.com/invocation/images/ccm_5d34f540-015a-48c0-b451-b1ff786e283b",
-                //   width: 24,
-                // ),
-                onPressed: () {},
-              )
-            ],
-          ),
         ),
         SizedBox(
           height: 20,

@@ -13,6 +13,7 @@ import './screens/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './screens/explore/subscreens/timer_screen.dart';
 import './screens/explore/subscreens/condition_of_cards.dart';
+import './screens/home/widgets/home_detail.dart';
 
 void main() {
   runApp(
@@ -35,6 +36,7 @@ void main() {
         Societies.routeName : (ctx) => Societies(),
         ProfileCards.routeName: (ctx) => ProfileCards(),
         TimerScreen.routeName: (ctx) => TimerScreen(),
+        HomeDetail.routeName : (ctx) => HomeDetail(),
         ConditionOfCards.routeName: (ctx) => ConditionOfCards(),
       },
       onUnknownRoute: (settings){

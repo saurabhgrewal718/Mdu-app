@@ -17,6 +17,31 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   var _isLoading= false;
 
+  void _showAlert(){
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (ctx) => AlertDialog(
+        title:Text('Are You Sure You Want to logout?'),
+        content: Image.network('http://gph.is/1KK9c0b'),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: _signout, 
+            child: Text('Yes')
+          ),
+          FlatButton(
+            onPressed: (){
+              Navigator.of(ctx).pop();
+            }, 
+            child: Text('No'),
+          )
+        ],
+
+
+      )
+    );
+  }
+
   void _signout() async {
     setState(() {
       _isLoading=true;
@@ -95,7 +120,7 @@ class _ProfileState extends State<Profile> {
                         }, child: Icon(Icons.verified_user,color: Colors.greenAccent,)),
                         
                         //logout button
-                        _isLoading ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent)) : FlatButton(onPressed: _signout, child: Icon(Icons.adjust,color: Colors.redAccent,)),
+                        _isLoading ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent)) : FlatButton(onPressed: _showAlert, child: Icon(Icons.adjust,color: Colors.redAccent,)),
                         
                       ],
                     ),
