@@ -101,9 +101,9 @@ class _GridDashboardState extends State<GridDashboard> {
                   HomeDetail.routeName,
                   arguments:{
                     'title': data.title,
-                     'subtitle': data.subtitle,
-                      'event': data.event,
-                      'img': data.img,
+                    'subtitle': data.subtitle,
+                    'event': data.event,
+                    'img': data.img,
                   }
                   
                 );

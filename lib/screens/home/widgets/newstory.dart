@@ -105,7 +105,7 @@ class _NewStoryState extends State<NewStory> {
             }
 
           Fluttertoast.showToast(
-              msg: "Story Uploaded SUcessfully",
+              msg: "Story Uploaded Sucessfully",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 1,
