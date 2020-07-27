@@ -23,7 +23,7 @@ class _ProfileState extends State<Profile> {
       barrierDismissible: true,
       builder: (ctx) => AlertDialog(
         title:Text('Are You Sure You Want to logout?'),
-        content: Image.network('http://gph.is/1KK9c0b'),
+        content: Image.asset('assets/images/crying.gif'),
         actions: <Widget>[
           FlatButton(
             onPressed: _signout, 

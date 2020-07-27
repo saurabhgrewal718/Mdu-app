@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeDetail extends StatefulWidget { 
   static const routeName = './homedetail';
@@ -12,6 +14,66 @@ class _HomeDetailState extends State<HomeDetail> {
   var _color = 0xFFFFFFFF;
 
   int _counter = 0;
+
+  void _report(){
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0))
+        ),
+        backgroundColor: Colors.red[200],
+        title:Text("Report this Story!"),
+        content: Image.asset('assets/images/badthing.gif'),
+        actions: <Widget>[
+         
+          FlatButton(
+            onPressed: (){
+              Navigator.of(ctx).pop();
+            }, 
+            child: Text(
+                'No',
+                style: GoogleFonts.openSans(
+                        textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)
+                    ),
+                ),
+          ),
+           FlatButton(
+            onPressed: _reportId, 
+            child: Text(
+                'Yes',
+                style: GoogleFonts.openSans(
+                        textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)
+                    ),
+                )
+          ),
+        ],
+
+
+      )
+    );
+  }
+
+  void _reportId(){
+    Navigator.of(context).pop();
+    Fluttertoast.showToast(
+        msg: "Story Reported",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.redAccent,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+    
+  }
 
   void _happy(){
     if(_counter % 2 ==0){
@@ -56,7 +118,27 @@ class _HomeDetailState extends State<HomeDetail> {
         color: Color(_color),
         child: Column(
           children: <Widget>[
-            Headofapp(title: 'MDU connect', subtitle: 'Story Details',),
+                        Padding(
+              padding: const EdgeInsets.only(right:10,),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Headofapp(title: 'MDU Connect',subtitle: 'Home Sweet Home',),
+                  IconButton(
+                    alignment: Alignment.bottomCenter,
+                    icon: Icon(Icons.block,size: 24,
+                    color: Colors.red,
+                    ),
+                    // Image.network(
+                    //   "https://invocation.internships.com/invocation/images/ccm_5d34f540-015a-48c0-b451-b1ff786e283b",
+                    //   width: 24,
+                    // ),
+                    onPressed: _report,
+                  )
+                ],
+              ),
+            ),
+           
             Expanded(
               child: Column(
                 children: <Widget>[

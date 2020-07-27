@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mduapp/screens/home/widgets/grid.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
+import './newstory.dart';
 
 class UniHome extends StatefulWidget {
 
@@ -23,15 +24,33 @@ class _UniHomeState extends State<UniHome> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Headofapp(title: 'MDU Connect',subtitle: 'Home Sweet Home',),
-                  IconButton(
-                    alignment: Alignment.bottomCenter,
-                    icon: Icon(Icons.add,size: 24,
-                    color: Colors.black54,),
-                    // Image.network(
-                    //   "https://invocation.internships.com/invocation/images/ccm_5d34f540-015a-48c0-b451-b1ff786e283b",
-                    //   width: 24,
-                    // ),
-                    onPressed: () {},
+                  Row(
+                    children: <Widget>[
+                      IconButton(
+                        alignment: Alignment.bottomCenter,
+                        icon: Icon(Icons.add,size: 24,
+                        color: Colors.black54,),
+                        // Image.network(
+                        //   "https://invocation.internships.com/invocation/images/ccm_5d34f540-015a-48c0-b451-b1ff786e283b",
+                        //   width: 24,
+                        // ),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(NewStory.routeName);
+                        },
+                      ),
+                      IconButton(
+                        alignment: Alignment.bottomCenter,
+                        icon: Icon(Icons.sort,size: 24,
+                        color: Colors.black54,),
+                        // Image.network(
+                        //   "https://invocation.internships.com/invocation/images/ccm_5d34f540-015a-48c0-b451-b1ff786e283b",
+                        //   width: 24,
+                        // ),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(NewStory.routeName);
+                        },
+                      )
+                    ],
                   )
                 ],
               ),
