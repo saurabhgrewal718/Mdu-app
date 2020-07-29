@@ -16,6 +16,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import './screens/explore/subscreens/timer_screen.dart';
 import './screens/explore/subscreens/condition_of_cards.dart';
 import './screens/home/widgets/home_detail.dart';
+import './screens/explore/widgets/student_profile.dart';
 
 void main() {
   runApp(
@@ -42,7 +43,8 @@ void main() {
         ConditionOfCards.routeName: (ctx) => ConditionOfCards(),
         NewStory.routeName : (ctx) => NewStory(),
         UnknownRoute.routeName : (ctx) => UnknownRoute(),
-        SortWidget.routeName : (ctx) => SortWidget()
+        SortWidget.routeName : (ctx) => SortWidget(),
+        StudentProfile.routeName : (ctx) => StudentProfile()
       },
       onUnknownRoute: (settings){
         return MaterialPageRoute(builder: (ctx) => UnknownRoute(),);

@@ -80,7 +80,7 @@ class _NewStoryState extends State<NewStory> {
                 final ref = FirebaseStorage.instance.ref().child('story_images').child('$urlString');
                 await ref.putFile(_userImageFile).onComplete;
                 final url = await ref.getDownloadURL();
-                await Firestore.instance.collection('stories/users/$urlString').add({
+                await Firestore.instance.collection('stories').document('$urlString').setData({
                   'name': name,
                   'userId':urlString,
                   'gender': gender,
@@ -93,7 +93,7 @@ class _NewStoryState extends State<NewStory> {
                   'createdOn':DateTime.now().millisecondsSinceEpoch
                 });
             }else{
-                await Firestore.instance.collection('stories/users/$urlString').add({
+                await Firestore.instance.collection('stories').document('$urlString').setData({
                   'name': name,
                   'userId':urlString,
                   'gender': gender,
@@ -104,6 +104,7 @@ class _NewStoryState extends State<NewStory> {
                   'type':data['type'],
                   'createdOn':DateTime.now().millisecondsSinceEpoch
                 });
+
             }
 
           Fluttertoast.showToast(

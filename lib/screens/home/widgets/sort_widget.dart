@@ -22,12 +22,14 @@ class _SortWidgetState extends State<SortWidget> {
   @override
   void didChangeDependencies() async{
     
-      await Firestore.instance.collection("stories/users").getDocuments().then((querySnapshot) {
+      await Firestore.instance.collection("stories").getDocuments().then((querySnapshot) {
         querySnapshot.documents.forEach((result) {
+          print('this is goof');
+          print('results: ${result.documentID}');
           // Firestore.instance
           //     .collection("users")
           //     .document(result.documentID)
-          //     .collection("personal")
+          //     .collection("users")
           //     .getDocuments()
           //     .then((querySnapshot) {
           //     querySnapshot.documents.forEach((result) {
@@ -36,7 +38,7 @@ class _SortWidgetState extends State<SortWidget> {
           //     });
           //   });
           // });
-          print(result);
+          
         });
       });
       
@@ -48,19 +50,19 @@ class _SortWidgetState extends State<SortWidget> {
   Widget build(BuildContext context) {
     print(list);
     return Scaffold(
-      body: 
-          ListView.builder(
-            itemCount: list.length,
-            itemBuilder: (context, i) {
-              return list.length != null
-                ? ListTile(
-                    title: Text(list[i]),
-                  )
-                : Text('yes'
+      body: Text('yes'),
+          // ListView.builder(
+          //   itemCount: list.length,
+          //   itemBuilder: (context, i) {
+          //     return list.length != null
+          //       ? ListTile(
+          //           title: Text(list[i]),
+          //         )
+          //       : Text('yes'
                     
-                  );
-            },
-          )
+          //         );
+          //   },
+          // )
       
         // body: FutureBuilder(
         //   future: Firestore.instance.collection("users").getDocuments(),

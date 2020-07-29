@@ -22,7 +22,7 @@ class _GridExploreState extends State<GridExplore> {
    var color = 0xff453658;
    dummytitle.length > 90 ? widthNum = 0.5 : widthNum = 0.4;
     return FutureBuilder(
-      future: Firestore.instance.collection('stories/users/ckck8KimIGgNXxs6urmLrVTFIKB3').getDocuments(),
+      future: Firestore.instance.collection('stories').getDocuments(),
       builder: (ctx,snapshot) {
         if(snapshot.connectionState == ConnectionState.waiting){
           return CircularProgressIndicator();
@@ -79,9 +79,9 @@ class _GridExploreState extends State<GridExplore> {
                               'story':exploreArray[index]['story'],
                               'story_image':exploreArray[index]['story_image'],
                               'type': exploreArray[index]['type'],
+                              'userId':exploreArray[index]['userId'],
                               'createdOn':exploreArray[index]['createdOn'].toString()
                             }
-                            
                           );
                         },
                       );
