@@ -80,8 +80,9 @@ class _NewStoryState extends State<NewStory> {
                 final ref = FirebaseStorage.instance.ref().child('story_images').child('$urlString');
                 await ref.putFile(_userImageFile).onComplete;
                 final url = await ref.getDownloadURL();
-                await Firestore.instance.collection('stories').document('$urlString').setData({
+                await Firestore.instance.collection('stories/users/$urlString').add({
                   'name': name,
+                  'userId':urlString,
                   'gender': gender,
                   'age':age,
                   'course':course,
@@ -92,8 +93,9 @@ class _NewStoryState extends State<NewStory> {
                   'createdOn':DateTime.now().millisecondsSinceEpoch
                 });
             }else{
-              await Firestore.instance.collection('stories').document('$urlString').setData({
+                await Firestore.instance.collection('stories/users/$urlString').add({
                   'name': name,
+                  'userId':urlString,
                   'gender': gender,
                   'age':age,
                   'course':course,
@@ -215,11 +217,12 @@ class _NewStoryState extends State<NewStory> {
                             ),),
                             SizedBox(height: 5,),
                             FormBuilderTextField (
+                              
                               attribute: 'story',
                               textInputAction: TextInputAction.done,
                               validators: [
                                 FormBuilderValidators.required(),
-                                FormBuilderValidators.minLength(3)
+                                FormBuilderValidators.minLength(50)
                               ],
                               maxLines: 7,
                               decoration: InputDecoration(
@@ -276,82 +279,7 @@ class _NewStoryState extends State<NewStory> {
                       ),
                       _isLoading ? Container(child: CircularProgressIndicator(backgroundColor: Colors.greenAccent),height: 25,width: 25,margin: EdgeInsets.only(top:30,bottom:50),) : ImagePicked(_pickedimage),
                       SizedBox(height: 30,),
-                      // Container(
-                      //   child: Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: <Widget>[
-                      //       Text('Enter your Age', style: TextStyle(
-                      //         fontSize: 15,
-                      //         fontWeight: FontWeight.w400,
-                      //         color: Colors.black87
-                      //       ),),
-                      //       SizedBox(height: 5,),
-                      //       FormBuilderTextField (
-                      //         attribute: 'age',
-                      //         keyboardType: TextInputType.number,
-                      //         validators: [
-                      //           FormBuilderValidators.required(),
-                      //           FormBuilderValidators.max(30),
-                      //           FormBuilderValidators.min(16),
-                      //         ],
-                      //         textInputAction: TextInputAction.next,
-                      //         decoration: InputDecoration(
-                      //           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                      //           enabledBorder: OutlineInputBorder(
-                      //             borderSide: BorderSide(color: Colors.grey[400])
-                      //           ),
-                      //           border: OutlineInputBorder(
-                      //             borderSide: BorderSide(color: Colors.grey[400])
-                      //           ),
-                      //         ),
-                      //         onFieldSubmitted: (_){
-                      //           FocusScope.of(context).requestFocus(_course);
-                      //         },
-
-                      //       ),
-                          
-                      //       SizedBox(height: 30,),
-                      //     ],
-                      //   ),
-                      // ),
-                                           
-                      // Container(
-                      //   child: Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: <Widget>[
-                      //       Text('Course', style: TextStyle(
-                      //         fontSize: 15,
-                      //         fontWeight: FontWeight.w400,
-                      //         color: Colors.black87
-                      //       ),),
-                      //       SizedBox(height: 5,),
-                      //       FormBuilderTextField (
-                      //         attribute: 'course',
-                              
-                      //         validators: [
-                      //           FormBuilderValidators.required(),
-                      //           FormBuilderValidators.minLength(3)
-                      //         ],
-                      //         textInputAction: TextInputAction.done,
-                      //         decoration: InputDecoration(
-                      //           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                      //           enabledBorder: OutlineInputBorder(
-                      //             borderSide: BorderSide(color: Colors.grey[400])
-                      //           ),
-                      //           border: OutlineInputBorder(
-                      //             borderSide: BorderSide(color: Colors.grey[400])
-                      //           ),
-                      //         ),
-                      //         focusNode: _course,
-                      //         onFieldSubmitted: (_){
-                      //           FocusScope.of(context).unfocus();
-                      //         },
-
-                      //       ),
-                      //       SizedBox(height: 60,),
-                      //     ],
-                      //   ),
-                      // ),
+                      
                       _isLoading ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent)) : 
                        Container(
                         padding: EdgeInsets.only(top: 3, left: 3),

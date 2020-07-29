@@ -23,7 +23,7 @@ void _report(){
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0))
       ),
-      backgroundColor: Colors.red[200],
+      backgroundColor: Colors.white,
       title:Text("Report this Story!"),
       content: Image.asset('assets/images/badthing.gif'),
       actions: <Widget>[
@@ -118,110 +118,125 @@ Widget build(BuildContext context) {
 
     
 return Scaffold(
-  body: Container(
-    color: Color(_color),
-    child: CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-          hasScrollBody: false,
-          child:Column(
-              children: <Widget>[
-                  SizedBox(height:5),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: 3),
-                          child: _image != '' ?
-                            CircleAvatar(
-                              radius: 60,
-                              backgroundImage: NetworkImage('$_image'),
-                            ) : CircularProgressIndicator(),
-                        ),
-                        Column(
-                          children: <Widget>[
-                                _name != '' ?
-                                  Text(
-                                    '$_name',
-                                    style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-                                  ) : CircularProgressIndicator(),
-      
-                                _course != '' ?
-                                  Text(
-                                    '$_course',
-                                    style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-                                  ) : CircularProgressIndicator(),
-
-
-                                 _type != '' ?
-                                  Text(
-                                    '$_type',
-                                    style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-                                  ) : CircularProgressIndicator(),
-
-                                  
-                                  _createdOn != '' ?
-                                  Text(
-                                    '$_createdOn',
-                                    style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-                                  ) : CircularProgressIndicator(),
-
-                          ],
-                        ),
-
-
-                      ],
+    body: SingleChildScrollView(
+          child: Container(
+      color: Color(_color),
+        child: Column(
+                children: <Widget>[                     
+                    Padding(
+                      padding: const EdgeInsets.only(right:10,),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Headofapp(title: 'MDU Connect',subtitle: 'Home Sweet Home',),
+                          Row(
+                            children: <Widget>[
+                                IconButton(
+                                alignment: Alignment.bottomCenter,
+                                icon: Icon(Icons.block,size: 24,
+                                color: Colors.redAccent,),
+                                onPressed: _report,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height:20),
-                   
-                  Container(
-                    padding: EdgeInsets.all(30),
-                    child: _story != '' ?
-                    Text(
-                      '$_story',
-                      style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),
-                    ) : CircularProgressIndicator(),
-                  ),
+                    SizedBox(height:5),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.only(top: 3),
+                            child: _image != '' ?
+                              CircleAvatar(
+                                radius: 60,
+                                backgroundImage: NetworkImage('$_image'),
+                              ) : CircularProgressIndicator(),
+                          ),
+                          Column(
+                            children: <Widget>[
+                                  _name != '' ?
+                                    Text(
+                                      '$_name',
+                                      style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                                    ) : CircularProgressIndicator(),
+        
+                                  _course != '' ?
+                                    Text(
+                                      '$_course',
+                                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                    ) : CircularProgressIndicator(),
 
-                  SizedBox(height:10),
-                  Image.network('$_storyImage',fit: BoxFit.contain,
-                    height: 250,
-                    width: 320,
-                    loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
-                    if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null ? 
-                              loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
-                              : null,
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(height:20),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          child: FlatButton(onPressed: _sad, child: Text('this is good')),
-                        ),
-                        Container(
-                          child: FlatButton(onPressed: _happy, child: Text('this is good')),
-                        )
-                      ],
+
+                                   _type != '' ?
+                                    Text(
+                                      '$_type',
+                                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                    ) : CircularProgressIndicator(),
+
+                                    
+                                    _createdOn != '' ?
+                                    Text(
+                                      '$_createdOn',
+                                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                    ) : CircularProgressIndicator(),
+
+                            ],
+                          ),
+
+
+                        ],
+                      ),
                     ),
-                  )
-                ],
-              ),
-                      
-            ),
-          ],
-        )  
-      ),
+                    SizedBox(height:20),
+                    _storyImage != null ? 
+                    Image.network('$_storyImage',fit: BoxFit.contain,
+                      height: 250,
+                      width: 320,
+                      loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
+                      if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null ? 
+                                loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                                : null,
+                          ),
+                        );
+                      },
+                    ): Container(),
+                 
+                    Container(
+                      padding: EdgeInsets.all(30),
+                      child: _story != '' ?
+                      Text(
+                        '$_story',
+                        style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),
+                      ) : CircularProgressIndicator(),
+                    ),
+
+                    SizedBox(height:20),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            child: FlatButton(onPressed: _happy, child: Text('😶',style: TextStyle(fontSize: 40),)),
+                          ),
+                          Container(
+                            child: FlatButton(onPressed: _sad, child: Text('🤩',style: TextStyle(fontSize: 40),)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height:50),
+                  ],
+                ),
+           
+        ),
+    )
     );
   }
 }

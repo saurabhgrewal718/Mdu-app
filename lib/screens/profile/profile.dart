@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mduapp/screens/home/widgets/sort_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './profile_list_item.dart';
 import './profilehead.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import '../../home_welcome_page.dart';
 import './edit_profile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class Profile extends StatefulWidget {
@@ -94,15 +96,20 @@ class _ProfileState extends State<Profile> {
                           icon: LineAwesomeIcons.cog,
                           text: 'Settings',
                         ),
+                        FlatButton(onPressed: (){
+                          Navigator.of(context).pushNamed(SortWidget.routeName);
+                        }, child: Icon(Icons.add_to_home_screen,
+                           color: Colors.black,)
+                        ),
                         FlatButton(onPressed: ()async{
                           final prefs = await SharedPreferences.getInstance();
-                          prefs.remove('0');
-                          prefs.remove('1');
-                          prefs.remove('2');
-                          prefs.remove('3');
-                          prefs.remove('4');
-                          prefs.remove('5');
-                          prefs.remove('6');
+                            prefs.remove('0');
+                            prefs.remove('1');
+                            prefs.remove('2');
+                            prefs.remove('3');
+                            prefs.remove('4');
+                            prefs.remove('5');
+                            prefs.remove('6'); 
                           
                         }, child: Icon(Icons.vertical_align_bottom,
                            color: Colors.green,)

@@ -1,3 +1,5 @@
+//my stories are being pulled from network in this
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +13,7 @@ class GridExplore extends StatefulWidget {
 }
 
 class _GridExploreState extends State<GridExplore> {
+
   String dummytitle = "Accessing hidden method ist,core-platform-api, ";
   double widthNum;
 
@@ -19,18 +22,19 @@ class _GridExploreState extends State<GridExplore> {
    var color = 0xff453658;
    dummytitle.length > 90 ? widthNum = 0.5 : widthNum = 0.4;
     return FutureBuilder(
-      future: Firestore.instance.collection('stories').getDocuments(),
+      future: Firestore.instance.collection('stories/users/ckck8KimIGgNXxs6urmLrVTFIKB3').getDocuments(),
       builder: (ctx,snapshot) {
         if(snapshot.connectionState == ConnectionState.waiting){
           return CircularProgressIndicator();
         }else{
               final exploreArray = snapshot.data.documents;
+
               if(exploreArray != null){
                 
                 return Container(
                   height: MediaQuery.of(context).size.height-216,
                   child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,mainAxisSpacing: 4, childAspectRatio: 2),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,mainAxisSpacing: 10, childAspectRatio: 2),
                     padding: EdgeInsets.only(left: 10, right: 10,),
                                         
                     itemCount: exploreArray.length,

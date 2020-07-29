@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mduapp/screens/explore/subscreens/profile_cards.dart';
 import 'package:mduapp/screens/home/widgets/newstory.dart';
+import 'package:mduapp/screens/home/widgets/sort_widget.dart';
 import 'package:mduapp/screens/profile/edit_profile.dart';
 import './screens/explore/subscreens/societies.dart';
 import './screens/subjects/widgets/subject_detail.dart';
@@ -40,7 +41,8 @@ void main() {
         HomeDetail.routeName : (ctx) => HomeDetail(),
         ConditionOfCards.routeName: (ctx) => ConditionOfCards(),
         NewStory.routeName : (ctx) => NewStory(),
-        UnknownRoute.routeName : (ctx) => UnknownRoute()
+        UnknownRoute.routeName : (ctx) => UnknownRoute(),
+        SortWidget.routeName : (ctx) => SortWidget()
       },
       onUnknownRoute: (settings){
         return MaterialPageRoute(builder: (ctx) => UnknownRoute(),);

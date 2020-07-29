@@ -26,11 +26,10 @@ class SingleGridTile extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.network(
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(
                       img,
-                      width: 100,
                     ),
                   ),
                   SizedBox(
