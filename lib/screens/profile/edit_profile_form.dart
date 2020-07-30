@@ -29,6 +29,44 @@ class _EditProfileFormState extends State<EditProfileForm> {
   String course = ''; 
   var _isLoading = false;
   File _userImageFile;
+  var courseOptions = [
+    'Botany','Biochemistry','Biotechnology',
+    'Bionformatics',
+    'Medical Biotechnology',
+    'Chemistry',
+    'Commerce',
+    'Computer Science',
+    'Defence & Strategic Studies',
+    'Economics',
+    'Education',
+    'UIET',
+    'English & Foreign Languages',
+    'Environment Sciences',
+    'Food Technology',
+    'Genetics',
+    'Geography',
+    'Hindi',
+    'History',
+    'IHTM',
+    'IMSAR',
+    'Journalism',
+    'Law',
+    'Library Science',
+    'Mathematics',
+    'Microbiology',
+    'Music',
+    'Physical Education',
+    'Pharmaceutical Sciences',
+    'Physics',
+    'Political Science',
+    'Psychology',
+    'Public Administrations',
+    'Sanskrit',
+    'Sociology',
+    'Statistics',
+    'Visual Arts',
+    'Zoology',
+  ];
   var genderOptions = ['Male', 'Female', 'Other'];
 
 
@@ -264,44 +302,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
                               FormBuilderValidators.max(30),
                               FormBuilderValidators.min(16),
                             ],
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey[400])
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey[400])
-                              ),
-                            ),
-                            onFieldSubmitted: (_){
-                              FocusScope.of(context).requestFocus(_course);
-                            },
-
-                          ),
-                        
-                          SizedBox(height: 30,),
-                        ],
-                      ),
-                    ),
-                                         
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text('Course', style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black87
-                          ),),
-                          SizedBox(height: 5,),
-                          FormBuilderTextField (
-                            attribute: 'course',
-                            
-                            validators: [
-                              FormBuilderValidators.required(),
-                              FormBuilderValidators.minLength(3)
-                            ],
                             textInputAction: TextInputAction.done,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -312,16 +312,53 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                 borderSide: BorderSide(color: Colors.grey[400])
                               ),
                             ),
-                            focusNode: _course,
-                            onFieldSubmitted: (_){
-                              FocusScope.of(context).unfocus();
-                            },
+                            
 
                           ),
-                          SizedBox(height: 60,),
+                        
+                          SizedBox(height: 30,),
                         ],
                       ),
                     ),
+
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text('Select Your Course', style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87
+                          ),),
+                          SizedBox(height: 5,),
+                          FormBuilderDropdown(
+                            attribute: 'course',
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey[400])
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey[400])
+                              ),
+                            ),
+                            // initialValue: 'Male',
+                            hint: Text(''),
+                            validators: [FormBuilderValidators.required()],
+                            items: courseOptions
+                                .map((course) => DropdownMenuItem(
+                                      value: course,
+                                      child: Text('$course'),
+                                    ))
+                                .toList(),
+                            // isExpanded: false,
+                            allowClear: true,
+                          ),
+                          SizedBox(height: 30,),
+                        ],
+                      ),
+                    ),                     
+                    
                     _isLoading ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent)) : 
                      Container(
                       padding: EdgeInsets.only(top: 3, left: 3),

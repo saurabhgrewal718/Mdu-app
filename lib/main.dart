@@ -43,7 +43,6 @@ void main() {
         ConditionOfCards.routeName: (ctx) => ConditionOfCards(),
         NewStory.routeName : (ctx) => NewStory(),
         UnknownRoute.routeName : (ctx) => UnknownRoute(),
-        SortWidget.routeName : (ctx) => SortWidget(),
         StudentProfile.routeName : (ctx) => StudentProfile()
       },
       onUnknownRoute: (settings){

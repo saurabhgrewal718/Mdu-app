@@ -34,7 +34,7 @@ class _ExploreState extends State<Explore> {
                 }, child: Text('New people')),
               ],
             ),
-            GridExplore(),
+            // GridExplore(),
           ],
         ),
     );

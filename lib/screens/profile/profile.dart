@@ -96,11 +96,7 @@ class _ProfileState extends State<Profile> {
                           icon: LineAwesomeIcons.cog,
                           text: 'Settings',
                         ),
-                        FlatButton(onPressed: (){
-                          Navigator.of(context).pushNamed(SortWidget.routeName);
-                        }, child: Icon(Icons.add_to_home_screen,
-                           color: Colors.black,)
-                        ),
+                        
                         FlatButton(onPressed: ()async{
                           final prefs = await SharedPreferences.getInstance();
                             prefs.remove('0');

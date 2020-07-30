@@ -1,94 +1,214 @@
-//here i am getting all the sories 
-
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SortWidget extends StatefulWidget {
-  static const routeName = '/sortwidget';
+  final customfunction;
+  SortWidget({Key key,this.customfunction}):super(key:key);
+
   @override
   _SortWidgetState createState() => _SortWidgetState();
 }
 
 class _SortWidgetState extends State<SortWidget> {
-  List<dynamic> list = [];
-  bool _init = false;
+  final GlobalKey<FormBuilderState> _form = GlobalKey<FormBuilderState>();
+  Map<String,dynamic> data;
+  var _isLoading = false;
+  var genderOptions = ['Male', 'Female',];
+  var deptOptions =  [
+    'Botany','Biochemistry','Biotechnology',
+    'Bionformatics',
+    'Medical Biotechnology',
+    'Chemistry',
+    'Commerce',
+    'Computer Science',
+    'Defence & Strategic Studies',
+    'Economics',
+    'Education',
+    'UIET',
+    'English & Foreign Languages',
+    'Environment Sciences',
+    'Food Technology',
+    'Genetics',
+    'Geography',
+    'Hindi',
+    'History',
+    'IHTM',
+    'IMSAR',
+    'Journalism',
+    'Law',
+    'Library Science',
+    'Mathematics',
+    'Microbiology',
+    'Music',
+    'Physical Education',
+    'Pharmaceutical Sciences',
+    'Physics',
+    'Political Science',
+    'Psychology',
+    'Public Administrations',
+    'Sanskrit',
+    'Sociology',
+    'Statistics',
+    'Visual Arts',
+    'Zoology',
+  ];
 
-@override
-  void initState() {
-    _init = true;
-    super.initState();
+  void _saveform() async {
+    _form.currentState.save();
+    data = _form.currentState.value;
+    print(data);
+    widget.customfunction(data['gender'].toString(),data['type'].toString());
+    Navigator.pop(context);
   }
-
-  @override
-  void didChangeDependencies() async{
-    
-      await Firestore.instance.collection("stories").getDocuments().then((querySnapshot) {
-        querySnapshot.documents.forEach((result) {
-          print('this is goof');
-          print('results: ${result.documentID}');
-          // Firestore.instance
-          //     .collection("users")
-          //     .document(result.documentID)
-          //     .collection("users")
-          //     .getDocuments()
-          //     .then((querySnapshot) {
-          //     querySnapshot.documents.forEach((result) {
-          //     setState(() {
-          //       list.add(result.data);
-          //     });
-          //   });
-          // });
-          
-        });
-      });
-      
-    super.didChangeDependencies();
-  }
-  
 
   @override
   Widget build(BuildContext context) {
-    print(list);
-    return Scaffold(
-      body: Text('yes'),
-          // ListView.builder(
-          //   itemCount: list.length,
-          //   itemBuilder: (context, i) {
-          //     return list.length != null
-          //       ? ListTile(
-          //           title: Text(list[i]),
-          //         )
-          //       : Text('yes'
-                    
-          //         );
-          //   },
-          // )
       
-        // body: FutureBuilder(
-        //   future: Firestore.instance.collection("users").getDocuments(),
-        //   builder: (BuildContext ctx, AsyncSnapshot snapshot){
-        //      if(snapshot.connectionState == ConnectionState.waiting){
-        //        return CircularProgressIndicator();
-        //      }else{
-        //          final exploreArray = snapshot.data.documents;
-        //          exploreArray.forEach((result){
-        //          print(result.documentID);
-        //         //  if(exploreArray != null){
-        //         //     SortWidgetCHild(title:'result.documentID');
-        //         //  }else{
-        //         //    return Text('empty array');
-        //         //  }
-                 
-                 
-        //        });
-        //        return Text('bhai yar');
-               
-        //      }
-             
-             
-        //   }
-        // ),
-        
-    );
+      return Scaffold(
+          body: FormBuilder(
+              key: _form,
+              child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              width: double.infinity,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 50,),
+                  Center(
+                    child: Text('Sort The Stories',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black
+                    ),),
+                  ),
+                  Column(
+                    children: <Widget>[
+                      SizedBox(height: 50,),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Sort By Gender", style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black87
+                            ),),
+                            SizedBox(height: 10,),
+                            FormBuilderDropdown(
+                              attribute: 'gender',
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey[400])
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey[400])
+                                ),
+                              ),
+                              hint: Text(''),
+                              items: genderOptions
+                                  .map((gender) => DropdownMenuItem(
+                                        value: gender,
+                                        child: Text('$gender'),
+                                      ))
+                                  .toList(),
+                              // isExpanded: false,
+                              allowClear: true,
+                            ),
+                            SizedBox(height: 30,),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Sort By Department", style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black87
+                            ),),
+                            SizedBox(height: 10,),
+                            FormBuilderDropdown(
+                              attribute: 'type',
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey[400])
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey[400])
+                                ),
+                              ),
+                              hint: Text(''),
+                              items: deptOptions
+                                  .map((dept) => DropdownMenuItem(
+                                        value: dept,
+                                        child: Text('$dept'),
+                                      ))
+                                  .toList(),
+                              // isExpanded: false,
+
+                              allowClear: true,
+                            ),
+                            SizedBox(height: 30,),
+                          ],
+                        ),
+                      ),
+                      
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        padding: EdgeInsets.only(top: 3, left: 3),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border(
+                            bottom: BorderSide(color: Colors.black),
+                            top: BorderSide(color: Colors.black),
+                            left: BorderSide(color: Colors.black),
+                            right: BorderSide(color: Colors.black),
+                          )
+                        ),
+                        child: MaterialButton(
+                          minWidth: double.infinity,
+                          height: 40,
+                          onPressed:_saveform,
+                          color: Colors.greenAccent,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)
+                          ),
+                          child: Text("Sort Stories", style: TextStyle(
+                            fontWeight: FontWeight.w600, 
+                            fontSize: 18
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      FlatButton(
+                          onPressed: () {
+                             Navigator.pop(context);
+                          },
+                          child: Text("Cancel", style: TextStyle(
+                            fontWeight: FontWeight.w600, 
+                            fontSize: 18,
+                            color: Colors.redAccent
+                          ),),
+                        ),
+                                 
+                     ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+
+      );
   }
 }
+

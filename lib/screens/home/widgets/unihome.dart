@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mduapp/screens/explore/widgets/grid_explore.dart';
 import 'package:mduapp/screens/home/widgets/grid.dart';
+import 'package:mduapp/screens/home/widgets/sort_widget.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './newstory.dart';
 
 class UniHome extends StatefulWidget {
@@ -10,6 +13,43 @@ class UniHome extends StatefulWidget {
 }
 
 class _UniHomeState extends State<UniHome> {
+  String _gender='';
+  String _type='';
+  String _department='';
+  void getvalues(String gender,String type){
+    setState(() {
+      _gender=gender;
+      _type = type;
+    });
+  }
+
+  void _sort(){
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (ctx) => Dialog(
+         shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(30))
+      ),
+      child: SortWidget(customfunction:getvalues),    
+      ),
+    );
+  }
+
+  void byGender()async{
+    
+    Navigator.pop(context);
+
+  }
+
+  void byType(){
+
+  }
+
+  void byDepartment(){
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,17 +86,14 @@ class _UniHomeState extends State<UniHome> {
                         //   "https://invocation.internships.com/invocation/images/ccm_5d34f540-015a-48c0-b451-b1ff786e283b",
                         //   width: 24,
                         // ),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(NewStory.routeName);
-                        },
+                        onPressed: _sort,
                       )
                     ],
                   )
                 ],
               ),
             ),
-            
-           GridDashboard()
+           GridExplore(gender:_gender,type:_type)
           ],
         ),
     );
