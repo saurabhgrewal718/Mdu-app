@@ -93,7 +93,7 @@ class _UniHomeState extends State<UniHome> {
                 ],
               ),
             ),
-           GridExplore(gender:_gender,type:_type)
+           GridExplore()
           ],
         ),
     );

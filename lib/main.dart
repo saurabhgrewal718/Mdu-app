@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mduapp/models/story_model.dart';
 import 'package:mduapp/screens/explore/subscreens/profile_cards.dart';
 import 'package:mduapp/screens/home/widgets/newstory.dart';
-import 'package:mduapp/screens/home/widgets/sort_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:mduapp/screens/profile/edit_profile.dart';
 import './screens/explore/subscreens/societies.dart';
 import './screens/subjects/widgets/subject_detail.dart';
@@ -67,7 +68,10 @@ class _MyAppState extends State<MyApp> {
             builder: (ctx,usersnapshot){
               CircularProgressIndicator();
               if(usersnapshot.hasData){
-                return UniversityHome();
+                return ChangeNotifierProvider(
+                  create : (ctx) => StoryModel(),
+                  child: UniversityHome()
+                );
               }
               return HomePage();
             },

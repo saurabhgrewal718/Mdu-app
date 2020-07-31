@@ -36,6 +36,7 @@ dependencies:
   flutter_tindercard: ^0.1.9
   intl: ^0.16.1
   fluttertoast: ^7.0.1+1
+  provider: ^4.3.1
 
 
   # The following adds the Cupertino Icons font to your application.
