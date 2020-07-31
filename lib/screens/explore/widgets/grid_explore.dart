@@ -16,10 +16,16 @@ class _GridExploreState extends State<GridExplore> {
 
   String dummytitle = "Accessing hidden method ist,core-platform-api, ";
   double widthNum;
+  bool _isInit = true;
 
   @override
   void didChangeDependencies() {
-
+    if (_isInit) {
+      Provider.of<StoryModel>(context).fetchAndSetProducts().then((_) {
+        print('yes from didchangedependencies');
+      });
+    }
+    _isInit = false;
     super.didChangeDependencies();
   }
 
@@ -28,6 +34,7 @@ class _GridExploreState extends State<GridExplore> {
    var color = 0xff453658;
    dummytitle.length > 90 ? widthNum = 0.5 : widthNum = 0.4;
     final stories = Provider.of<StoryModel>(context);
+    print(stories);
     final story = stories.items;
     return Container(
       height: MediaQuery.of(context).size.height-216,
