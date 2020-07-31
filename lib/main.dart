@@ -21,34 +21,37 @@ import './screens/explore/widgets/student_profile.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      // home: HomePage(),
-      theme: ThemeData(
-        primaryColor: Colors.black,
-        accentColor: Colors.grey
+    ChangeNotifierProvider(
+        create: (context) => StoryModel(),
+        child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        // home: HomePage(),
+        theme: ThemeData(
+          primaryColor: Colors.black,
+          accentColor: Colors.grey
+        ),
+        home: MyApp(),
+        routes: {
+          HomePage.routeName: (ctx) => HomePage(),
+          LoginScreen.routeName : (ctx) => LoginScreen(),
+          SignupScreen.routeName : (ctx) => SignupScreen(),
+          UniversityHome.routeName : (ctx) => UniversityHome(),
+          Explore.routeName : (ctx) => Explore(),
+          SubjectDetail.routeName : (ctx) => SubjectDetail(),
+          EditProfile.routeName : (ctx) => EditProfile(),
+          Societies.routeName : (ctx) => Societies(),
+          ProfileCards.routeName: (ctx) => ProfileCards(),
+          TimerScreen.routeName: (ctx) => TimerScreen(),
+          HomeDetail.routeName : (ctx) => HomeDetail(),
+          ConditionOfCards.routeName: (ctx) => ConditionOfCards(),
+          NewStory.routeName : (ctx) => NewStory(),
+          UnknownRoute.routeName : (ctx) => UnknownRoute(),
+          StudentProfile.routeName : (ctx) => StudentProfile()
+        },
+        onUnknownRoute: (settings){
+          return MaterialPageRoute(builder: (ctx) => UnknownRoute(),);
+        }
       ),
-      home: MyApp(),
-      routes: {
-        HomePage.routeName: (ctx) => HomePage(),
-        LoginScreen.routeName : (ctx) => LoginScreen(),
-        SignupScreen.routeName : (ctx) => SignupScreen(),
-        UniversityHome.routeName : (ctx) => UniversityHome(),
-        Explore.routeName : (ctx) => Explore(),
-        SubjectDetail.routeName : (ctx) => SubjectDetail(),
-        EditProfile.routeName : (ctx) => EditProfile(),
-        Societies.routeName : (ctx) => Societies(),
-        ProfileCards.routeName: (ctx) => ProfileCards(),
-        TimerScreen.routeName: (ctx) => TimerScreen(),
-        HomeDetail.routeName : (ctx) => HomeDetail(),
-        ConditionOfCards.routeName: (ctx) => ConditionOfCards(),
-        NewStory.routeName : (ctx) => NewStory(),
-        UnknownRoute.routeName : (ctx) => UnknownRoute(),
-        StudentProfile.routeName : (ctx) => StudentProfile()
-      },
-      onUnknownRoute: (settings){
-        return MaterialPageRoute(builder: (ctx) => UnknownRoute(),);
-      }
     )
   );
 }
@@ -68,10 +71,7 @@ class _MyAppState extends State<MyApp> {
             builder: (ctx,usersnapshot){
               CircularProgressIndicator();
               if(usersnapshot.hasData){
-                return ChangeNotifierProvider(
-                  create : (ctx) => StoryModel(),
-                  child: UniversityHome()
-                );
+                return UniversityHome();
               }
               return HomePage();
             },

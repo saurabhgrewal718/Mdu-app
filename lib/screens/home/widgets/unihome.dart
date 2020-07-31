@@ -13,29 +13,7 @@ class UniHome extends StatefulWidget {
 }
 
 class _UniHomeState extends State<UniHome> {
-  String _gender='';
-  String _type='';
-  String _department='';
-  void getvalues(String gender,String type){
-    setState(() {
-      _gender=gender;
-      _type = type;
-    });
-  }
-
-  void _sort(){
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (ctx) => Dialog(
-         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(30))
-      ),
-      child: SortWidget(customfunction:getvalues),    
-      ),
-    );
-  }
-
+ 
   void byGender()async{
     
     Navigator.pop(context);
@@ -86,7 +64,18 @@ class _UniHomeState extends State<UniHome> {
                         //   "https://invocation.internships.com/invocation/images/ccm_5d34f540-015a-48c0-b451-b1ff786e283b",
                         //   width: 24,
                         // ),
-                        onPressed: _sort,
+                        onPressed: (){
+                          showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (ctx) => Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(30))
+                            ),
+                            child: SortWidget(),    
+                            ),
+                          );
+                        },
                       )
                     ],
                   )

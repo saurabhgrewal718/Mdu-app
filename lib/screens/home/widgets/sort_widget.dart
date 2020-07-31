@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:mduapp/models/story_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 class SortWidget extends StatefulWidget {
-  final customfunction;
-  SortWidget({Key key,this.customfunction}):super(key:key);
-
+  
   @override
   _SortWidgetState createState() => _SortWidgetState();
 }
@@ -54,17 +54,11 @@ class _SortWidgetState extends State<SortWidget> {
     'Zoology',
   ];
 
-  void _saveform() async {
-    _form.currentState.save();
-    data = _form.currentState.value;
-    print(data);
-    widget.customfunction(data['gender'].toString(),data['type'].toString());
-    Navigator.pop(context);
-  }
+
 
   @override
   Widget build(BuildContext context) {
-      
+      final story = Provider.of<StoryModel>(context,listen:false);
       return Scaffold(
           body: FormBuilder(
               key: _form,
@@ -132,7 +126,7 @@ class _SortWidgetState extends State<SortWidget> {
                             ),),
                             SizedBox(height: 10,),
                             FormBuilderDropdown(
-                              attribute: 'type',
+                              attribute: 'dept',
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                                 enabledBorder: OutlineInputBorder(
@@ -176,7 +170,13 @@ class _SortWidgetState extends State<SortWidget> {
                         child: MaterialButton(
                           minWidth: double.infinity,
                           height: 40,
-                          onPressed:_saveform,
+                          onPressed:(){
+                             _form.currentState.save();
+                            data = _form.currentState.value;
+                            print(data);
+                            story.sortedStories(data['gender'].toString(), data['dept'].toString());
+                            Navigator.pop(context);
+                          },
                           color: Colors.greenAccent,
                           elevation: 0,
                           shape: RoundedRectangleBorder(

@@ -17,12 +17,18 @@ class _GridExploreState extends State<GridExplore> {
   String dummytitle = "Accessing hidden method ist,core-platform-api, ";
   double widthNum;
   bool _isInit = true;
+  bool isloading=false;
 
   @override
   void didChangeDependencies() {
     if (_isInit) {
+      setState(() {
+        isloading=true;
+      });
       Provider.of<StoryModel>(context).fetchAndSetProducts().then((_) {
-        print('yes from didchangedependencies');
+        setState(() {
+          isloading=false;
+        });
       });
     }
     _isInit = false;
@@ -34,18 +40,18 @@ class _GridExploreState extends State<GridExplore> {
    var color = 0xff453658;
    dummytitle.length > 90 ? widthNum = 0.5 : widthNum = 0.4;
     final stories = Provider.of<StoryModel>(context);
-    print(stories);
     final story = stories.items;
-    return Container(
+    return isloading == true ? Center(child:CircularProgressIndicator()) : Container(
       height: MediaQuery.of(context).size.height-216,
       child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,mainAxisSpacing: 10, childAspectRatio: 2),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1, childAspectRatio: 2),
         padding: EdgeInsets.only(left: 10, right: 10,),                  
         itemCount: story.length,
         itemBuilder: (context, index) {
         return 
           GestureDetector (
               child: Container(
+                margin: EdgeInsets.only(bottom:10),
               decoration: BoxDecoration(
               color: Color(color), borderRadius: BorderRadius.circular(10)),
               child: Row(
