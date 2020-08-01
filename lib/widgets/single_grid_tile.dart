@@ -35,36 +35,47 @@ class SingleGridTile extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    title,
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                  // SizedBox(
-                  //   height: 8,
-                  // ),
-                  Text(
-                    subtitle,
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                            color: Colors.white38,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                  // SizedBox(
-                  //   height: 5,
-                  // ),
-                  Text(
-                    event,
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600)),
-                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          title,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600)),
+                        ),
+                        // SizedBox(
+                        //   height: 8,
+                        // ),
+                        Text(
+                          subtitle,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                  color: Colors.white38,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600)),
+                        ),
+                        // SizedBox(
+                        //   height: 5,
+                        // ),
+                        Text(
+                          event,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600)),
+                        ),
+                      ],
+                    ),
+                  )
+                  
                 ],
               ),
             );

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mduapp/screens/explore/widgets/grid_explore.dart';
-import 'package:mduapp/screens/home/widgets/grid.dart';
+import 'package:mduapp/screens/home/widgets/grid_explore.dart';
 import 'package:mduapp/screens/home/widgets/sort_widget.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import './newstory.dart';
 
 class UniHome extends StatefulWidget {

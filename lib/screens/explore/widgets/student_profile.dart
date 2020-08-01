@@ -9,9 +9,9 @@ class StudentProfile extends StatefulWidget {
 
 class _StudentProfileState extends State<StudentProfile> {
 
-  void _reportProfile(String userId,String name,String gender,String profilePicture,String course,String age) async{
-    await Firestore.instance.collection('reportedProfiles').document('$userId').setData({
-        'userId':userId,
+  void _reportProfile(String myId,String name,String gender,String profilePicture,String course,String age) async{
+    await Firestore.instance.collection('reportedProfiles').document('$myId').setData({
+        'reportedId':myId,
         'name': name,
         'gender': gender,
         'profilePicture':profilePicture,
@@ -24,7 +24,7 @@ class _StudentProfileState extends State<StudentProfile> {
   @override
   Widget build(BuildContext context) {
     final studentData = ModalRoute.of(context).settings.arguments as Map<String,String>;
-    String userId = studentData['userId'];
+    String myId = studentData['myId'];
     String name = studentData['name'];
     String age = studentData['age'];
     String gender = studentData['gender'];
@@ -36,7 +36,7 @@ class _StudentProfileState extends State<StudentProfile> {
         child: Center(
           child: FlatButton(
             onPressed: (){
-              _reportProfile(userId,name,gender,profilePicture,course,age);
+              _reportProfile(myId,name,gender,profilePicture,course,age);
                },
             child: Text('Report Profile',style: TextStyle(fontSize: 30)),
           ),

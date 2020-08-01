@@ -132,7 +132,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
               'gender': data['gender'],
               'age':data['age'],
               'course':data['course'],
-              'profile_picture':url
+              'profile_picture':url,
+              'myId': urlString
             });
 
         Navigator.of(context).pop();

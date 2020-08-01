@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mduapp/models/profile_model.dart';
 import 'package:mduapp/models/story_model.dart';
 import 'package:mduapp/screens/explore/subscreens/profile_cards.dart';
 import 'package:mduapp/screens/home/widgets/newstory.dart';
@@ -20,9 +21,12 @@ import './screens/home/widgets/home_detail.dart';
 import './screens/explore/widgets/student_profile.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-        create: (context) => StoryModel(),
+  runApp(  
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: StoryModel(),),
+          ChangeNotifierProvider.value(value: ProfileModel(),),
+        ],
         child: MaterialApp(
         debugShowCheckedModeBanner: false,
         // home: HomePage(),

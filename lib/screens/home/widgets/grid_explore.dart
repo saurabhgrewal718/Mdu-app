@@ -4,7 +4,7 @@ import 'package:mduapp/models/story.dart';
 import 'package:mduapp/models/story_model.dart';
 import 'package:provider/provider.dart';
 import '../../../widgets/single_grid_tile.dart';
-import '../../home/widgets/home_detail.dart';
+import 'home_detail.dart';
 
 class GridExplore extends StatefulWidget {
 
@@ -42,7 +42,7 @@ class _GridExploreState extends State<GridExplore> {
     final stories = Provider.of<StoryModel>(context);
     final story = stories.items;
     return isloading == true ? Center(child:CircularProgressIndicator()) : Container(
-      height: MediaQuery.of(context).size.height-216,
+      height: MediaQuery.of(context).size.height-168,
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1, childAspectRatio: 2),
         padding: EdgeInsets.only(left: 10, right: 10,),                  

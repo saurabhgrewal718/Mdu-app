@@ -67,7 +67,7 @@ void _reportId(String _userId,String _storyImage,String _story) async{
   Navigator.of(context).pop();
   await Firestore.instance.collection('reportedStories').document('$_userId').setData({
     'story': _story,
-    'userId':_userId,
+    'storyCreatorId':_userId,
     'storyImage': _storyImage,
     'createdOn':DateTime.now().millisecondsSinceEpoch
   });
@@ -186,35 +186,47 @@ return Scaffold(
                                 ) : CircularProgressIndicator(),
                             ),
                           ),
-                          Column(
-                            children: <Widget>[
-                                  _name != '' ?
-                                    Text(
-                                      '$_name',
-                                      style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-                                    ) : CircularProgressIndicator(),
+                          FlatButton(
+                              onPressed: (){
+                                _openProfile(_userId,_name,_gender,_age,_course,_image,);
+                              },
+                              child: Container(
+                              width: MediaQuery.of(context).size.width*0.5,
+                              child: Column(
+                                children: <Widget>[
+                                      _name != '' ?
+                                        Text(
+                                          '$_name',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                                        ) : CircularProgressIndicator(),
         
-                                  _course != '' ?
-                                    Text(
-                                      '$_course',
-                                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
-                                    ) : CircularProgressIndicator(),
+                                      _course != '' ?
+                                        Text(
+                                          '$_course',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                        ) : CircularProgressIndicator(),
 
 
-                                   _type != '' ?
-                                    Text(
-                                      '$_type',
-                                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
-                                    ) : CircularProgressIndicator(),
+                                       _type != '' ?
+                                        Text(
+                                          '$_type',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                        ) : CircularProgressIndicator(),
 
-                                    
-                                    _userId != '' ?
-                                    Text(
-                                      '$_userId',
-                                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
-                                    ) : CircularProgressIndicator(),
+                                        
+                                        _userId != '' ?
+                                        Text(
+                                          '_userId',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                        ) : CircularProgressIndicator(),
 
-                            ],
+                                ],
+                              ),
+                            ),
                           ),
 
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:mduapp/models/profile_model.dart';
 import 'package:mduapp/models/story_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +60,7 @@ class _SortWidgetState extends State<SortWidget> {
   @override
   Widget build(BuildContext context) {
       final story = Provider.of<StoryModel>(context,listen:false);
+      final profile = Provider.of<ProfileModel>(context,listen:false);
       return Scaffold(
           body: FormBuilder(
               key: _form,
@@ -175,6 +177,7 @@ class _SortWidgetState extends State<SortWidget> {
                             data = _form.currentState.value;
                             print(data);
                             story.sortedStories(data['gender'].toString(), data['dept'].toString());
+                            profile.sortedProfiles(data['gender'].toString(), data['dept'].toString());
                             Navigator.pop(context);
                           },
                           color: Colors.greenAccent,
