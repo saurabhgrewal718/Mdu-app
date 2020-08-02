@@ -33,60 +33,84 @@ void initState() {
   
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: <Widget>[
-          SizedBox(height:30),
-          Container(
-            margin: EdgeInsets.only(top: 3),
-            child: _image != '' ?
-              CircleAvatar(
-                radius: 60,
-                backgroundImage: NetworkImage('$_image'),
-              ) : CircularProgressIndicator(),
+    return      
+        Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                FlatButton(
+                    onPressed: (){
+                      // _openProfile(_userId,_name,_gender,_age,_course,_image,);
+                    },
+                    child: 
+                    Container(
+                    margin: EdgeInsets.only(top: 3),
+                    child: _image != '' ?
+                      CircleAvatar(
+                        radius: 60,
+                        backgroundImage: NetworkImage('$_image'),
+                        backgroundColor: Colors.white,
+                      ) : CircularProgressIndicator(),
+                    
+                  ),
+                ),
+                FlatButton(
+                    onPressed: (){
+                      // _openProfile(_userId,_name,_gender,_age,_course,_image,);
+                    },
+                    child: Container(
+                    width: MediaQuery.of(context).size.width*0.5,
+                    child: Column(
+                      children: <Widget>[
+                            _name != '' ?
+                              Text(
+                                '$_name',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                              ) : CircularProgressIndicator(),
+
+                              _age != '' ?
+                              Text(
+                                '$_age',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                              ) : CircularProgressIndicator(),
+
+                              _course != '' ?
+                              Text(
+                                '$_course',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                              ) : CircularProgressIndicator(),
+
+                              _gender != '' ?
+                              Text(
+                                '$_gender',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                              ) : CircularProgressIndicator(),
+
+                              _userId != '' ?
+                              Text(
+                                '$_userId',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                              ) : CircularProgressIndicator(),
+
+
+
+                      ],
+                    ),
+                  ),
+                ),
+
+
+              ],
+            ),
             
-          ),
-          SizedBox(height:20),
-
-          _name != '' ?
-          Text(
-            '$_name',
-            style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-          ) : CircularProgressIndicator(),
-
-           _age != '' ?
-          Text(
-            '$_age',
-            style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-          ) : CircularProgressIndicator(),
-
-           _course != '' ?
-          Text(
-            '$_course',
-            style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-          ) : CircularProgressIndicator(),
-
-           _gender != '' ?
-          Text(
-            '$_gender',
-            style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-          ) : CircularProgressIndicator(),
-
-           _userId != '' ?
-          Text(
-            '$_userId',
-            style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-          ) : CircularProgressIndicator(),
-
-          SizedBox(height:10),
-          Text(
-            'nicolasadams@gmail.com',
-            style: TextStyle(fontSize: 16),
-          ),
-          SizedBox(height:20),
-        ],
-      ),
     );
   }
 }
+
 

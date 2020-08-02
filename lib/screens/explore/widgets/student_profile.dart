@@ -105,8 +105,6 @@ class StudentProfile extends StatelessWidget {
                               ),
                             ),
                           ),
-
-
                         ],
                       ),
                       
@@ -149,12 +147,84 @@ class StudentProfile extends StatelessWidget {
                     Container(
                       child: PersonalInterests()
                     ),
-
+                    SizedBox(
+                      height: 60,
+                    ),
+                    Center(
+                      child: Text(
+                        'My Bio',
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.openSans(
+                            textStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w900)),
+                      ),
+                    ),
                     Container(
-                      height: 500,
-                      color: Colors.green,
-                      child: Text('drogaidb'),
-                    ), 
+                      padding: EdgeInsets.all(20),
+                      child: Text('My bio My bioMy bioMy bioMy bioMy bioMy bioMy bioMy bioMy bio')
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+
+                    Center(
+                      child: Text(
+                        'Who can connect with me?',
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.openSans(
+                            textStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w900)),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: Text('My bio My bioMy bioMy bioMy bioMy bioMy bioMy bioMy bioMy bio')
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+
+                    Center(
+                      child: Text(
+                        'Things i like the most',
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.openSans(
+                            textStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w900)),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: Text('My bio My bioMy bioMy bioMy bioMy bioMy bioMy bioMy bioMy bio')
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+
+                    Center(
+                      child: Text(
+                        'Can can can can',
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.openSans(
+                            textStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w900)),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: Text('My bio My bioMy bioMy bioMy bioMy bioMy bioMy bioMy bioMy bio')
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
                     
                     SizedBox(
                       height: 30,

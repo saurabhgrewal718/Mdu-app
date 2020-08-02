@@ -40,7 +40,7 @@ class _SocietiesState extends State<Societies> {
       print(societyValues);
       print('it is the tehmp list: $finalSocietyValues');
 
-      await Firestore.instance.collection('users').document('$uid').updateData({
+      await Firestore.instance.collection('users/$uid/personal').document('$uid').updateData({
         'societies':finalSocietyValues
       });
 
@@ -101,8 +101,20 @@ class _SocietiesState extends State<Societies> {
             padding: EdgeInsets.only(bottom: 8),
             child: Column(
             children: <Widget>[
+              SizedBox(height:40),
               
-              Headofapp(title: 'MDU Connect',subtitle: 'Study Materials, Books and More!',),
+              // Headofapp(title: 'MDU Connect',subtitle: 'Study Materials, Books and More!',),
+              Text(
+                'Select Your Interests',
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.openSans(
+                  textStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w900)),
+              ),
+              
+              SizedBox(height:10),
               SocietyList(),
               SizedBox(height:10),
                _isLoading 
@@ -136,7 +148,7 @@ class _SocietiesState extends State<Societies> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)
                             ),
-                            child: Text('Select Societies', style: TextStyle(
+                            child: Text('Select Intrests', style: TextStyle(
                               fontWeight: FontWeight.w600, 
                               fontSize: 18
                             ),),
