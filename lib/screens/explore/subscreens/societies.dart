@@ -40,7 +40,7 @@ class _SocietiesState extends State<Societies> {
       print(societyValues);
       print('it is the tehmp list: $finalSocietyValues');
 
-      await Firestore.instance.collection('users/$uid/society').document('$uid').setData({
+      await Firestore.instance.collection('users').document('$uid').updateData({
         'societies':finalSocietyValues
       });
 

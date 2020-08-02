@@ -28,10 +28,12 @@ class SingleGridTile extends StatelessWidget {
                 children: <Widget>[
                   CircleAvatar(
                     radius: 50,
+                    backgroundColor: Colors.white,
                     backgroundImage: NetworkImage(
                       img,
                     ),
                   ),
+                  
                   SizedBox(
                     height: 10,
                   ),

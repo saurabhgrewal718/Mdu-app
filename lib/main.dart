@@ -3,7 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:mduapp/models/profile_model.dart';
 import 'package:mduapp/models/story_model.dart';
 import 'package:mduapp/screens/explore/subscreens/profile_cards.dart';
+import 'package:mduapp/screens/explore/widgets/student_profile_carry.dart';
 import 'package:mduapp/screens/home/widgets/newstory.dart';
+import 'package:mduapp/screens/profile/edit_my_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:mduapp/screens/profile/edit_profile.dart';
 import './screens/explore/subscreens/societies.dart';
@@ -50,7 +52,9 @@ void main() {
           ConditionOfCards.routeName: (ctx) => ConditionOfCards(),
           NewStory.routeName : (ctx) => NewStory(),
           UnknownRoute.routeName : (ctx) => UnknownRoute(),
-          StudentProfile.routeName : (ctx) => StudentProfile()
+          StudentProfile.routeName : (ctx) => StudentProfile(),
+          StudentProfileCarry.routeName : (ctx) => StudentProfileCarry(),
+          EditMyProfile.routeName : (ctx) => EditMyProfile(),
         },
         onUnknownRoute: (settings){
           return MaterialPageRoute(builder: (ctx) => UnknownRoute(),);

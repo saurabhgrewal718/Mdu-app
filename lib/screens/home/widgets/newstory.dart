@@ -93,7 +93,7 @@ class _NewStoryState extends State<NewStory> {
                   'createdOn':DateTime.now().millisecondsSinceEpoch
                 });
             }else{
-                await Firestore.instance.collection('stories').document('$urlString').setData({
+                await Firestore.instance.collection('stories').document('$urlString').updateData({
                   'name': name,
                   'userId':urlString,
                   'gender': gender,

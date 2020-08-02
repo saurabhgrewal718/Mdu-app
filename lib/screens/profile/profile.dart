@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,7 @@ import 'package:line_awesome_icons/line_awesome_icons.dart';
 import '../../home_welcome_page.dart';
 import './edit_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import './edit_my_profile.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -88,13 +90,10 @@ class _ProfileState extends State<Profile> {
                           icon: LineAwesomeIcons.history,
                           text: 'Purchase History',
                         ),
-                        ProfileListItem(
-                          icon: LineAwesomeIcons.question_circle,
-                          text: 'Help & Support',
-                        ),
-                        ProfileListItem(
-                          icon: LineAwesomeIcons.cog,
-                          text: 'Settings',
+                        FlatButton(onPressed: ()async{
+                          Navigator.of(context).pushNamed(EditMyProfile.routeName);                
+                        }, child: Icon(Icons.nature,
+                           color: Colors.black,)
                         ),
                         
                         FlatButton(onPressed: ()async{
@@ -117,6 +116,12 @@ class _ProfileState extends State<Profile> {
                         }, child: Icon(Icons.code,
                            color: Colors.blue,)
                         ),
+
+                        FlatButton(onPressed: (){
+                          var rn = new Random();
+                          var _random = 10000 + rn.nextInt(99999 - 10000);
+                          print(_random);
+                        }, child: Icon(Icons.add,color: Colors.greenAccent,)),
                         
                         FlatButton(onPressed: (){
                           Navigator.of(context).pushNamed(EditProfile.routeName);

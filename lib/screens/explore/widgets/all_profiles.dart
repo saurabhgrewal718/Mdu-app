@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mduapp/models/profile_model.dart';
 import 'package:mduapp/screens/explore/widgets/student_profile.dart';
+import 'package:mduapp/screens/explore/widgets/student_profile_carry.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../widgets/single_grid_tile.dart';
@@ -77,7 +78,7 @@ class _AllProfileState extends State<AllProfile> {
             ),
             onTap: (){
               Navigator.of(context).pushNamed(
-                StudentProfile.routeName,
+                StudentProfileCarry.routeName,
                 arguments:{
                   'name': profile[index].name,
                   'gender': profile[index].gender,

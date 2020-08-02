@@ -35,8 +35,8 @@ class _ExploreState extends State<Explore> {
                     children: <Widget>[
                       IconButton(
                         alignment: Alignment.bottomCenter,
-                        icon: Icon(Icons.add,size: 24,
-                        color: Colors.green,),
+                        icon: Icon(Icons.whatshot,size: 24,
+                        color: Colors.redAccent,),
                         onPressed: () {
                           // Navigator.of(context).pushNamed(NewStory.routeName);
                         },

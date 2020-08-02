@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import './story.dart';
@@ -15,7 +17,9 @@ class StoryModel with ChangeNotifier{
 
  Future<void> fetchAndSetProducts() async {
     try {
-      Firestore.instance.collection("stories").getDocuments().then((querySnapshot) {
+      Firestore.instance.collection("stories")
+      .getDocuments()
+      .then((querySnapshot) {
       final List<Story> loadedProducts = [];
         querySnapshot.documents.forEach((result) {
           loadedProducts.add(Story(
@@ -48,6 +52,7 @@ class StoryModel with ChangeNotifier{
       if(gender=="null" && dept=="null"){      
         var result = await Firestore.instance
             .collection("stories")
+            .limit(50)
             .getDocuments();
           result1=result;
          
@@ -55,6 +60,7 @@ class StoryModel with ChangeNotifier{
          var result = await Firestore.instance
             .collection("stories")
             .where("gender", isEqualTo: "$gender")
+            .limit(50)
             .getDocuments();
             result1=result;
             
@@ -62,6 +68,7 @@ class StoryModel with ChangeNotifier{
          var result = await Firestore.instance
             .collection("stories")
             .where("course", isEqualTo: "$dept")
+            .limit(50)
             .getDocuments();
             result1=result;
        
@@ -70,6 +77,7 @@ class StoryModel with ChangeNotifier{
             .collection("stories")
             .where("gender", isEqualTo: "$gender")
             .where("course", isEqualTo: "$dept")
+            .limit(50)
             .getDocuments();
             result1=result;
             

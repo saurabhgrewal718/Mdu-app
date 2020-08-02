@@ -144,7 +144,7 @@ Widget build(BuildContext context) {
       
 return Scaffold(
     body: SingleChildScrollView(
-          child: Container(
+      child: Container(
       color: Color(_color),
         child: Column(
                 children: <Widget>[                     
