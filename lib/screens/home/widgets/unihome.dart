@@ -39,7 +39,7 @@ class _UniHomeState extends State<UniHome> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Headofapp(title: 'MDU Connect',subtitle: 'Home Sweet Home',),
+                  Headofapp(title: 'MDU Connect',subtitle: 'Stories from Students',),
                   Row(
                     children: <Widget>[
                       IconButton(

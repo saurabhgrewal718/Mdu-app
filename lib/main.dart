@@ -6,6 +6,7 @@ import 'package:mduapp/screens/explore/subscreens/profile_cards.dart';
 import 'package:mduapp/screens/explore/widgets/student_profile_carry.dart';
 import 'package:mduapp/screens/home/widgets/newstory.dart';
 import 'package:mduapp/screens/profile/edit_my_profile.dart';
+import 'package:mduapp/screens/profile/personal_profile_carry.dart';
 import 'package:provider/provider.dart';
 import 'package:mduapp/screens/profile/edit_profile.dart';
 import './screens/explore/subscreens/societies.dart';
@@ -53,6 +54,7 @@ void main() {
           StudentProfile.routeName : (ctx) => StudentProfile(),
           StudentProfileCarry.routeName : (ctx) => StudentProfileCarry(),
           EditMyProfile.routeName : (ctx) => EditMyProfile(),
+          PersonalProfileCarry.routeName : (ctx) => PersonalProfileCarry()
         },
         onUnknownRoute: (settings){
           return MaterialPageRoute(builder: (ctx) => UnknownRoute(),);

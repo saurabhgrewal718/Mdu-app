@@ -30,17 +30,10 @@ class _ExploreState extends State<Explore> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Headofapp(title: 'MDU Connect',subtitle: 'Home Sweet Home',),
+                  Headofapp(title: 'MDU Connect',subtitle: 'Students Profiles',),
                   Row(
                     children: <Widget>[
-                      IconButton(
-                        alignment: Alignment.bottomCenter,
-                        icon: Icon(Icons.whatshot,size: 24,
-                        color: Colors.redAccent,),
-                        onPressed: () {
-                          // Navigator.of(context).pushNamed(NewStory.routeName);
-                        },
-                      ),
+                      
                       IconButton(
                         alignment: Alignment.bottomCenter,
                         icon: Icon(Icons.sort,size: 24,

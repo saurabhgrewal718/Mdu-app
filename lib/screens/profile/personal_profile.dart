@@ -3,30 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mduapp/screens/profile/image_picked.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../home/universityhome.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class EditMyProfileForm extends StatefulWidget {
+class PersoanlProfile extends StatefulWidget {
   static const routeName='/editprofile';
 
 
 @override
-  _EditMyProfileFormState createState() => _EditMyProfileFormState();
+  _PersoanlProfileState createState() => _PersoanlProfileState();
 }
 
-class _EditMyProfileFormState extends State<EditMyProfileForm> {
+class _PersoanlProfileState extends State<PersoanlProfile> {
   final _genderfocus = FocusNode();
-  final _dob = FocusNode();
-  final _course = FocusNode();
+
   final GlobalKey<FormBuilderState> _form = GlobalKey<FormBuilderState>();
-  String name='';
-  String gender = '';
-  String dob = '';
-  String course = ''; 
+ 
   var _isLoading = false;
   File _userImageFile;
 
@@ -34,8 +29,7 @@ class _EditMyProfileFormState extends State<EditMyProfileForm> {
   @override
   void dispose() {
     _genderfocus.dispose();
-    _dob.dispose();
-    _course.dispose();
+    
     super.dispose();
   }
 
@@ -45,20 +39,20 @@ class _EditMyProfileFormState extends State<EditMyProfileForm> {
 
   void _saveForm() async {
     FocusScope.of(context).unfocus();
-    // if(_userImageFile == null){
-    //   Scaffold.of(context).hideCurrentSnackBar();
-    //   Scaffold.of(context).showSnackBar(SnackBar(
-    //       backgroundColor: Colors.redAccent,
-    //       duration: Duration(seconds: 1),
-    //       content: Text('Please select Your Profile Picture',textAlign: TextAlign.center,
-    //       style: GoogleFonts.openSans(
-    //         textStyle: TextStyle(
-    //             color: Colors.white,
-    //             fontSize: 14,
-    //             fontWeight: FontWeight.w600)),
-    //       ),
-    //     ));
-    // }
+    if(_userImageFile == null){
+      Scaffold.of(context).hideCurrentSnackBar();
+      Scaffold.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.redAccent,
+          duration: Duration(seconds: 1),
+          content: Text('Please select Your Profile Picture',textAlign: TextAlign.center,
+          style: GoogleFonts.openSans(
+            textStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w600)),
+          ),
+        ));
+    }
     if (_form.currentState.saveAndValidate()) {
       setState(() {
         _isLoading = true;
@@ -79,20 +73,17 @@ class _EditMyProfileFormState extends State<EditMyProfileForm> {
            urlString = userData.uid;
          }
 
-        //  final ref = FirebaseStorage.instance.ref().child('user_iamges').child('$urlString');
-        //  await ref.putFile(_userImageFile).onComplete;
-        //  final url = await ref.getDownloadURL();
+         final ref = FirebaseStorage.instance.ref().child('user_iamges').child('$urlString');
+         await ref.putFile(_userImageFile).onComplete;
+         final url = await ref.getDownloadURL();
 
          await Firestore.instance.collection('users/$urlString/personal').document('$urlString').updateData({
-              'bio': data['bio'],
-              'who': data['who'],
-              'things':data['things'],
-              'can':data['can'],
-              // 'profile_picture':url,
+              'name': data['name'],
+              'profile_picture':url,
+              'instagram': data['instagram']
             });
 
         Navigator.of(context).pop();
-        Navigator.of(context).pushReplacementNamed(UniversityHome.routeName);
         
         setState(() {
         _isLoading = false;
@@ -131,23 +122,6 @@ class _EditMyProfileFormState extends State<EditMyProfileForm> {
         _isLoading = false;
       });
     }
-    // if(isValid){
-      // setState(() {
-      //   _isLoading = true;
-      // });
-    //   _form.currentState.save();
-    //   print(name);
-    //   print(gender);
-    //   print(dob);
-    //   print(course);
-    //   Navigator.of(context).pop();
-    //   Navigator.of(context).pushNamed(UniversityHome.routeName,);
-
-      // setState(() {
-      //   _isLoading = false;
-      // });
-
-    // }
 
   }
 
@@ -165,23 +139,23 @@ class _EditMyProfileFormState extends State<EditMyProfileForm> {
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    // ImagePicked(_pickedimage),
+                    ImagePicked(_pickedimage),
                     SizedBox(height: 30,),
                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('My Bio',textAlign: TextAlign.center,style: TextStyle(
+                          Text('Name', style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
                             color: Colors.black87
                           ),),
                           SizedBox(height: 5,),
                           FormBuilderTextField (
-                            attribute: 'bio',
+                            attribute: 'name',
                             validators: [
                               FormBuilderValidators.required(),
-                              FormBuilderValidators.minLength(5)
+                              FormBuilderValidators.minLength(3)
                             ],
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
@@ -202,23 +176,24 @@ class _EditMyProfileFormState extends State<EditMyProfileForm> {
                         ],
                       ),
                     ),
+
                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Who Should Connect With me?', textAlign: TextAlign.center,style: TextStyle(
+                          Text('Instagram Username', style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
                             color: Colors.black87
                           ),),
                           SizedBox(height: 5,),
                           FormBuilderTextField (
-                            attribute: 'who',
+                            attribute: 'instagram',
                             validators: [
                               FormBuilderValidators.required(),
-                              FormBuilderValidators.minLength(5)
+                              FormBuilderValidators.minLength(3)
                             ],
-                            textInputAction: TextInputAction.next,
+                            textInputAction: TextInputAction.done,
                             focusNode: _genderfocus,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -229,84 +204,13 @@ class _EditMyProfileFormState extends State<EditMyProfileForm> {
                                 borderSide: BorderSide(color: Colors.grey[400])
                               ),
                             ),
-                            onFieldSubmitted: (_){
-                              FocusScope.of(context).requestFocus(_dob);
-                            },
 
                           ),
                           SizedBox(height: 30,),
                         ],
                       ),
                     ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text('Things I am very good at?',textAlign: TextAlign.center, style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black87
-                          ),),
-                          SizedBox(height: 5,),
-                          FormBuilderTextField (
-                            attribute: 'things',
-                            validators: [
-                              FormBuilderValidators.required(),
-                              FormBuilderValidators.minLength(5)
-                            ],
-                            textInputAction: TextInputAction.next,
-                            focusNode: _dob,
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey[400])
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey[400])
-                              ),
-                            ),
-                            onFieldSubmitted: (_){
-                              FocusScope.of(context).requestFocus(_course);
-                            },
-
-                          ),
-                          SizedBox(height: 30,),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text('I am looking for Students who can ?',textAlign: TextAlign.center, style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black87
-                          ),),
-                          SizedBox(height: 5,),
-                          FormBuilderTextField (
-                            attribute: 'can',
-                            validators: [
-                              FormBuilderValidators.required(),
-                              FormBuilderValidators.minLength(5)
-                            ],
-                            textInputAction: TextInputAction.done,
-                            focusNode: _course,
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey[400])
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey[400])
-                              ),
-                            ),
-                           ),
-                          SizedBox(height: 60,),
-                        ],
-                      ),
-                    ),
-                   
+                                    
                     
                     _isLoading ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent)) : 
                      Container(

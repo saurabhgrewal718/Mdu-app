@@ -16,7 +16,30 @@ class _SubjectsState extends State<Subjects> {
           child: Column(
           children: <Widget>[
             
-            Headofapp(title: 'MDU Connect',subtitle: 'Study Materials, Books and More!',),
+            
+            Padding(
+              padding: const EdgeInsets.only(right:10,),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Headofapp(title: 'MDU Connect',subtitle: 'Who Pingged you?',),
+                  Row(
+                    children: <Widget>[
+                      
+                      IconButton(
+                        alignment: Alignment.bottomCenter,
+                        icon: Icon(Icons.sentiment_satisfied,size: 24,
+                        color: Colors.red[300],),
+                        
+                        onPressed: (){
+                          
+                        },
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
             
             SubjectsList(),
           ],
