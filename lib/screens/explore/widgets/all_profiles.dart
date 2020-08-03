@@ -68,7 +68,7 @@ class _AllProfileState extends State<AllProfile> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   SingleGridTile(
-                    title:profile[index].myId.length >10 ? profile[index].myId : 'name',
+                    title:profile[index].name,
                     subtitle: profile[index].course,
                     event: profile[index].gender,
                     img: profile[index].profile_picture,
@@ -81,11 +81,17 @@ class _AllProfileState extends State<AllProfile> {
                 StudentProfileCarry.routeName,
                 arguments:{
                   'name': profile[index].name,
+                  'age': profile[index].age,
                   'gender': profile[index].gender,
-                  'age':profile[index].age,
-                  'course':profile[index].course,
-                  'profile_picture':profile[index].profile_picture,
-                  'myId':profile[index].myId,
+                  'course': profile[index].course,
+                  'myId': profile[index].myId,
+                  'profile_picture': profile[index].profile_picture,
+                  'bio': profile[index].bio,
+                  'can': profile[index].can,
+                  'things': profile[index].things,
+                  'who': profile[index].who,
+                  // 'societies': profile[index].societies
+                  
                 }
               );
             },

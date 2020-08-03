@@ -7,6 +7,10 @@ class Profile{
   final String course;
   final String profile_picture;
   final String myId;
+  final String bio;
+  final String can;
+  final String things;
+  final String who;
 
 Profile({
   @required this.age,
@@ -14,7 +18,13 @@ Profile({
   @required this.gender,
   @required this.name,
   @required this.profile_picture,
-  @required this.myId
+  @required this.myId,
+  this.bio,
+  this.can,
+  this.things,
+  this.who
+  
 });
 
 }
+

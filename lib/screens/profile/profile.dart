@@ -145,9 +145,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mduapp/screens/explore/subscreens/societies.dart';
-import 'package:mduapp/screens/explore/widgets/personal_interests.dart';
 import 'package:mduapp/screens/profile/profilehead.dart';
-import 'package:mduapp/screens/subjects/widgets/subjects_list.dart';
 import 'package:google_fonts/google_fonts.dart';
 import './edit_my_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -293,7 +291,8 @@ void _signout() async {
                       height: 15,
                     ),
                     Container(
-                      child: PersonalInterests()
+                      // child: PersonalInterests()
+                      child: Text('yess betaa'),
                     ),
                     SizedBox(
                       height: 60,

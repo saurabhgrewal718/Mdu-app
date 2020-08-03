@@ -1,28 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mduapp/screens/explore/widgets/personal_interests.dart';
-import 'package:mduapp/screens/subjects/widgets/subjects_list.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class StudentProfile extends StatelessWidget {
+class StudentProfile extends StatefulWidget {
   static const routeName = './studentprofile';
 
-  // void _reportProfile(String myId,String name,String gender,String profilePicture,String course,String age) async{
-  //   await Firestore.instance.collection('reportedProfiles').document('$myId').setData({
-  //       'reportedId':myId,
-  //       'name': name,
-  //       'gender': gender,
-  //       'profilePicture':profilePicture,
-  //       'course':course,
-  //       'age':age,
-  //       'createOn':DateTime.now().millisecondsSinceEpoch,
-  //     });
-  // }
   final String myId;
   final String name;
   final String age;
   final String gender;
   final String course;
   final String profilePicture;
+  final String bio;
+  final String can;
+  final String things;
+  final String who;
+  // final String societies;
 
   StudentProfile({
     Key key,
@@ -32,15 +25,46 @@ class StudentProfile extends StatelessWidget {
     this.gender,
     this.course,
     this.profilePicture,
+    this.bio,
+    this.can,
+    this.things,
+    this.who,
+    // this.societies
   }) : super(key: key);
-  
+
+
+  @override
+  _StudentProfileState createState() => _StudentProfileState();
+}
+
+class _StudentProfileState extends State<StudentProfile> {
+  bool isloading=false;
+  var widthnum=0.0;
+  var height;
+  List<dynamic> society = [];
+
+  @override
+  void didChangeDependencies() async {
+    final result = await Firestore.instance.collection('users').document('${widget.myId}').get();
+    setState(() {
+      society = result.data['societies'];
+    });
+    print(society);
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-      
+    if(society!=null){
+      society.length > 3 && society.length <=6 ? widthnum=0.25 : widthnum= 0.11;
+      height=300;
+    }
+    
+  
     return Scaffold(
       body:SingleChildScrollView(
             child: Container(
-              height: MediaQuery.of(context).size.height+500,
+              height: MediaQuery.of(context).size.height+height,
               width: double.infinity,
               child: Column(
                 
@@ -56,10 +80,10 @@ class StudentProfile extends StatelessWidget {
                               },
                               child: Container(
                               margin: EdgeInsets.only(top: 3),
-                              child: profilePicture != '' ?
+                              child: widget.profilePicture != '' ?
                                 CircleAvatar(
                                   radius: 60,
-                                  backgroundImage: NetworkImage('$profilePicture'),
+                                  backgroundImage: NetworkImage('${widget.profilePicture}'),
                                 ) : CircularProgressIndicator(),
                             ),
                           ),
@@ -71,32 +95,32 @@ class StudentProfile extends StatelessWidget {
                               width: MediaQuery.of(context).size.width*0.5,
                               child: Column(
                                 children: <Widget>[
-                                      name != '' ?
+                                      widget.name != '' ?
                                         Text(
-                                          '$name',
+                                          '${widget.name}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                                         ) : CircularProgressIndicator(),
         
-                                      course != '' ?
+                                      widget.course != '' ?
                                         Text(
-                                          '$course',
+                                          '${widget.course}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
                                         ) : CircularProgressIndicator(),
 
 
-                                       myId != '' ?
+                                       widget.myId != '' ?
                                         Text(
-                                          '$myId',
+                                          '${widget.myId}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
                                         ) : CircularProgressIndicator(),
 
                                         
-                                        name != '' ?
+                                        widget.myId != '' ?
                                         Text(
-                                          'userId',
+                                          '${widget.name}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
                                         ) : CircularProgressIndicator(),
@@ -115,15 +139,27 @@ class StudentProfile extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children:<Widget>[
-                        FlatButton.icon(
+                      Container(
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          child: FlatButton.icon(
                           icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
                           onPressed: (){},
-                          label: Text('Instagram Profile'),
+                          label: Text(
+                              'Instagram ${widget.name}',
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                         ),
-                        FlatButton.icon(
-                          icon: Icon(Icons.message,color: Colors.blue,size: 25,),
-                          onPressed: (){},
-                          label: Text('Send Message'),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          child: FlatButton.icon(
+                            icon: Icon(Icons.message,color: Colors.blue,size: 25,),
+                            onPressed: (){},
+                            label: Text(
+                              'Ping ${widget.name}',
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                         ),
                       ], 
                     ),
@@ -144,12 +180,35 @@ class StudentProfile extends StatelessWidget {
                     SizedBox(
                       height: 15,
                     ),
+                    society != null ?
                     Container(
-                      child: PersonalInterests()
-                    ),
+                      height: MediaQuery.of(context).size.height*widthnum,
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 10,crossAxisSpacing: 10, childAspectRatio: 1.5),
+                        padding: EdgeInsets.only(left: 10, right: 10,),                  
+                        itemCount: society.length,
+                        itemBuilder: (context, index) {
+                        return Container(
+                              margin: EdgeInsets.only(bottom:10),
+                              decoration: BoxDecoration(
+                              color: Colors.greenAccent, borderRadius: BorderRadius.circular(10)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                    society[index],
+                                  ),
+                                ],
+                              )
+                            );
+                        },
+                      ),
+                    ) : Container(child:Text('No Intrests Added By ${widget.name}')),
+
                     SizedBox(
-                      height: 60,
+                      height: 30,
                     ),
+
                     Center(
                       child: Text(
                         'My Bio',
@@ -161,10 +220,17 @@ class StudentProfile extends StatelessWidget {
                                 fontWeight: FontWeight.w900)),
                       ),
                     ),
+                    widget.bio!="null" ?
                     Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
                       padding: EdgeInsets.all(20),
-                      child: Text('My bio My bioMy bioMy bioMy bioMy bioMy bioMy bioMy bioMy bio')
-                    ),
+                      child: Text(
+                        '${widget.bio}',
+                        textAlign: TextAlign.center,
+                        maxLines:10,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    ) : Container(padding: EdgeInsets.all(20),child:Text('No Bio Added yet, By ${widget.name}')),
                     SizedBox(
                       height: 30,
                     ),
@@ -180,10 +246,14 @@ class StudentProfile extends StatelessWidget {
                                 fontWeight: FontWeight.w900)),
                       ),
                     ),
+                    widget.who!="null" ?
                     Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
                       padding: EdgeInsets.all(20),
-                      child: Text('My bio My bioMy bioMy bioMy bioMy bioMy bioMy bioMy bioMy bio')
-                    ),
+                      child: Text('${widget.who}',maxLines:10,textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,)
+                    ):Container(padding: EdgeInsets.all(20),child:Text('Not Added By ${widget.name}')),
+                    
                     SizedBox(
                       height: 30,
                     ),
@@ -199,10 +269,17 @@ class StudentProfile extends StatelessWidget {
                                 fontWeight: FontWeight.w900)),
                       ),
                     ),
+                    widget.things!="null" ?
                     Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
                       padding: EdgeInsets.all(20),
-                      child: Text('My bio My bioMy bioMy bioMy bioMy bioMy bioMy bioMy bioMy bio')
-                    ),
+                      child: Text(
+                        '${widget.things}',
+                        maxLines:10,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    ):Container(padding: EdgeInsets.all(20),child:Text('Not Added By ${widget.name}')),
                     SizedBox(
                       height: 30,
                     ),
@@ -218,10 +295,17 @@ class StudentProfile extends StatelessWidget {
                                 fontWeight: FontWeight.w900)),
                       ),
                     ),
+                    widget.can !="null" ?
                     Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
                       padding: EdgeInsets.all(20),
-                      child: Text('My bio My bioMy bioMy bioMy bioMy bioMy bioMy bioMy bioMy bio')
-                    ),
+                      child: Text(
+                        '${widget.can}',
+                        textAlign: TextAlign.center,
+                        maxLines:10,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    ):Container(padding: EdgeInsets.all(20),child:Text('Not Added By ${widget.name}')),
                     SizedBox(
                       height: 30,
                     ),
@@ -235,6 +319,6 @@ class StudentProfile extends StatelessWidget {
             ),
       );
     }
-  }
+}
 
         

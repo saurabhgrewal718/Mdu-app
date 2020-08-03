@@ -65,17 +65,17 @@ class _ExploreState extends State<Explore> {
               ),
             ),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                FlatButton(onPressed: (){
-                  Navigator.of(context).pushNamed(Societies.routeName);
-                }, child: Text('Add Societies')),
-                FlatButton(onPressed: (){
-                  Navigator.of(context).pushNamed(ConditionOfCards.routeName);
-                }, child: Text('New people')),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: <Widget>[
+            //     FlatButton(onPressed: (){
+            //       Navigator.of(context).pushNamed(Societies.routeName);
+            //     }, child: Text('Add Societies')),
+            //     FlatButton(onPressed: (){
+            //       Navigator.of(context).pushNamed(ConditionOfCards.routeName);
+            //     }, child: Text('New people')),
+            //   ],
+            // ),
             AllProfile(),
           ],
         ),

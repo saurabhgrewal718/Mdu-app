@@ -18,7 +18,6 @@ import './screens/login_screen.dart';
 import './screens/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './screens/explore/subscreens/timer_screen.dart';
-import './screens/explore/subscreens/condition_of_cards.dart';
 import './screens/home/widgets/home_detail.dart';
 import './screens/explore/widgets/student_profile.dart';
 
@@ -49,7 +48,6 @@ void main() {
           ProfileCards.routeName: (ctx) => ProfileCards(),
           TimerScreen.routeName: (ctx) => TimerScreen(),
           HomeDetail.routeName : (ctx) => HomeDetail(),
-          ConditionOfCards.routeName: (ctx) => ConditionOfCards(),
           NewStory.routeName : (ctx) => NewStory(),
           UnknownRoute.routeName : (ctx) => UnknownRoute(),
           StudentProfile.routeName : (ctx) => StudentProfile(),
