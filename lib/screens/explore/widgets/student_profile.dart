@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentProfile extends StatefulWidget {
   static const routeName = './studentprofile';
@@ -40,7 +43,7 @@ class StudentProfile extends StatefulWidget {
 }
 
 class _StudentProfileState extends State<StudentProfile> {
-  bool isloading=false;
+  bool _isloading = false;
   var widthnum=0.0;
   var height;
   List<dynamic> society = [];
@@ -51,8 +54,85 @@ class _StudentProfileState extends State<StudentProfile> {
     setState(() {
       society = result.data['societies'];
     });
-    print(society);
     super.didChangeDependencies();
+  }
+  
+
+  void _ping(String myId,String profilePicture,String name,String course,String gender)async{
+    setState(() {
+      _isloading =true;  
+    });
+    try{
+      String urlString = '';
+      bool _isPresent = false;
+      final prefs = await SharedPreferences.getInstance();
+      final userIdentity = prefs.getString('userId')?? int.parse('0');
+
+      if( userIdentity != null || userIdentity != 0){
+          urlString = userIdentity;
+          print('used from shared preferences');  
+      }else{
+        final userData = await FirebaseAuth.instance.currentUser();
+        urlString = userData.uid;
+      }
+
+      await Firestore.instance
+         .collection('users/$urlString/mypings')
+         .getDocuments()
+         .then((querysnapshot) {
+           querysnapshot.documents.forEach((element) {
+             if(element.data['pingedid'] == widget.myId){
+               _isPresent = true;
+             }
+           });
+         });
+
+      if(_isPresent){
+        Fluttertoast.showToast(
+          msg: "${widget.name} ALready Pinnged",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.redAccent,
+          textColor: Colors.black,
+          fontSize: 16.0
+        );
+      }else{
+        await Firestore.instance.collection('users/$urlString/mypings').add({
+          'pingedid':widget.myId,
+          'pingedname':widget.name,
+          'pingedcourse':widget.course,
+          'pingedgender':widget.gender
+        });
+        Fluttertoast.showToast(
+          msg: "${widget.name} Pinnged",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.greenAccent,
+          textColor: Colors.black,
+          fontSize: 16.0
+        );
+      }
+
+      setState(() {
+      _isloading =false;  
+    });
+
+    }catch(err){
+      setState(() {
+        _isloading =false;  
+      });
+       Fluttertoast.showToast(
+        msg: "$err",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.redAccent,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+    }
   }
 
   @override
@@ -60,8 +140,6 @@ class _StudentProfileState extends State<StudentProfile> {
     if(society!=null){
       society.length > 3 && society.length <=6 ? widthnum=0.25 : widthnum= 0.11;
     }
-    
-  
     return Scaffold(
       body:SingleChildScrollView(
             child: Container(
@@ -162,12 +240,19 @@ class _StudentProfileState extends State<StudentProfile> {
                             ),
                           ),
                         ),
+                        _isloading ? Container(
+                          width: 14,
+                          height: 14,
+                          child: CircularProgressIndicator(backgroundColor: Colors.greenAccent,),
+                        ):
                         Container(
                           width: MediaQuery.of(context).size.width * 0.45,
                           child: FlatButton.icon(
-                            icon: Icon(Icons.favorite_border,
-                            color: Colors.blue,size: 25,),
-                            onPressed: (){},
+                            icon: Icon(Icons.message,
+                            color: Colors.blue[200],size: 25,),
+                            onPressed: (){
+                              _ping(widget.myId,widget.profilePicture,widget.name,widget.course,widget.gender);
+                            },
                             label: Text(
                               'Ping',
                               overflow: TextOverflow.ellipsis,

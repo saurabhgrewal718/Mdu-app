@@ -19,7 +19,6 @@ class SingleGridTile extends StatelessWidget {
     if(margin!=null){
       _margin = margin;
     }
-    print(img);
     return Container(
               // height: 100,
               margin: EdgeInsets.all(_margin),

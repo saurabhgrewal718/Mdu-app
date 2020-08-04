@@ -35,10 +35,10 @@ void _report(String myId){
           child: Text(
               'No',
               style: GoogleFonts.openSans(
-                      textStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold)
+              textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold)
                   ),
               ),
         ),
@@ -62,15 +62,42 @@ void _report(String myId){
 }
 
 void _reportId(String myId) async{
+  
+try{
+
   Navigator.of(context).pop();
   final prefs = await SharedPreferences.getInstance();
   final reportedby = prefs.getString('userId');
-  await Firestore.instance.collection('reportedProfiles/$reportedby/reported').add({
+  bool _isPresent = false;
+
+  await Firestore.instance
+    .collection('reportedProfiles/$reportedby/reported')
+    .getDocuments()
+    .then((querysnapshot) {
+      querysnapshot.documents.forEach((element) {
+        if(element.data['reportedId'] == myId){
+          _isPresent = true;
+        }
+      });
+    });
+
+  if(_isPresent){
+    Fluttertoast.showToast(
+      msg: "Already Reported",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.redAccent,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }else{
+    await Firestore.instance.collection('reportedProfiles/$reportedby/reported').add({
     'reportedId':myId,
     'reportedBy':reportedby,
     'createOn':DateTime.now().toIso8601String(),
   });
-  Fluttertoast.showToast(
+    Fluttertoast.showToast(
       msg: "Proifle Reported",
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
@@ -78,8 +105,21 @@ void _reportId(String myId) async{
       backgroundColor: Colors.redAccent,
       textColor: Colors.white,
       fontSize: 16.0
-  );
+    );
+  } 
   Navigator.of(context).pop();
+
+}catch(err){
+  Fluttertoast.showToast(
+      msg: "Something went Wrong",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.redAccent,
+      textColor: Colors.white,
+      fontSize: 16.0
+    );
+}
   
 }
 

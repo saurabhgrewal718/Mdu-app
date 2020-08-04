@@ -64,10 +64,6 @@ var _isLoading= false;
           things = result.data['things'];
           who = result.data['who'];
       });
-
-
-      print(bio);print(can);print(things);print(who);
-
     }
     _inIt =false;
     super.didChangeDependencies();
@@ -386,9 +382,7 @@ void _signout() async {
                           color: Colors.black
                         ),),
                       ),
-                    ),
-
-                    
+                    ),  
                     SizedBox(
                       height: 60,
                     )
