@@ -82,7 +82,7 @@ class _StudentProfileState extends State<StudentProfile> {
          .getDocuments()
          .then((querysnapshot) {
            querysnapshot.documents.forEach((element) {
-             if(element.data['pingedid'] == widget.myId){
+             if(element.data['pid'] == widget.myId){
                _isPresent = true;
              }
            });
@@ -100,11 +100,17 @@ class _StudentProfileState extends State<StudentProfile> {
         );
       }else{
         await Firestore.instance.collection('users/$urlString/mypings').add({
-          'pingedid':widget.myId,
-          'pingedname':widget.name,
-          'pingedcourse':widget.course,
-          'pingedgender':widget.gender
-        });
+          'pid':widget.myId,
+          'pname':widget.name,
+          'pcourse':widget.course,
+          'pgender':widget.gender,
+          'ppicture':widget.profilePicture
+        }).then((value) async{
+           await Firestore.instance.collection('users/$urlString/mypings').document(value.documentID).updateData({
+             'documentId':value.documentID
+           });
+          }
+        );
         Fluttertoast.showToast(
           msg: "${widget.name} Pinnged",
           toastLength: Toast.LENGTH_SHORT,
@@ -136,8 +142,19 @@ class _StudentProfileState extends State<StudentProfile> {
     }
   }
 
-   Future<void> _launchInApp(String urlstring) async {
-   String url = "https://www.instagram.com/$urlstring/";
+  Future<void> _launchInApp(String urlstring) async {
+  if(urlstring == "null"){
+    Fluttertoast.showToast(
+        msg: "User Havn't Added there Instagram Yet",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.redAccent,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+  }else{
+  String url = "https://www.instagram.com/$urlstring/";
     if (await canLaunch(url)) {
       final bool nativeAppLaunchSucceeded = await launch(
         url,
@@ -152,6 +169,7 @@ class _StudentProfileState extends State<StudentProfile> {
       }
     }
   }
+}
 
 
   @override
@@ -242,7 +260,7 @@ class _StudentProfileState extends State<StudentProfile> {
                           child: FlatButton.icon(
                           icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
                           onPressed: (){
-                            _launchInApp(widget.instagram);
+                            _launchInApp('${widget.instagram}');
                           },
                           label: Text(
                               '${widget.instagram}',
@@ -254,7 +272,9 @@ class _StudentProfileState extends State<StudentProfile> {
                           width: MediaQuery.of(context).size.width * 0.45,
                           child: FlatButton.icon(
                           icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
-                          onPressed: (){},
+                          onPressed: (){
+                            _launchInApp('${widget.instagram}');
+                          },
                           label: Text(
                               'Not Found',
                               overflow: TextOverflow.ellipsis,

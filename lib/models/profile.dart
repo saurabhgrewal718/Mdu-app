@@ -14,7 +14,7 @@ class Profile{
   final String instagram;
 
 Profile({
-  @required this.age,
+  this.age,
   @required this.course,
   @required this.gender,
   @required this.name,
