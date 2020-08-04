@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mduapp/screens/explore/subscreens/societies.dart';
@@ -20,10 +21,26 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
 var _isLoading= false;
+  String insta='';
+  List<dynamic> society = [];
+  String name = '';
+  String age = '';
+  String course = '';
+  String gender = '';
+  String userId = '';
+  String bio = '';
+  String things = '';
+  String can = '';
+  String who = '';
+  String profile_picture = '';
+  bool _inIt = true;
+   var widthnum=0.0;
 
-@override
-  void didChangeDependencies() async{
-    final prefs = await SharedPreferences.getInstance();
+  @override
+  void didChangeDependencies() async {
+    if(_inIt){
+      final prefs = await SharedPreferences.getInstance(); 
+      final myId = prefs.getString('userId');
       prefs.remove('0');
       prefs.remove('1');
       prefs.remove('2');
@@ -31,10 +48,31 @@ var _isLoading= false;
       prefs.remove('4');
       prefs.remove('5');
       prefs.remove('6');
-      print('array is : ');
-      print(prefs.getString('6'));
+    
+      final result = await Firestore.instance.collection('users/$myId/personal').document('$myId').get();
+      setState(() {
+          insta = result.data['instagram'];
+          society = result.data['societies'];
+          name = result.data['name'];
+          age = result.data['age'];
+          userId = result.data['myId'];
+          profile_picture = result.data['profile_picture'];
+          bio = result.data['bio'];
+          gender =result.data['gender'];
+          course = result.data['course'];
+          can = result.data['can'];
+          things = result.data['things'];
+          who = result.data['who'];
+      });
+
+
+      print(bio);print(can);print(things);print(who);
+
+    }
+    _inIt =false;
     super.didChangeDependencies();
   }
+
 
 void _editanswer(){
   Navigator.of(context).pushNamed(EditMyProfile.routeName);
@@ -86,29 +124,37 @@ void _signout() async {
 
   @override
   Widget build(BuildContext context) {
+    if(society!=null){
+      society.length > 3 && society.length <=6 ? widthnum=0.25 : widthnum= 0.11;
+    }
+    if(society!=null){
+      society.length > 6 ? widthnum=0.36 : widthnum= 0.11;
+    }
       
     return Scaffold(
       body:SingleChildScrollView(
             child: Container(
-              height: MediaQuery.of(context).size.height+500,
               width: double.infinity,
               child: Column(
                 children: <Widget>[
                     SizedBox(
                       height: 40,
                     ),
-                    ProfileInfo(),
+                    ProfileInfo(name:'$name',age:'$age',course:'$course',gender:'$gender',userId:'$userId',profile_picture:'$profile_picture'),
                     SizedBox(
                       height: 30,
                     ),
-                    
+                        insta!='' ? 
                         FlatButton.icon(
                           icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
                           onPressed: (){},
-                          label: Text('Instagram Profile'),
+                          label: Text('$insta'),
+                        ):FlatButton.icon(
+                          icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
+                          onPressed: (){},
+                          label: Text('Not Set Yet!'),
                         ),
                         
-                    
                     SizedBox(
                       height: 30,
                     ),
@@ -203,10 +249,31 @@ void _signout() async {
                     SizedBox(
                       height: 15,
                     ),
+                    society != null ?
                     Container(
-                      // child: PersonalInterests()
-                      child: Text('yess betaa'),
-                    ),
+                      height: MediaQuery.of(context).size.height*widthnum,
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 10,crossAxisSpacing: 10, childAspectRatio: 1.5),
+                        padding: EdgeInsets.only(left: 10, right: 10,),                  
+                        itemCount: society.length,
+                        itemBuilder: (context, index) {
+                        return Container(
+                              margin: EdgeInsets.only(bottom:10),
+                              decoration: BoxDecoration(
+                              color: Colors.greenAccent, borderRadius: BorderRadius.circular(10)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                    society[index],
+                                  ),
+                                ],
+                              )
+                            );
+                        },
+                      ),
+                    ) : Container(child:Text('No Intrests Added ')),
+
                     SizedBox(
                       height: 60,
                     ),
@@ -223,7 +290,7 @@ void _signout() async {
                     ),
                     Container(
                       padding: EdgeInsets.all(20),
-                      child: Text('My bio My bioMy bioMy bioMy bioMy bioMy bioMy bioMy bioMy bio')
+                      child: Text('$bio')
                     ),
                     SizedBox(
                       height: 30,
@@ -242,7 +309,7 @@ void _signout() async {
                     ),
                     Container(
                       padding: EdgeInsets.all(20),
-                      child: Text('My bio My bioMy bioMy bioMy bioMy bioMy bioMy bioMy bioMy bio')
+                      child: Text('$who')
                     ),
                     SizedBox(
                       height: 30,
@@ -261,7 +328,7 @@ void _signout() async {
                     ),
                     Container(
                       padding: EdgeInsets.all(20),
-                      child: Text('My bio My bioMy bioMy bioMy bioMy bioMy bioMy bioMy bioMy bio')
+                      child: Text('$things')
                     ),
                     SizedBox(
                       height: 30,
@@ -280,10 +347,10 @@ void _signout() async {
                     ),
                     Container(
                       padding: EdgeInsets.all(20),
-                      child: Text('My bio My bioMy bioMy bioMy bioMy bioMy bioMy bioMy bioMy bio')
+                      child: Text('$can')
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 60,
                     ),
                     
 
@@ -323,7 +390,7 @@ void _signout() async {
 
                     
                     SizedBox(
-                      height: 30,
+                      height: 60,
                     )
                   ],
                 ),

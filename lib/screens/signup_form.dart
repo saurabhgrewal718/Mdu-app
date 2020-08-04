@@ -79,7 +79,7 @@ class _SignupFormState extends State<SignupForm> {
           ));
         //redirecting to a new page
         Navigator.of(context).pop();
-        Navigator.of(context).pushNamed(EditProfile.routeName,
+        Navigator.of(context).pushReplacementNamed(EditProfile.routeName,
           arguments: authResult.user.uid
         );
         setState(() {

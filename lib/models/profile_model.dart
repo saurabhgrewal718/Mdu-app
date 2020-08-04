@@ -40,6 +40,7 @@ class ProfileModel with ChangeNotifier{
             can: result.data['can'].toString(),
             things: result.data['things'].toString(),
             who: result.data['who'].toString(),
+            instagram: result.data['instagram'].toString(),
         ));
       });
       _profile = loadedProducts;
@@ -86,6 +87,7 @@ class ProfileModel with ChangeNotifier{
                   can: result.data['can'].toString(),
                   things: result.data['things'].toString(),
                   who: result.data['who'].toString(),
+                  instagram: result.data['instagram'].toString(),
               ));
             });
             _profile = loadedProducts;
@@ -123,6 +125,7 @@ class ProfileModel with ChangeNotifier{
                   can: result.data['can'].toString(),
                   things: result.data['things'].toString(),
                   who: result.data['who'].toString(),
+                  instagram: result.data['instagram'].toString(),
               ));
             });
             _profile = loadedProducts;
@@ -160,6 +163,7 @@ class ProfileModel with ChangeNotifier{
                   can: result.data['can'].toString(),
                   things: result.data['things'].toString(),
                   who: result.data['who'].toString(),
+                  instagram: result.data['instagram'].toString(),
               ));
             });
             _profile = loadedProducts;
@@ -198,6 +202,7 @@ class ProfileModel with ChangeNotifier{
                   can: result.data['can'].toString(),
                   things: result.data['things'].toString(),
                   who: result.data['who'].toString(),
+                  instagram: result.data['instagram'].toString(),
               ));
             });
             _profile = loadedProducts;

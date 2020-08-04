@@ -83,6 +83,12 @@ class _PersoanlProfileState extends State<PersoanlProfile> {
               'instagram': data['instagram']
             });
 
+        setState(() {
+          prefs.setString('name', data['name']);
+          prefs.setString('userProfilePicture', url);
+          prefs.setString('instagram', data['instagram']);
+        });
+
         Navigator.of(context).pop();
         
         setState(() {
@@ -206,7 +212,7 @@ class _PersoanlProfileState extends State<PersoanlProfile> {
                             ),
 
                           ),
-                          SizedBox(height: 30,),
+                          SizedBox(height: 60,),
                         ],
                       ),
                     ),

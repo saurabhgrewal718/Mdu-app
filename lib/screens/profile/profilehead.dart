@@ -1,36 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileInfo extends StatefulWidget {
-  @override
-  _ProfileInfoState createState() => _ProfileInfoState();
-}
+class ProfileInfo extends StatelessWidget {
 
-class _ProfileInfoState extends State<ProfileInfo> {
-SharedPreferences sharedPrefs;
-String _image = '';
-String _name = '';
-String _age = '';
-String _gender = '';
-String _course = '';
-String _userId = '';
+final String name;
+final String age;
+final String course;
+final String profile_picture;
+final String gender;
+final String userId;
 
-@override
-void initState() {
-  super.initState();
-  SharedPreferences.getInstance().then((prefs) {
-    setState(() {
-      _image = prefs.getString('userProfilePicture');
-      _name = prefs.getString('name');
-      _age = prefs.getString('age');
-      _course = prefs.getString('course');
-      _userId = prefs.getString('userId');
-      _gender = prefs.getString('gender');
-    });
-  });
+ProfileInfo({
+  this.name,
+  this.profile_picture,
+  this.age,
+  this.course,
+  this.userId,
+  this.gender
 
-}
-  
+});
+
   @override
   Widget build(BuildContext context) {
     return      
@@ -46,10 +34,10 @@ void initState() {
                     child: 
                     Container(
                     margin: EdgeInsets.only(top: 3),
-                    child: _image != '' ?
+                    child: profile_picture != null ?
                       CircleAvatar(
                         radius: 60,
-                        backgroundImage: NetworkImage('$_image'),
+                        backgroundImage: NetworkImage(profile_picture),
                         backgroundColor: Colors.white,
                       ) : CircularProgressIndicator(),
                     
@@ -63,37 +51,37 @@ void initState() {
                     width: MediaQuery.of(context).size.width*0.5,
                     child: Column(
                       children: <Widget>[
-                            _name != '' ?
+                            name != '' ?
                               Text(
-                                '$_name',
+                                name,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                               ) : CircularProgressIndicator(),
 
-                              _age != '' ?
+                              age != '' ?
                               Text(
-                                '$_age',
+                                age,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                               ) : CircularProgressIndicator(),
 
-                              _course != '' ?
+                              course != '' ?
                               Text(
-                                '$_course',
+                                course,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                               ) : CircularProgressIndicator(),
 
-                              _gender != '' ?
+                              gender != '' ?
                               Text(
-                                '$_gender',
+                                gender,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                               ) : CircularProgressIndicator(),
 
-                              _userId != '' ?
+                              userId != '' ?
                               Text(
-                                '$_userId',
+                                userId,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                               ) : CircularProgressIndicator(),

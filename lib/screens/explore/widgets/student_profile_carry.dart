@@ -98,6 +98,7 @@ void _reportId(String myId) async{
     String can = studentData['can'];
     String things = studentData['things'];
     String who = studentData['who'];
+    String instagram = studentData['instagram'];
 
     return Scaffold(
       body: Column(
@@ -138,6 +139,7 @@ void _reportId(String myId) async{
               can:can,
               things:things,
               who:who,
+              instagram:instagram,
 
             )
           )

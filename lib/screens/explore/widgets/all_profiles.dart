@@ -90,6 +90,7 @@ class _AllProfileState extends State<AllProfile> {
                   'can': profile[index].can,
                   'things': profile[index].things,
                   'who': profile[index].who,
+                  'instagram':profile[index].instagram,
                   // 'societies': profile[index].societies
                   
                 }

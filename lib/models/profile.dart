@@ -11,6 +11,7 @@ class Profile{
   final String can;
   final String things;
   final String who;
+  final String instagram;
 
 Profile({
   @required this.age,
@@ -22,7 +23,8 @@ Profile({
   this.bio,
   this.can,
   this.things,
-  this.who
+  this.who,
+  this.instagram,
   
 });
 

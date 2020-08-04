@@ -55,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
 
         if(authResult!=null ){
           Navigator.of(context).pop();
-          Navigator.of(context).pushNamed(UniversityHome.routeName,);
+          Navigator.of(context).pushReplacementNamed(UniversityHome.routeName,);
           setState(() {
             _isLoading= false;
           }); 

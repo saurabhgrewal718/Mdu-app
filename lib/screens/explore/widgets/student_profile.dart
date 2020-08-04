@@ -15,11 +15,13 @@ class StudentProfile extends StatefulWidget {
   final String can;
   final String things;
   final String who;
+  final String instagram;
   // final String societies;
 
   StudentProfile({
     Key key,
     this.myId,
+    this.instagram,
     this.age,
     this.name,
     this.gender,
@@ -45,7 +47,7 @@ class _StudentProfileState extends State<StudentProfile> {
 
   @override
   void didChangeDependencies() async {
-    final result = await Firestore.instance.collection('users').document('${widget.myId}').get();
+    final result = await Firestore.instance.collection('users/${widget.myId}/personal').document('${widget.myId}').get();
     setState(() {
       society = result.data['societies'];
     });
@@ -57,14 +59,12 @@ class _StudentProfileState extends State<StudentProfile> {
   Widget build(BuildContext context) {
     if(society!=null){
       society.length > 3 && society.length <=6 ? widthnum=0.25 : widthnum= 0.11;
-      height=300;
     }
     
   
     return Scaffold(
       body:SingleChildScrollView(
             child: Container(
-              height: MediaQuery.of(context).size.height+height,
               width: double.infinity,
               child: Column(
                 
@@ -139,13 +139,25 @@ class _StudentProfileState extends State<StudentProfile> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children:<Widget>[
+                      widget.instagram!="null"?
                       Container(
                           width: MediaQuery.of(context).size.width * 0.45,
                           child: FlatButton.icon(
                           icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
                           onPressed: (){},
                           label: Text(
-                              'Instagram ${widget.name}',
+                              '${widget.instagram}',
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ):
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          child: FlatButton.icon(
+                          icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
+                          onPressed: (){},
+                          label: Text(
+                              'Not Found',
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
@@ -153,10 +165,11 @@ class _StudentProfileState extends State<StudentProfile> {
                         Container(
                           width: MediaQuery.of(context).size.width * 0.45,
                           child: FlatButton.icon(
-                            icon: Icon(Icons.message,color: Colors.blue,size: 25,),
+                            icon: Icon(Icons.favorite_border,
+                            color: Colors.blue,size: 25,),
                             onPressed: (){},
                             label: Text(
-                              'Ping ${widget.name}',
+                              'Ping',
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
