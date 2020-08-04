@@ -44,7 +44,7 @@ class SubjectsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Items> myList = [item1, item2, item3, item4, item5, item6,item2, item3, item4, item5, item6];
-    var color = 0xFF757575;
+    var color = 0xFFFFAB91;
     return Flexible(
       child: GridView.count(
           childAspectRatio: 1.0,

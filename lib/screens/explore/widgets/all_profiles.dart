@@ -38,7 +38,7 @@ class _AllProfileState extends State<AllProfile> {
 
   @override
   Widget build(BuildContext context) {
-   var color = 0xff453658;
+   var color = 0xFFB0BEC5;
     final profiles = Provider.of<ProfileModel>(context);
     final profile = profiles.items;
     
@@ -72,6 +72,7 @@ class _AllProfileState extends State<AllProfile> {
                     subtitle: profile[index].course,
                     event: profile[index].gender,
                     img: profile[index].profile_picture,
+                    color: color,
                   ),
                 ],
               )

@@ -39,7 +39,7 @@ ProfileInfo({
                         radius: 60,
                         backgroundImage: NetworkImage(profile_picture),
                         backgroundColor: Colors.white,
-                      ) : CircularProgressIndicator(),
+                      ) : Container(margin:EdgeInsets.only(bottom: 5),width: 14,height: 14, child: CircularProgressIndicator()),
                     
                   ),
                 ),
@@ -56,35 +56,35 @@ ProfileInfo({
                                 name,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-                              ) : CircularProgressIndicator(),
+                              ) :Container(margin:EdgeInsets.only(bottom: 5),width: 14, height: 14,child: CircularProgressIndicator()),
 
                               age != '' ?
                               Text(
                                 age,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-                              ) : CircularProgressIndicator(),
+                              ) : Container(margin:EdgeInsets.only(bottom: 5),width: 14,height: 14, child: CircularProgressIndicator()),
 
                               course != '' ?
                               Text(
                                 course,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-                              ) : CircularProgressIndicator(),
+                              ) : Container(margin:EdgeInsets.only(bottom: 5),width: 14,height: 14, child: CircularProgressIndicator()),
 
                               gender != '' ?
                               Text(
                                 gender,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-                              ) : CircularProgressIndicator(),
+                              ) : Container(margin:EdgeInsets.only(bottom: 5),width: 14,height: 14, child: CircularProgressIndicator()),
 
                               userId != '' ?
                               Text(
                                 userId,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-                              ) : CircularProgressIndicator(),
+                              ) : Container(margin:EdgeInsets.only(bottom: 5), width: 14,height: 14, child: CircularProgressIndicator()),
 
 
 

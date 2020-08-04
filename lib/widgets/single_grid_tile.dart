@@ -7,9 +7,10 @@ class SingleGridTile extends StatelessWidget {
   final String subtitle;
   final String event;
   final double margin;
+  final int color;
 
   SingleGridTile({
-    this.event,this.img,this.subtitle,this.title,this.margin
+    this.event,this.img,this.subtitle,this.title,this.margin,this.color
   });
 
   @override
@@ -18,17 +19,18 @@ class SingleGridTile extends StatelessWidget {
     if(margin!=null){
       _margin = margin;
     }
+    print(img);
     return Container(
               // height: 100,
               margin: EdgeInsets.all(_margin),
               decoration: BoxDecoration(
-                  color: Color(0xff453658), borderRadius: BorderRadius.circular(10)),
+                  color: Color(color), borderRadius: BorderRadius.circular(10)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
                     radius: 50,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.black,
                     backgroundImage: NetworkImage(
                       img,
                     ),
@@ -46,7 +48,7 @@ class SingleGridTile extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600)),
                         ),
@@ -58,7 +60,7 @@ class SingleGridTile extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
-                                  color: Colors.white38,
+                                  color: Colors.black45,
                                   fontSize: 10,
                                   fontWeight: FontWeight.w600)),
                         ),
@@ -70,7 +72,7 @@ class SingleGridTile extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
-                                  color: Colors.white70,
+                                  color: Colors.black45,
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600)),
                         ),

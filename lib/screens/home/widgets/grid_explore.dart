@@ -48,6 +48,15 @@ class _GridExploreState extends State<GridExplore> {
         padding: EdgeInsets.only(left: 10, right: 10,),                  
         itemCount: story.length,
         itemBuilder: (context, index) {
+          if(story[index].type == 'Inconvinience'){
+            color=0xFFFFE0B2;
+          }
+          if(story[index].type == 'Experiences'){
+            color = 0xFFB0BEC5;
+          }
+          if(story[index].type == 'My Beautiful Memories'){
+            color = 0xFF1DE9B6;
+          }
         return 
           GestureDetector (
               child: Container(
@@ -62,6 +71,7 @@ class _GridExploreState extends State<GridExplore> {
                     subtitle: story[index].course,
                     event: story[index].type,
                     img: story[index].profile_picture,
+                    color:color,
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * widthNum,
@@ -69,7 +79,7 @@ class _GridExploreState extends State<GridExplore> {
                     story[index].story,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 8,
-                    style: TextStyle(color:Colors.white,fontSize:15),
+                    style: TextStyle(color:Colors.black,fontSize:15),
                     ),                          
                   ),
                 ],
