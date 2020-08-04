@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StudentProfile extends StatefulWidget {
   static const routeName = './studentprofile';
@@ -135,6 +136,24 @@ class _StudentProfileState extends State<StudentProfile> {
     }
   }
 
+   Future<void> _launchInApp(String urlstring) async {
+   String url = "https://www.instagram.com/$urlstring/";
+    if (await canLaunch(url)) {
+      final bool nativeAppLaunchSucceeded = await launch(
+        url,
+        forceSafariVC: false,
+        universalLinksOnly: true,
+      );
+      if (!nativeAppLaunchSucceeded) {
+        await launch(
+          url,
+          forceSafariVC: true,
+        );
+      }
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     if(society!=null){
@@ -222,7 +241,9 @@ class _StudentProfileState extends State<StudentProfile> {
                           width: MediaQuery.of(context).size.width * 0.45,
                           child: FlatButton.icon(
                           icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
-                          onPressed: (){},
+                          onPressed: (){
+                            _launchInApp(widget.instagram);
+                          },
                           label: Text(
                               '${widget.instagram}',
                               overflow: TextOverflow.ellipsis,

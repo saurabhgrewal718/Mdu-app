@@ -6,10 +6,10 @@ import 'package:mduapp/screens/profile/personal_profile_carry.dart';
 import 'package:mduapp/screens/profile/profilehead.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../home_welcome_page.dart';
 import 'edit_my_profile.dart';
-import 'edit_profile.dart';
 
 class Profile extends StatefulWidget {
   static const routeName = './studentprofile';
@@ -78,6 +78,23 @@ void _editprofile(){
   Navigator.of(context).pushNamed(PersonalProfileCarry.routeName);
 }
 
+ Future<void> _launchInApp(String urlstring) async {
+   String url = "https://www.instagram.com/$urlstring/";
+    if (await canLaunch(url)) {
+      final bool nativeAppLaunchSucceeded = await launch(
+        url,
+        forceSafariVC: false,
+        universalLinksOnly: true,
+      );
+      if (!nativeAppLaunchSucceeded) {
+        await launch(
+          url,
+          forceSafariVC: true,
+        );
+      }
+    }
+  }
+
  void _showAlert(){
     showDialog(
       context: context,
@@ -123,9 +140,7 @@ void _signout() async {
     if(society!=null){
       society.length > 3 && society.length <=6 ? widthnum=0.25 : widthnum= 0.11;
     }
-    if(society!=null){
-      society.length > 6 ? widthnum=0.36 : widthnum= 0.11;
-    }
+
       
     return Scaffold(
       body:SingleChildScrollView(
@@ -143,7 +158,9 @@ void _signout() async {
                         insta!='' ? 
                         FlatButton.icon(
                           icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
-                          onPressed: (){},
+                          onPressed: (){
+                            _launchInApp(insta);
+                          },
                           label: Text('$insta'),
                         ):FlatButton.icon(
                           icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
