@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mduapp/screens/explore/subscreens/societies.dart';
 import 'package:mduapp/screens/profile/personal_profile_carry.dart';
 import 'package:mduapp/screens/profile/profilehead.dart';
@@ -75,15 +77,29 @@ var _isLoading= false;
 
 
 void _editanswer(){
+  HapticFeedback.vibrate();
   Navigator.of(context).pushNamed(EditMyProfile.routeName);
 }
 
 void _editprofile(){
+  HapticFeedback.vibrate();
   Navigator.of(context).pushNamed(PersonalProfileCarry.routeName);
 }
 
- Future<void> _launchInApp(String urlstring) async {
-   String url = "https://www.instagram.com/$urlstring/";
+  Future<void> _launchInApp(String urlstring) async {
+  HapticFeedback.vibrate();
+  if(urlstring == "null"){
+    Fluttertoast.showToast(
+        msg: "User Havn't Added there Instagram Yet",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.redAccent,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+  }else{
+  String url = "https://www.instagram.com/$urlstring/";
     if (await canLaunch(url)) {
       final bool nativeAppLaunchSucceeded = await launch(
         url,
@@ -98,24 +114,83 @@ void _editprofile(){
       }
     }
   }
+}
 
  void _showAlert(){
+    HapticFeedback.vibrate();
     showDialog(
       context: context,
       barrierDismissible: true,
       builder: (ctx) => AlertDialog(
-        title:Text('Are You Sure You Want to logout?'),
-        content: Image.asset('assets/images/crying.gif'),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0))
+        ),
+        title:Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Text('Do you want to logout?',textAlign: TextAlign.center, style: TextStyle(
+            fontWeight: FontWeight.w900, 
+            fontSize: 18,
+            color: Colors.black
+          ),),
+        ),
+        content: Container(height: 1,color: Colors.black12,),
         actions: <Widget>[
-          FlatButton(
-            onPressed: _signout, 
-            child: Text('Yes')
-          ),
-          FlatButton(
-            onPressed: (){
-              Navigator.of(ctx).pop();
-            }, 
-            child: Text('No'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              FlatButton(
+                onPressed: _signout, 
+                child: Container(
+                  padding: EdgeInsets.only(top: 3, left: 3),
+                  width: MediaQuery.of(context).size.width*0.23,
+                  margin: EdgeInsets.only(left:20,right:20,bottom:20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border(
+                      bottom: BorderSide(color: Colors.green),
+                      top: BorderSide(color: Colors.green),
+                      left: BorderSide(color: Colors.green),
+                      right: BorderSide(color: Colors.green),
+                    )
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text('Yes',textAlign: TextAlign.center, style: TextStyle(
+                        fontWeight: FontWeight.w900, 
+                        fontSize: 18,
+                        color: Colors.black
+                      ),),
+                  ),
+                )
+              ),
+              FlatButton(
+                onPressed: (){
+                  Navigator.of(ctx).pop();
+                }, 
+                child: Container(
+                  padding: EdgeInsets.only(top: 3, left: 3),
+                  width: MediaQuery.of(context).size.width*0.23,
+                  margin: EdgeInsets.only(left:20,right:20,bottom:20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border(
+                      bottom: BorderSide(color: Colors.redAccent),
+                      top: BorderSide(color: Colors.redAccent),
+                      left: BorderSide(color: Colors.redAccent),
+                      right: BorderSide(color: Colors.redAccent),
+                    )
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text('No',textAlign: TextAlign.center, style: TextStyle(
+                        fontWeight: FontWeight.w900, 
+                        fontSize: 18,
+                        color: Colors.black
+                      ),),
+                  ),
+                )
+              )
+            ],
           )
         ],
       )
@@ -129,6 +204,7 @@ void updateInformation(String information) {
 }
 
 void moveToSecondPage() async {
+  HapticFeedback.vibrate();
   final information = await Navigator.push(
     context,
     MaterialPageRoute(
@@ -153,6 +229,19 @@ void _signout() async {
     });
   }
 
+  Future<void> onRefresh()async{
+    HapticFeedback.vibrate();
+    final prefs = await SharedPreferences.getInstance();
+      setState(() {
+        instagram = prefs.getString('instagram');
+        bio = prefs.getString('bio');
+        can = prefs.getString('can');
+        things= prefs.getString('things');
+        who = prefs.getString('who'); 
+        society = prefs.getStringList('society'); 
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     if(society!=null){
@@ -169,270 +258,273 @@ void _signout() async {
       }
     }
 
-    return Scaffold(
-      body:SingleChildScrollView(
-            child: Container(
-              width: double.infinity,
-              child: Column(
-                children: <Widget>[
-                    SizedBox(
-                      height: 40,
-                    ),
-                    ProfileInfo(),
-                    SizedBox(
-                      height: 30,
-                    ),
-                        insta!='' ? 
-                        FlatButton.icon(
-                          icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
-                          onPressed: (){
-                            _launchInApp(insta);
+    return RefreshIndicator(
+        onRefresh: onRefresh,
+        child: Scaffold(
+        body:SingleChildScrollView(
+              child: Container(
+                width: double.infinity,
+                child: Column(
+                  children: <Widget>[
+                      SizedBox(
+                        height: 40,
+                      ),
+                      ProfileInfo(),
+                      SizedBox(
+                        height: 30,
+                      ),
+                          instagram!='' ? 
+                          FlatButton.icon(
+                            icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
+                            onPressed: (){
+                              _launchInApp(instagram);
+                            },
+                            label: Text('$instagram'),
+                          ):FlatButton.icon(
+                            icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
+                            onPressed: (){},
+                            label: Text('Not Set Yet!'),
+                          ),
+                          
+                      SizedBox(
+                        height: 30,
+                      ),
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.4,
+                            padding: EdgeInsets.only(top: 3, left: 3),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border(
+                                bottom: BorderSide(color: Colors.black),
+                                top: BorderSide(color: Colors.black),
+                                left: BorderSide(color: Colors.black),
+                                right: BorderSide(color: Colors.black),
+                              )
+                            ),
+                            child: MaterialButton(
+                              minWidth: double.infinity,
+                              height: 50,
+                              onPressed: _editprofile,
+                              color: Colors.white,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)
+                              ),
+                              child: Text('Edit Profile', style: TextStyle(
+                                fontWeight: FontWeight.w600, 
+                                fontSize: 18,
+                                color: Colors.black
+                              ),),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.4,
+                            padding: EdgeInsets.only(top: 3, left: 3),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border(
+                                bottom: BorderSide(color: Colors.black),
+                                top: BorderSide(color: Colors.black),
+                                left: BorderSide(color: Colors.black),
+                                right: BorderSide(color: Colors.black),
+                              )
+                            ),
+                            child: MaterialButton(
+                              minWidth: double.infinity,
+                              height: 50,
+                              onPressed: _editanswer,
+                              color: Colors.white,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)
+                              ),
+                              child: Text('Edit Answers', style: TextStyle(
+                                fontWeight: FontWeight.w600, 
+                                fontSize: 18,
+                                color: Colors.black
+                              ),),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height:30),
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text(
+                            'My Instrests',
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w900)),
+                          ),
+                          FlatButton.icon(
+                            icon: Icon(Icons.edit),
+                            onPressed: moveToSecondPage,
+                            label: Text(''),
+                          ),
+                          
+                        ],
+                        ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      society != null ?
+                      Container(
+                        height: MediaQuery.of(context).size.height*widthnum,
+                        child: GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 10,crossAxisSpacing: 10, childAspectRatio: 1.5),
+                          padding: EdgeInsets.only(left: 10, right: 10,),                  
+                          itemCount: society.length,
+                          itemBuilder: (context, index) {
+                          return Container(
+                                margin: EdgeInsets.only(bottom:10),
+                                decoration: BoxDecoration(
+                                color: Colors.greenAccent, borderRadius: BorderRadius.circular(10)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Text(
+                                      society[index],
+                                    ),
+                                  ],
+                                )
+                              );
                           },
-                          label: Text('$instagram'),
-                        ):FlatButton.icon(
-                          icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
-                          onPressed: (){},
-                          label: Text('Not Set Yet!'),
                         ),
-                        
-                    SizedBox(
-                      height: 30,
-                    ),
+                      ) : Container(child:Text('No Intrests Added')),
 
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width*0.4,
-                          padding: EdgeInsets.only(top: 3, left: 3),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border(
-                              bottom: BorderSide(color: Colors.black),
-                              top: BorderSide(color: Colors.black),
-                              left: BorderSide(color: Colors.black),
-                              right: BorderSide(color: Colors.black),
-                            )
-                          ),
-                          child: MaterialButton(
-                            minWidth: double.infinity,
-                            height: 50,
-                            onPressed: _editprofile,
-                            color: Colors.white,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)
-                            ),
-                            child: Text('Edit Profile', style: TextStyle(
-                              fontWeight: FontWeight.w600, 
-                              fontSize: 18,
-                              color: Colors.black
-                            ),),
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width*0.4,
-                          padding: EdgeInsets.only(top: 3, left: 3),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border(
-                              bottom: BorderSide(color: Colors.black),
-                              top: BorderSide(color: Colors.black),
-                              left: BorderSide(color: Colors.black),
-                              right: BorderSide(color: Colors.black),
-                            )
-                          ),
-                          child: MaterialButton(
-                            minWidth: double.infinity,
-                            height: 50,
-                            onPressed: _editanswer,
-                            color: Colors.white,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)
-                            ),
-                            child: Text('Edit Answers', style: TextStyle(
-                              fontWeight: FontWeight.w600, 
-                              fontSize: 18,
-                              color: Colors.black
-                            ),),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height:30),
-
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text(
-                          'My Instrests',
+                      SizedBox(
+                        height: 60,
+                      ),
+                      Center(
+                        child: Text(
+                          'My Bio',
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w900)),
+                              textStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w900)),
                         ),
-                        FlatButton.icon(
-                          icon: Icon(Icons.edit),
-                          onPressed: moveToSecondPage,
-                          label: Text(''),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(20),
+                        child: Text('$bio')
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+
+                      Center(
+                        child: Text(
+                          'Who can connect with me?',
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w900)),
                         ),
-                        
-                      ],
                       ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    society != null ?
-                    Container(
-                      height: MediaQuery.of(context).size.height*widthnum,
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 10,crossAxisSpacing: 10, childAspectRatio: 1.5),
-                        padding: EdgeInsets.only(left: 10, right: 10,),                  
-                        itemCount: society.length,
-                        itemBuilder: (context, index) {
-                        return Container(
-                              margin: EdgeInsets.only(bottom:10),
-                              decoration: BoxDecoration(
-                              color: Colors.greenAccent, borderRadius: BorderRadius.circular(10)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Text(
-                                    society[index],
-                                  ),
-                                ],
-                              )
-                            );
-                        },
+                      Container(
+                        padding: EdgeInsets.all(20),
+                        child: Text('$who')
                       ),
-                    ) : Container(child:Text('No Intrests Added')),
+                      SizedBox(
+                        height: 30,
+                      ),
 
-                    SizedBox(
-                      height: 60,
-                    ),
-                    Center(
-                      child: Text(
-                        'My Bio',
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w900)),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(20),
-                      child: Text('$bio')
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-
-                    Center(
-                      child: Text(
-                        'Who can connect with me?',
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w900)),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(20),
-                      child: Text('$who')
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-
-                    Center(
-                      child: Text(
-                        'Things i like the most',
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w900)),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(20),
-                      child: Text('$things')
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-
-                    Center(
-                      child: Text(
-                        'Can can can can',
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w900)),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(20),
-                      child: Text('$can')
-                    ),
-                    SizedBox(
-                      height: 60,
-                    ),
-                    
-
-                    _isLoading 
-                  ?
-                    Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent))
-                  :
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.6,
-                      padding: EdgeInsets.only(top: 3, left: 3),
-                      margin: EdgeInsets.only(left:40,right:40),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border(
-                          bottom: BorderSide(color: Colors.black),
-                          top: BorderSide(color: Colors.black),
-                          left: BorderSide(color: Colors.black),
-                          right: BorderSide(color: Colors.black),
-                        )
-                      ),
-                      child: MaterialButton(
-                        minWidth: double.infinity,
-                        height: 50,
-                        onPressed: _showAlert,
-                        color: Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)
+                      Center(
+                        child: Text(
+                          'Things i like the most',
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w900)),
                         ),
-                        child: Text('Logout', style: TextStyle(
-                          fontWeight: FontWeight.w600, 
-                          fontSize: 18,
-                          color: Colors.black
-                        ),),
                       ),
-                    ),  
-                    SizedBox(
-                      height: 60,
-                    )
-                  ],
+                      Container(
+                        padding: EdgeInsets.all(20),
+                        child: Text('$things')
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+
+                      Center(
+                        child: Text(
+                          'Can can can can',
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w900)),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(20),
+                        child: Text('$can')
+                      ),
+                      SizedBox(
+                        height: 60,
+                      ),
+                      
+
+                      _isLoading 
+                    ?
+                      Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent))
+                    :
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.6,
+                        padding: EdgeInsets.only(top: 3, left: 3),
+                        margin: EdgeInsets.only(left:40,right:40),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border(
+                            bottom: BorderSide(color: Colors.black),
+                            top: BorderSide(color: Colors.black),
+                            left: BorderSide(color: Colors.black),
+                            right: BorderSide(color: Colors.black),
+                          )
+                        ),
+                        child: MaterialButton(
+                          minWidth: double.infinity,
+                          height: 50,
+                          onPressed: _showAlert,
+                          color: Colors.white,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)
+                          ),
+                          child: Text('Logout', style: TextStyle(
+                            fontWeight: FontWeight.w600, 
+                            fontSize: 18,
+                            color: Colors.black
+                          ),),
+                        ),
+                      ),  
+                      SizedBox(
+                        height: 60,
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-      );
+        ),
+    );
     }
 }
 

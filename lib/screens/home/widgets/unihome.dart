@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mduapp/screens/home/widgets/grid_explore.dart';
 import 'package:mduapp/screens/home/widgets/sort_widget.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
@@ -13,21 +14,11 @@ class UniHome extends StatefulWidget {
 class _UniHomeState extends State<UniHome> {
  
   void byGender()async{
-    
     Navigator.pop(context);
-
-  }
-
-  void byType(){
-
-  }
-
-  void byDepartment(){
-
   }
 
 
-  @override
+  @override  
   Widget build(BuildContext context) {
     return  Container(
           padding: EdgeInsets.only(bottom: 8),
@@ -46,11 +37,9 @@ class _UniHomeState extends State<UniHome> {
                         alignment: Alignment.bottomCenter,
                         icon: Icon(Icons.add,size: 24,
                         color: Colors.black54,),
-                        // Image.network(
-                        //   "https://invocation.internships.com/invocation/images/ccm_5d34f540-015a-48c0-b451-b1ff786e283b",
-                        //   width: 24,
-                        // ),
+                        
                         onPressed: () {
+                          HapticFeedback.vibrate();
                           Navigator.of(context).pushNamed(NewStory.routeName);
                         },
                       ),
@@ -58,11 +47,9 @@ class _UniHomeState extends State<UniHome> {
                         alignment: Alignment.bottomCenter,
                         icon: Icon(Icons.sort,size: 24,
                         color: Colors.black54,),
-                        // Image.network(
-                        //   "https://invocation.internships.com/invocation/images/ccm_5d34f540-015a-48c0-b451-b1ff786e283b",
-                        //   width: 24,
-                        // ),
+                      
                         onPressed: (){
+                          HapticFeedback.vibrate();
                           showDialog(
                             context: context,
                             barrierDismissible: true,

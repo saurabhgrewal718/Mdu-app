@@ -26,7 +26,7 @@ class _SocietiesState extends State<Societies> {
     });
 
     try{
-
+      HapticFeedback.vibrate();
       final prefs = await SharedPreferences.getInstance();
       societyValues[0]=prefs.getString('0');
       societyValues[1]=prefs.getString('1');
@@ -59,11 +59,11 @@ class _SocietiesState extends State<Societies> {
       if(prefs.getString('6') == null){
         Navigator.pop(context, "text");
         Fluttertoast.showToast(
-        msg: "Intrests Added Sucessfully!",
+        msg: "Intrests Added Sucessfully! Pull Down to Refresh!",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green[200],
+        backgroundColor: Colors.greenAccent,
         textColor: Colors.black,
         fontSize: 16.0
     );
@@ -87,7 +87,7 @@ class _SocietiesState extends State<Societies> {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red[200],
+          backgroundColor: Colors.redAccent,
           textColor: Colors.black,
           fontSize: 16.0
         );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mduapp/screens/explore/widgets/all_profiles.dart';
 import 'package:mduapp/screens/home/widgets/grid_explore.dart';
@@ -40,6 +41,7 @@ class _ExploreState extends State<Explore> {
                         color: Colors.black54,),
                         
                         onPressed: (){
+                          HapticFeedback.vibrate();
                           showDialog(
                             context: context,
                             barrierDismissible: true,
@@ -58,17 +60,6 @@ class _ExploreState extends State<Explore> {
               ),
             ),
 
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: <Widget>[
-            //     FlatButton(onPressed: (){
-            //       Navigator.of(context).pushNamed(Societies.routeName);
-            //     }, child: Text('Add Societies')),
-            //     FlatButton(onPressed: (){
-            //       Navigator.of(context).pushNamed(ConditionOfCards.routeName);
-            //     }, child: Text('New people')),
-            //   ],
-            // ),
             AllProfile(),
           ],
         ),

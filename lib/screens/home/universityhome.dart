@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mduapp/screens/home/widgets/unihome.dart';
 import 'package:mduapp/screens/subjects/subjects.dart';
 import '../explore/explore.dart';
@@ -45,6 +46,7 @@ class _UniversityHomeState extends State<UniversityHome> {
           microseconds: 500
         ),
         onTap: (index) {
+          HapticFeedback.vibrate();
           setState(() {
             _currentindex=index;
           });
