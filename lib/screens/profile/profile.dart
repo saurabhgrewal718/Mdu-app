@@ -25,7 +25,6 @@ class _ProfileState extends State<Profile> {
 var _isLoading= false;
   String insta='';
   List<dynamic> society = [];
-  String _information = '';
   String bio = '';
   String things = '';
   String can = '';
@@ -39,14 +38,7 @@ var _isLoading= false;
     if(_inIt){
       final prefs = await SharedPreferences.getInstance(); 
       final myId = prefs.getString('userId');
-      prefs.remove('0');
-      prefs.remove('1');
-      prefs.remove('2');
-      prefs.remove('3');
-      prefs.remove('4');
-      prefs.remove('5');
-      prefs.remove('6');
-      
+            
       setState(() {
         instagram = prefs.getString('instagram');
         bio = prefs.getString('bio');
@@ -203,6 +195,16 @@ void updateInformation(String information) {
   }
 }
 
+void refreshIntrests()async{
+  final prefs = await SharedPreferences.getInstance(); 
+  final uid = prefs.getString('userId');
+  final result = await Firestore.instance.collection('users/$uid/personal').document('$uid').get();
+  setState(() {
+    society = result.data['societies'];
+  });
+  
+}
+
 void moveToSecondPage() async {
   HapticFeedback.vibrate();
   final information = await Navigator.push(
@@ -273,7 +275,7 @@ void _signout() async {
                       SizedBox(
                         height: 30,
                       ),
-                          instagram!='' ? 
+                          instagram!='' || instagram ==null ? 
                           FlatButton.icon(
                             icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
                             onPressed: (){
@@ -356,7 +358,7 @@ void _signout() async {
 
 
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Text(
                             'My Instrests',
@@ -367,11 +369,21 @@ void _signout() async {
                                 fontSize: 16,
                                 fontWeight: FontWeight.w900)),
                           ),
-                          FlatButton.icon(
-                            icon: Icon(Icons.edit),
-                            onPressed: moveToSecondPage,
-                            label: Text(''),
+                          Row(
+                            children: <Widget>[
+                              FlatButton.icon(
+                                icon: Icon(Icons.edit),
+                                onPressed: moveToSecondPage,
+                                label: Container(height:0),
+                              ),
+                              FlatButton.icon(
+                                icon: Icon(Icons.refresh),
+                                onPressed: refreshIntrests,
+                                label: Container(height:0),
+                              ),
+                            ],
                           ),
+                          
                           
                         ],
                         ),

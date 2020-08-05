@@ -18,6 +18,8 @@ class _LoginFormState extends State<LoginForm> {
   String _email='';
   String _password = '';
   final _auth = FirebaseAuth.instance;
+  List<dynamic> myList;
+  List<String> myNewList;
   
 
   @override
@@ -51,7 +53,12 @@ class _LoginFormState extends State<LoginForm> {
         prefs.setString('userProfilePicture', documentlist['profile_picture']);
         prefs.setString('gender', documentlist['gender']);
         prefs.setString('course', documentlist['course']);
-        
+        prefs.setString('bio', documentlist['bio']);
+        prefs.setString('can', documentlist['can']);
+        prefs.setString('things', documentlist['things']);
+        prefs.setString('who', documentlist['who']);
+        prefs.setString('instagram', documentlist['instagram']);
+                    
 
         if(authResult!=null ){
           Navigator.of(context).pop();
