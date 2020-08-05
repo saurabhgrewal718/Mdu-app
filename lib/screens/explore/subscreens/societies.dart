@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mduapp/screens/explore/subscreens/society_list.dart';
+import 'package:mduapp/screens/profile/profile.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
@@ -33,6 +35,7 @@ class _SocietiesState extends State<Societies> {
       societyValues[4]=prefs.getString('4');
       societyValues[5]=prefs.getString('5');
       societyValues[6]=prefs.getString('6');
+      
       final uid = prefs.getString('userId');
 
       finalSocietyValues=societyValues.where((element) => element!=null).toList();
@@ -42,7 +45,7 @@ class _SocietiesState extends State<Societies> {
 
       await Firestore.instance.collection('users/$uid/personal').document('$uid').updateData({
         'societies':finalSocietyValues
-      });
+      }).then((value) => prefs.setStringList('society', finalSocietyValues));
 
       prefs.remove('0');
       prefs.remove('1');
@@ -51,9 +54,19 @@ class _SocietiesState extends State<Societies> {
       prefs.remove('4');
       prefs.remove('5');
       prefs.remove('6');
+      
 
       if(prefs.getString('6') == null){
-        Navigator.of(context).pop();
+        Navigator.pop(context, "text");
+        Fluttertoast.showToast(
+        msg: "Intrests Added Sucessfully!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green[200],
+        textColor: Colors.black,
+        fontSize: 16.0
+    );
       }
 
       setState(() {
@@ -69,16 +82,15 @@ class _SocietiesState extends State<Societies> {
         setState(() {
           _isLoading = false;
         });
-        Scaffold.of(context).showSnackBar(SnackBar(
-          backgroundColor: Colors.redAccent,
-          content: Text(message ,
-          style: GoogleFonts.openSans(
-            textStyle: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.w600)),
-          ),
-        ));
+        Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red[200],
+          textColor: Colors.black,
+          fontSize: 16.0
+        );
         setState(() {
         _isLoading=false;
       });

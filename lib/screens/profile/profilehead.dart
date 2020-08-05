@@ -1,23 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileInfo extends StatelessWidget {
+class ProfileInfo extends StatefulWidget {
 
-final String name;
-final String age;
-final String course;
-final String profile_picture;
-final String gender;
-final String userId;
+  @override
+  _ProfileInfoState createState() => _ProfileInfoState();
+}
 
-ProfileInfo({
-  this.name,
-  this.profile_picture,
-  this.age,
-  this.course,
-  this.userId,
-  this.gender
+class _ProfileInfoState extends State<ProfileInfo> {
 
-});
+  String name = '';
+  String userId = '';
+  String gender = '';
+  String course = '';
+  String picture = '';
+  String age = '';
+
+  @override
+  void didChangeDependencies() async{
+    final prefs = await SharedPreferences.getInstance(); 
+      
+      setState(() {
+        userId = prefs.getString('userId');
+        picture = prefs.getString('userProfilePicture');
+        gender = prefs.getString('gender');
+        course = prefs.getString('course');
+        age = prefs.getString('age');
+        name = prefs.getString('name');
+      });
+     
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +47,12 @@ ProfileInfo({
                     child: 
                     Container(
                     margin: EdgeInsets.only(top: 3),
-                    child: profile_picture != null ?
+                    child: picture != null ?
                       CircleAvatar(
                         radius: 60,
-                        backgroundImage: NetworkImage(profile_picture),
+                        backgroundImage: picture.isNotEmpty
+                        ? NetworkImage(picture)
+                        : null,
                         backgroundColor: Colors.white,
                       ) : Container(margin:EdgeInsets.only(bottom: 5),width: 14,height: 14, child: CircularProgressIndicator()),
                     

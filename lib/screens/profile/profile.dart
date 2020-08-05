@@ -23,16 +23,12 @@ class _ProfileState extends State<Profile> {
 var _isLoading= false;
   String insta='';
   List<dynamic> society = [];
-  String name = '';
-  String age = '';
-  String course = '';
-  String gender = '';
-  String userId = '';
+  String _information = '';
   String bio = '';
   String things = '';
   String can = '';
   String who = '';
-  String profile_picture = '';
+  String instagram = '';
   bool _inIt = true;
    var widthnum=0.0;
 
@@ -48,22 +44,30 @@ var _isLoading= false;
       prefs.remove('4');
       prefs.remove('5');
       prefs.remove('6');
-    
-      final result = await Firestore.instance.collection('users/$myId/personal').document('$myId').get();
+      
       setState(() {
-          insta = result.data['instagram'];
-          society = result.data['societies'];
-          name = result.data['name'];
-          age = result.data['age'];
-          userId = result.data['myId'];
-          profile_picture = result.data['profile_picture'];
-          bio = result.data['bio'];
-          gender =result.data['gender'];
-          course = result.data['course'];
-          can = result.data['can'];
-          things = result.data['things'];
-          who = result.data['who'];
+        instagram = prefs.getString('instagram');
+        bio = prefs.getString('bio');
+        can = prefs.getString('can');
+        things= prefs.getString('things');
+        who = prefs.getString('who'); 
+        society = prefs.getStringList('society'); 
       });
+      // final result = await Firestore.instance.collection('users/$myId/personal').document('$myId').get();
+      // setState(() {
+      //     insta = result.data['instagram'];
+      //     society = result.data['societies'];
+      //     name = result.data['name'];
+      //     age = result.data['age'];
+      //     userId = result.data['myId'];
+      //     profile_picture = result.data['profile_picture'];
+      //     bio = result.data['bio'];
+      //     gender =result.data['gender'];
+      //     course = result.data['course'];
+      //     can = result.data['can'];
+      //     things = result.data['things'];
+      //     who = result.data['who'];
+      // });
     }
     _inIt =false;
     super.didChangeDependencies();
@@ -118,6 +122,20 @@ void _editprofile(){
     );
   }
 
+void updateInformation(String information) {
+  if(information == "text"){
+    _inIt = true;
+  }
+}
+
+void moveToSecondPage() async {
+  final information = await Navigator.push(
+    context,
+    MaterialPageRoute(
+        fullscreenDialog: true, builder: (context) => Societies()),
+  );
+  updateInformation(information);
+}
 
 void _signout() async {
     setState(() {
@@ -140,8 +158,17 @@ void _signout() async {
     if(society!=null){
       society.length > 3 && society.length <=6 ? widthnum=0.25 : widthnum= 0.11;
     }
+    final subjectTitle = ModalRoute.of(context).settings.arguments as Map<String,String>;
+    if(subjectTitle != null){
+      String refresh = subjectTitle['init'];
+      if(refresh == 'true') {
+        print('object');
+        setState(() {
+          _inIt = true;
+        });
+      }
+    }
 
-      
     return Scaffold(
       body:SingleChildScrollView(
             child: Container(
@@ -151,7 +178,7 @@ void _signout() async {
                     SizedBox(
                       height: 40,
                     ),
-                    ProfileInfo(name:'$name',age:'$age',course:'$course',gender:'$gender',userId:'$userId',profile_picture:'$profile_picture'),
+                    ProfileInfo(),
                     SizedBox(
                       height: 30,
                     ),
@@ -161,7 +188,7 @@ void _signout() async {
                           onPressed: (){
                             _launchInApp(insta);
                           },
-                          label: Text('$insta'),
+                          label: Text('$instagram'),
                         ):FlatButton.icon(
                           icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
                           onPressed: (){},
@@ -251,9 +278,7 @@ void _signout() async {
                         ),
                         FlatButton.icon(
                           icon: Icon(Icons.edit),
-                          onPressed: (){
-                            Navigator.of(context).pushNamed(Societies.routeName);
-                          },
+                          onPressed: moveToSecondPage,
                           label: Text(''),
                         ),
                         
@@ -285,7 +310,7 @@ void _signout() async {
                             );
                         },
                       ),
-                    ) : Container(child:Text('No Intrests Added ')),
+                    ) : Container(child:Text('No Intrests Added')),
 
                     SizedBox(
                       height: 60,
