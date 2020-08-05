@@ -42,7 +42,7 @@ class _GridExploreState extends State<GridExplore> {
     final stories = Provider.of<StoryModel>(context);
     final story = stories.items;
     return isloading == true ? Center(child:CircularProgressIndicator()) : Container(
-      height: MediaQuery.of(context).size.height-168,
+      height: MediaQuery.of(context).size.height-166,
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1, childAspectRatio: 2),
         padding: EdgeInsets.only(left: 10, right: 10,),                  

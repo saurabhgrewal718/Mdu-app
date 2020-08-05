@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mduapp/models/profile_model.dart';
 import 'package:mduapp/screens/explore/widgets/student_profile.dart';
 import 'package:mduapp/screens/explore/widgets/student_profile_carry.dart';
@@ -20,6 +21,9 @@ class _AllProfileState extends State<AllProfile> {
 
   @override
   void didChangeDependencies() async {
+    setState(() {
+        isloading=true;
+      });
     if (_isInit) {
       setState(() {
         isloading=true;
@@ -34,6 +38,9 @@ class _AllProfileState extends State<AllProfile> {
     }
     _isInit = false;
     super.didChangeDependencies();
+    setState(() {
+        isloading=false;
+      });
   }
 
   @override
@@ -47,9 +54,11 @@ class _AllProfileState extends State<AllProfile> {
          profile.removeAt(i);
        }
     }
-    return isloading == true ? Center(child:CircularProgressIndicator()) : Container(
-      height: MediaQuery.of(context).size.height*0.70,
-      child: GridView.builder(
+    
+    return isloading == true ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent,)) : Container(
+      height: MediaQuery.of(context).size.height-166,
+      child: 
+      GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, 
           childAspectRatio: 1,
