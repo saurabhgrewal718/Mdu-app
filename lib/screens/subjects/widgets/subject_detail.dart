@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mduapp/screens/subjects/widgets/subject_whoping.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
 
 class SubjectDetail extends StatelessWidget {
@@ -7,23 +7,17 @@ class SubjectDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final subjectTitle = ModalRoute.of(context).settings.arguments as String;
     return  Scaffold(
           body: Container(
           padding: EdgeInsets.only(bottom: 8),
           child: Column(
           children: <Widget>[
               
-              Headofapp(title: 'MDU Connect',subtitle:'Acedemics - $subjectTitle' ,),
+              Headofapp(title: 'MDU Connect',subtitle:'Acedemics' ,),
               SizedBox(
                 height: 30,
               ),
-              Center(
-                child: Text(
-                  subjectTitle,
-                  style: TextStyle(fontSize: 20),
-                ),
-              )
+              SubjectWhoping()
           ],
         ),
     ),

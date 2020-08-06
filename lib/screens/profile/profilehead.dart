@@ -94,12 +94,12 @@ class _ProfileInfoState extends State<ProfileInfo> {
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                               ) : Container(margin:EdgeInsets.only(bottom: 5),width: 14,height: 14, child: CircularProgressIndicator()),
 
-                              userId != '' ?
-                              Text(
-                                userId,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
-                              ) : Container(margin:EdgeInsets.only(bottom: 5), width: 14,height: 14, child: CircularProgressIndicator()),
+                              // userId != '' ?
+                              // Text(
+                              //   userId,
+                              //   overflow: TextOverflow.ellipsis,
+                              //   style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                              // ) : Container(margin:EdgeInsets.only(bottom: 5), width: 14,height: 14, child: CircularProgressIndicator()),
 
 
 

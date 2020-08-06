@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mduapp/screens/subjects/widgets/subject_whoping.dart';
 import 'package:mduapp/screens/subjects/widgets/subjects_list.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
 
@@ -23,7 +23,7 @@ class _SubjectsState extends State<Subjects> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Headofapp(title: 'MDU Connect',subtitle: 'Who Pingged you?',),
+                  Headofapp(title: 'MDU Connect',subtitle: 'My Pings',),
                   Row(
                     children: <Widget>[
                       
@@ -33,7 +33,8 @@ class _SubjectsState extends State<Subjects> {
                         color: Colors.red[300],),
                         
                         onPressed: (){
-                          HapticFeedback.vibrate();                          
+                          HapticFeedback.vibrate(); 
+                          Navigator.of(context).pushNamed(SubjectWhoping.routeName);                         
                         },
                       )
                     ],
@@ -48,3 +49,4 @@ class _SubjectsState extends State<Subjects> {
     );
   }
 }
+

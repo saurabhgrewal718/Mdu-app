@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mduapp/models/profile_model.dart';
-import 'package:mduapp/screens/explore/widgets/student_profile.dart';
 import 'package:mduapp/screens/explore/widgets/student_profile_carry.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -69,11 +67,11 @@ class _AllProfileState extends State<AllProfile> {
        }
     }
     
-    return isloading == true ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent,)) : RefreshIndicator(
+    return RefreshIndicator(
         onRefresh: onRefresh,
         child: Container(
         height: MediaQuery.of(context).size.height-166,
-        child: 
+        child: isloading == true ? Center(child:CircularProgressIndicator(backgroundColor: Colors.greenAccent,)) : 
         GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, 
@@ -117,8 +115,7 @@ class _AllProfileState extends State<AllProfile> {
                     'things': profile[index].things,
                     'who': profile[index].who,
                     'instagram':profile[index].instagram,
-                    // 'societies': profile[index].societies
-                    
+                   
                   }
                 );
               },

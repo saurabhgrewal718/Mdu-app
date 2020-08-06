@@ -66,6 +66,7 @@ class _StudentProfileState extends State<StudentProfile> {
     try{
       String urlString = '';
       bool _isPresent = false;
+      bool _isPresent1 = false;
       final prefs = await SharedPreferences.getInstance();
       final userIdentity = prefs.getString('userId')?? int.parse('0');
 
@@ -90,12 +91,12 @@ class _StudentProfileState extends State<StudentProfile> {
 
       if(_isPresent){
         Fluttertoast.showToast(
-          msg: "${widget.name} ALready Pinnged",
+          msg: "${widget.name} Already Pinnged",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.redAccent,
-          textColor: Colors.black,
+          textColor: Colors.white,
           fontSize: 16.0
         );
       }else{
@@ -117,10 +118,39 @@ class _StudentProfileState extends State<StudentProfile> {
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.greenAccent,
-          textColor: Colors.black,
+          textColor: Colors.white,
           fontSize: 16.0
         );
       }
+
+      await Firestore.instance
+        .collection('users/$myId/whoPingedMe')
+        .getDocuments()
+        .then((querysnapshot) {
+          querysnapshot.documents.forEach((element) {
+            if(element.data['pid'] == myId){
+              _isPresent1 = true;
+            }
+          });
+        });
+
+    if(_isPresent1){
+      
+    }else{
+      await Firestore.instance.collection('users/$myId/whoPingedMe').add({
+        'pid':prefs.getString('userId'),
+        'pname':prefs.getString('name'),
+        'pcourse': prefs.getString('course'),
+        'pgender': prefs.getString('gender'),
+        'ppicture': prefs.getString('userProfilePicture')
+      }).then((value) async{
+          await Firestore.instance.collection('users/$myId/whoPingedMe').document(value.documentID).updateData({
+            'documentId':value.documentID
+          });
+        }
+      );
+      
+    }
 
       setState(() {
       _isloading =false;  

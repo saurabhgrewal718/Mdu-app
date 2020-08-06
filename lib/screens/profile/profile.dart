@@ -275,7 +275,7 @@ void _signout() async {
                       SizedBox(
                         height: 30,
                       ),
-                          instagram!='' || instagram ==null ? 
+                          instagram!='' && instagram !=null && instagram != "null"? 
                           FlatButton.icon(
                             icon: Image.asset('assets/images/insta.png',height:25,width: 25,),
                             onPressed: (){
@@ -357,36 +357,37 @@ void _signout() async {
                       SizedBox(height:30),
 
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text(
-                            'My Instrests',
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w900)),
+                      Padding(
+                        padding: const EdgeInsets.only(left:30.0,right:25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'My Instrests',
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w900)),
+                            ),
+                            Row(
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: moveToSecondPage,
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.refresh),
+                                  onPressed: refreshIntrests,
+                                ),
+                              ],
+                            ),
+                            
+                            
+                          ],
                           ),
-                          Row(
-                            children: <Widget>[
-                              FlatButton.icon(
-                                icon: Icon(Icons.edit),
-                                onPressed: moveToSecondPage,
-                                label: Container(height:0),
-                              ),
-                              FlatButton.icon(
-                                icon: Icon(Icons.refresh),
-                                onPressed: refreshIntrests,
-                                label: Container(height:0),
-                              ),
-                            ],
-                          ),
-                          
-                          
-                        ],
-                        ),
+                      ),
                       SizedBox(
                         height: 15,
                       ),
@@ -429,9 +430,13 @@ void _signout() async {
                                   fontWeight: FontWeight.w900)),
                         ),
                       ),
+                      bio!=null ?
                       Container(
                         padding: EdgeInsets.all(20),
                         child: Text('$bio')
+                      ): Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(child:Text('Bio Not Added')),
                       ),
                       SizedBox(
                         height: 30,
@@ -448,9 +453,13 @@ void _signout() async {
                                   fontWeight: FontWeight.w900)),
                         ),
                       ),
+                      who!=null ?
                       Container(
                         padding: EdgeInsets.all(20),
                         child: Text('$who')
+                      ):Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(child:Text('Not Added')),
                       ),
                       SizedBox(
                         height: 30,
@@ -467,9 +476,13 @@ void _signout() async {
                                   fontWeight: FontWeight.w900)),
                         ),
                       ),
+                      things!=null ?
                       Container(
                         padding: EdgeInsets.all(20),
                         child: Text('$things')
+                      ):Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(child:Text('Not Added')),
                       ),
                       SizedBox(
                         height: 30,
@@ -486,9 +499,13 @@ void _signout() async {
                                   fontWeight: FontWeight.w900)),
                         ),
                       ),
+                      can!=null ?
                       Container(
                         padding: EdgeInsets.all(20),
                         child: Text('$can')
+                      ):Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(child:Text('Not Added')),
                       ),
                       SizedBox(
                         height: 60,
