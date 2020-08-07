@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../widgets/my_snackbar.dart';
 
 
 class SignupForm extends StatefulWidget {
@@ -78,7 +77,6 @@ class _SignupFormState extends State<SignupForm> {
             ),
           ));
         //redirecting to a new page
-        Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed(EditProfile.routeName,
           arguments: authResult.user.uid
         );

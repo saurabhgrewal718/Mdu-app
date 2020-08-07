@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mduapp/screens/profile/image_picked.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../home/universityhome.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:io';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -91,9 +90,23 @@ class _EditMyProfileFormState extends State<EditMyProfileForm> {
               // 'profile_picture':url,
             });
 
+        setState(() {
+          prefs.setString('bio', data['bio']);
+          prefs.setString('who', data['who']);
+          prefs.setString('things', data['things']);
+          prefs.setString('can', data['can']);
+        });
         Navigator.of(context).pop();
-        Navigator.of(context).pushReplacementNamed(UniversityHome.routeName);
-        
+         Fluttertoast.showToast(
+            msg: "Answers Added Sucessfully! Pull Down to Refresh!",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.greenAccent,
+            textColor: Colors.black,
+            fontSize: 16.0
+          );
+
         setState(() {
         _isLoading = false;
         });

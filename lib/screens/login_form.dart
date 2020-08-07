@@ -24,14 +24,13 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _pass.dispose();
     super.dispose();
   }
 
   
   void _saveForm() async{
-    
+        
     final isValid = _form.currentState.validate();
     FocusScope.of(context).unfocus();
     if(isValid){
@@ -43,11 +42,23 @@ class _LoginFormState extends State<LoginForm> {
 
       try{
         authResult = await _auth.signInWithEmailAndPassword(email: _email.trim(), password: _password.trim());
+        
+        if(authResult!=null ){
+          Navigator.of(context).pushReplacementNamed(UniversityHome.routeName);
+          setState(() {
+            _isLoading= false;
+          }); 
+        }
+
         final document = Firestore.instance.collection('users/${authResult.user.uid}/personal').document('${authResult.user.uid}');
         final documentlist = await document.get();
         
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('userId', authResult.user.uid);
+        
+        print('name is');
+        print(documentlist['name']);
+        print(prefs.getString('name'));
         prefs.setString('name', documentlist['name']);
         prefs.setString('age', documentlist['age']);
         prefs.setString('userProfilePicture', documentlist['profile_picture']);
@@ -58,15 +69,9 @@ class _LoginFormState extends State<LoginForm> {
         prefs.setString('things', documentlist['things']);
         prefs.setString('who', documentlist['who']);
         prefs.setString('instagram', documentlist['instagram']);
-                    
-
-        if(authResult!=null ){
-          Navigator.of(context).pop();
-          Navigator.of(context).pushReplacementNamed(UniversityHome.routeName,);
-          setState(() {
-            _isLoading= false;
-          }); 
-        }
+        print('this is the AUTH');            
+        print(authResult);
+        
         
       }on PlatformException catch(err){
 
@@ -90,10 +95,6 @@ class _LoginFormState extends State<LoginForm> {
         });
 
       }catch(err){
-        setState(() {
-          _isLoading= false;
-        });
-      
         print(err);
 
       }

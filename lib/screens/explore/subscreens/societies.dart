@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mduapp/screens/explore/subscreens/society_list.dart';
-import 'package:mduapp/screens/profile/profile.dart';
-import 'package:mduapp/widgets/head_of_app.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Societies extends StatefulWidget {

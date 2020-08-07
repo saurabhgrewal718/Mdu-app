@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PersoanlProfile extends StatefulWidget {
   static const routeName='/editprofile';
@@ -90,6 +91,15 @@ class _PersoanlProfileState extends State<PersoanlProfile> {
         });
 
         Navigator.of(context).pop();
+         Fluttertoast.showToast(
+            msg: "Sucessful! Pull Down to Refresh!",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.greenAccent,
+            textColor: Colors.black,
+            fontSize: 16.0
+          );
         
         setState(() {
         _isLoading = false;

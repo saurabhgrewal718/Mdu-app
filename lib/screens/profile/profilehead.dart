@@ -66,28 +66,28 @@ class _ProfileInfoState extends State<ProfileInfo> {
                     width: MediaQuery.of(context).size.width*0.5,
                     child: Column(
                       children: <Widget>[
-                            name != '' ?
+                            name != null && name!= '' ?
                               Text(
                                 name,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                               ) :Container(margin:EdgeInsets.only(bottom: 5),width: 14, height: 14,child: CircularProgressIndicator()),
 
-                              age != '' ?
+                              age != null && age!= '' ?
                               Text(
                                 age,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                               ) : Container(margin:EdgeInsets.only(bottom: 5),width: 14,height: 14, child: CircularProgressIndicator()),
 
-                              course != '' ?
+                              course != null && course!= '' ?
                               Text(
                                 course,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                               ) : Container(margin:EdgeInsets.only(bottom: 5),width: 14,height: 14, child: CircularProgressIndicator()),
 
-                              gender != '' ?
+                              gender != null && gender!= '' ?
                               Text(
                                 gender,
                                 overflow: TextOverflow.ellipsis,

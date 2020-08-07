@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mduapp/screens/explore/widgets/all_profiles.dart';
-import 'package:mduapp/screens/home/widgets/grid_explore.dart';
 import 'package:mduapp/screens/home/widgets/sort_widget.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
-import './subscreens/societies.dart';
-import './subscreens/profile_cards.dart';
-import './subscreens/condition_of_cards.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Explore extends StatefulWidget {
   static const routeName='/explore';

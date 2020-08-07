@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mduapp/models/profile_model.dart';
-import 'package:mduapp/screens/explore/widgets/student_profile_carry.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../widgets/single_grid_tile.dart';
 
 class SubjectsList extends StatefulWidget {
@@ -47,8 +45,8 @@ class _SubjectsListState extends State<SubjectsList> {
                     setState(() {
                       isloading=false;
                       _isInit=true;
-                      Navigator.of(ctx).pop();
                     });
+                    Navigator.of(ctx).pop();
                   });
                 }, 
                 child: Container(
@@ -113,14 +111,19 @@ class _SubjectsListState extends State<SubjectsList> {
   @override
   void didChangeDependencies() async {
     if (_isInit) {
+      bool yesLoading = true;
       setState(() {
-        isloading=true;
+        isloading=false;
       });
       Provider.of<ProfileModel>(context,listen: false).fetchPingged().then((_) {
-        setState(() {
-          isloading=false;
-        });
+        yesLoading=true;
       });
+      if(yesLoading){
+        setState(() {
+          isloading = false;
+        });
+        yesLoading = false;
+      }
     }
     _isInit = false;
     super.didChangeDependencies();

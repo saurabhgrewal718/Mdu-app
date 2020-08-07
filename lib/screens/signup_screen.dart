@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import './signup_form.dart';
 import '../animation/FadeAnimation.dart';
 import './login_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignupScreen extends StatefulWidget {
   static const routeName = '/signup';

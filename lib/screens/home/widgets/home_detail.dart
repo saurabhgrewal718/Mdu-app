@@ -138,7 +138,6 @@ Widget build(BuildContext context) {
   String _story = subjectTitle['story'];
   String _storyImage = subjectTitle['story_image'];
   String _type = subjectTitle['type'];
-  String _createdOn = subjectTitle['createdOn'];
   String _userId = subjectTitle['userId'];
   
       

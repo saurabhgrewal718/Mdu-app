@@ -16,17 +16,17 @@ class _ProfileCardsState extends State<ProfileCards>
 
   List liked = new List();
 
-  void _dislike(){
-    Fluttertoast.showToast(
-        msg: "Swipe Left to Dislike",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red[200],
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
-  }
+  // void _dislike(){
+  //   Fluttertoast.showToast(
+  //       msg: "Swipe Left to Dislike",
+  //       toastLength: Toast.LENGTH_SHORT,
+  //       gravity: ToastGravity.CENTER,
+  //       timeInSecForIosWeb: 1,
+  //       backgroundColor: Colors.red[200],
+  //       textColor: Colors.white,
+  //       fontSize: 16.0
+  //   );
+  // }
 
   List<String> welcomeImages = [
     "https://manofmany.com/wp-content/uploads/2019/06/50-Long-Haircuts-Hairstyle-Tips-for-Men-5.jpg",
@@ -42,7 +42,7 @@ class _ProfileCardsState extends State<ProfileCards>
 
   @override
   Widget build(BuildContext context) {
-    CardController controller; 
+    // CardController controller; 
     int _counter = welcomeImages.length;
     print(_counter);
     return new Scaffold(
@@ -117,7 +117,7 @@ class _ProfileCardsState extends State<ProfileCards>
                                   )
                                 
                                 ),
-                            cardController: controller = CardController(),
+                            // cardController: controller = CardController(),
                             swipeUpdateCallback:
                                 (DragUpdateDetails details, Alignment align) {
                               /// Get swiping card's alignment

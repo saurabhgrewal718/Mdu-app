@@ -13,7 +13,6 @@ class TimerScreen extends StatefulWidget {
 }
 
 class _TimerScreenState extends State<TimerScreen> {
-  var _init = false;
   var mytimer;
   var myDate;
 

@@ -37,7 +37,7 @@ var _isLoading= false;
   void didChangeDependencies() async {
     if(_inIt){
       final prefs = await SharedPreferences.getInstance(); 
-      final myId = prefs.getString('userId');
+      // final myId = prefs.getString('userId');
             
       setState(() {
         instagram = prefs.getString('instagram');
@@ -233,6 +233,7 @@ void _signout() async {
 
   Future<void> onRefresh()async{
     HapticFeedback.vibrate();
+
     final prefs = await SharedPreferences.getInstance();
       setState(() {
         instagram = prefs.getString('instagram');
@@ -247,8 +248,11 @@ void _signout() async {
   @override
   Widget build(BuildContext context) {
     if(society!=null){
-      society.length > 3 && society.length <=6 ? widthnum=0.25 : widthnum= 0.11;
+      if(society.length > 3 && society.length <=6){widthnum=0.18;}
+      if(society.length <= 3){widthnum=0.11;}
+      if(society.length > 6){widthnum=0.28;}
     }
+    
     final subjectTitle = ModalRoute.of(context).settings.arguments as Map<String,String>;
     if(subjectTitle != null){
       String refresh = subjectTitle['init'];

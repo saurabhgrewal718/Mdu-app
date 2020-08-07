@@ -136,7 +136,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
               'myId': urlString
             });
 
-        Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed(UniversityHome.routeName);
         
         setState(() {
@@ -176,23 +175,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
         _isLoading = false;
       });
     }
-    // if(isValid){
-      // setState(() {
-      //   _isLoading = true;
-      // });
-    //   _form.currentState.save();
-    //   print(name);
-    //   print(gender);
-    //   print(dob);
-    //   print(course);
-    //   Navigator.of(context).pop();
-    //   Navigator.of(context).pushNamed(UniversityHome.routeName,);
-
-      // setState(() {
-      //   _isLoading = false;
-      // });
-
-    // }
 
   }
 

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +7,7 @@ import '../explore/explore.dart';
 import '../profile/profile.dart';
 
 class UniversityHome extends StatefulWidget {
-  static const routeName='/university-home';
+  static const routeName='/universityhome';
   
   @override
   _UniversityHomeState createState() => _UniversityHomeState();

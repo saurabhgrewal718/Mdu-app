@@ -205,7 +205,9 @@ class _StudentProfileState extends State<StudentProfile> {
   @override
   Widget build(BuildContext context) {
     if(society!=null){
-      society.length > 3 && society.length <=6 ? widthnum=0.25 : widthnum= 0.11;
+      if(society.length > 3 && society.length <=6){widthnum=0.18;}
+      if(society.length <= 3){widthnum=0.11;}
+      if(society.length > 6){widthnum=0.28;}
     }
     return Scaffold(
       body:SingleChildScrollView(

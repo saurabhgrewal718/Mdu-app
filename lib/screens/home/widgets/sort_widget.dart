@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:mduapp/models/profile_model.dart';
 import 'package:mduapp/models/story_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 class SortWidget extends StatefulWidget {
@@ -14,7 +13,6 @@ class SortWidget extends StatefulWidget {
 class _SortWidgetState extends State<SortWidget> {
   final GlobalKey<FormBuilderState> _form = GlobalKey<FormBuilderState>();
   Map<String,dynamic> data;
-  var _isLoading = false;
   var genderOptions = ['Male', 'Female',];
   var deptOptions =  [
     'Botany','Biochemistry','Biotechnology',

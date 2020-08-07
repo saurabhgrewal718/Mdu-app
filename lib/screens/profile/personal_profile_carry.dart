@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mduapp/screens/profile/edit_my_profile_form.dart';
 import 'package:mduapp/screens/profile/personal_profile.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
 import '../../animation/FadeAnimation.dart';

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import './story.dart';
@@ -10,10 +8,6 @@ class StoryModel with ChangeNotifier{
     return [..._story];
   }
 
-  void addproducts(){
-    print('addproducts button pressed!');
-    notifyListeners();
-  }
 
  Future<void> fetchAndSetProducts() async {
     try {
@@ -37,7 +31,7 @@ class StoryModel with ChangeNotifier{
         });
         _story = loadedProducts;
         notifyListeners();
-      }).then((_) => print(_story));
+      });
       
     } catch (error) {
       throw (error);

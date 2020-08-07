@@ -152,7 +152,6 @@ class _SocietyListState extends State<SocietyList> {
   @override
   Widget build(BuildContext context) {
     List<Items> myList = [item0,item1, item2, item3, item4, item5, item6];
-    var color = 0xff453658;
     return Flexible(
               child:
               GridView.count(

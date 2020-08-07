@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mduapp/screens/profile/edit_my_profile_form.dart';
 import 'package:mduapp/widgets/head_of_app.dart';
-import '../home/universityhome.dart';
-import '../profile/edit_profile_form.dart';
 import '../../animation/FadeAnimation.dart';
 
 class EditMyProfile extends StatelessWidget {

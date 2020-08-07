@@ -36,7 +36,7 @@ Future<void> fetchWhoPingged() async {
         .getDocuments()
         .then((querySnapshot) {
       querySnapshot.documents.forEach((result) {
-        print(result.data);
+        
          loadedProducts.add(Profile1(
             name: result.data['pname'],
             age: result.data['page'],
@@ -64,7 +64,6 @@ Future<void> fetchWhoPingged() async {
  Future<void> deleteWhoPing(String myId)async{
     try{
       String urlString = '';
-      bool _isPresent = false;
       final prefs = await SharedPreferences.getInstance();
       final userIdentity = prefs.getString('userId')?? int.parse('0');
 
@@ -144,7 +143,6 @@ Future<void> fetchPingged() async {
   Future<void> deletePing(String myId)async{
     try{
       String urlString = '';
-      bool _isPresent = false;
       final prefs = await SharedPreferences.getInstance();
       final userIdentity = prefs.getString('userId')?? int.parse('0');
 
@@ -228,7 +226,6 @@ Future<void> fetchPingged() async {
       if(gender=="null" && dept=="null"){      
 
       final List<Profile> loadedProducts = [];
-      final List<String> societies =[];
         Firestore.instance
         .collection("users")
         .limit(50)
@@ -265,7 +262,6 @@ Future<void> fetchPingged() async {
 
       }else if(gender!="null" && dept == "null"){
         final List<Profile> loadedProducts = [];
-        final List<String> societies =[];
         Firestore.instance
         .collection("users")
         .limit(50)
@@ -303,7 +299,6 @@ Future<void> fetchPingged() async {
                   
       }else if(gender == "null" && dept!="null"){
       final List<Profile> loadedProducts = [];
-      final List<String> societies =[];
         Firestore.instance
         .collection("users")
         .limit(50)
@@ -341,7 +336,6 @@ Future<void> fetchPingged() async {
 
       }else{
       final List<Profile> loadedProducts = [];
-      final List<String> societies =[];
         Firestore.instance
         .collection("users")
         .limit(50)

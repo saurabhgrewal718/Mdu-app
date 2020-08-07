@@ -8,7 +8,6 @@ import 'package:mduapp/screens/home/widgets/newstory.dart';
 import 'package:mduapp/screens/profile/edit_my_profile.dart';
 import 'package:mduapp/screens/profile/personal_profile_carry.dart';
 import 'package:mduapp/screens/subjects/widgets/subject_whoping.dart';
-import 'package:mduapp/screens/subjects/widgets/subjects_list.dart';
 import 'package:provider/provider.dart';
 import 'package:mduapp/screens/profile/edit_profile.dart';
 import './screens/explore/subscreens/societies.dart';
