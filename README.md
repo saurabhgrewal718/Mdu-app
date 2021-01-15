@@ -2,15 +2,16 @@
 
 Mdu app
 
-## Getting Started
+## MDU APP
 
-This project is a starting point for a Flutter application.
+we made a student app for the student of MDU...after the lockdown everyone as struck in home...so we made the mdu app where students can come upload pictures,like each others posts, explore there friends..search based on there classes, filter out friends based on interests and many more...we used flutter as the Framework and Firebase was used as the database of the MDU app.
 
-A few resources to get you started if this is your first Flutter project:
+![Alt Text](https://i.ibb.co/tL0PV7L/shd.png)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![Alt Text](https://i.ibb.co/CMzwfj5/bvd.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Alt Text](https://i.ibb.co/cLR9ppd/prod.png)
+
+![Alt Text](https://i.ibb.co/hY8ZfLC/jglf.png)
+
+![Alt Text](https://i.ibb.co/yXQdhbV/bnv.png)
